@@ -23,10 +23,27 @@ Agora, com o lançamento do nosso ecommerce, a Fresh Rice quer levar a experiên
 - Contará com link para página de perfil (requer autenticação).
 - Contará com link para página de produtos.
 - Contará com link pro carrinho (requer autenticação).
+- Contará com link para página sobre.
+- Contará com imagens decorativas.  
 
-Login
+### Login
 - Contará com botão pra registrar-se que irá redirecionar para página de cadastro.
+- Contará com dois inputs (login e senha)
+- Contará com um botão para logar.
+- Contará com uma opção de esqueci senha.
+- Após login irá redirecionar para a tela inicial.
 
+### Página de cadastro
+- Irá conter os seguintes inputs:
+  - Nome
+  - Email
+  - Data de nascimento
+  - CPF
+  - Endereço
+  - Senha
+  - Confirmar senha
+- Irá conter um botão para cadastro
+- Após o cadastro bem sucedido irá redirecionar para a tela inicial 
 ## 2. Project description
 
 > Clique [aqui](https://encurtador.com.br/iJKQ6) para acessar o link do figma.
