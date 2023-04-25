@@ -5,6 +5,7 @@ Projeto desenvolvido para disciplina SCC0219 - Introdução ao Desenvolvimento W
 ### Alunos:
 *  **Rafael Sartori Vantin** - 12543353
 *  **Renato Tadeu Theodoro Junior** - 11796750
+*  **Fábio Verardino de Oliveira** - 12674547
 
 ## Introdução
 
