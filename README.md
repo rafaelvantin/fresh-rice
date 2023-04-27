@@ -46,12 +46,12 @@ Agora, com o lançamento do nosso ecommerce, a Fresh Rice quer levar a experiên
 - Após o cadastro bem sucedido irá redirecionar para a tela inicial
 
 ### Tela de Produtos
--Irá conter uma lista de todos os produtos
--Irá conter os seguintes filtros:
-  -Preço
-  -Cor
-  -Material da Lente
--Será carregado 6 óculos por vez, podendo carregar mais
+- Irá conter uma lista de todos os produtos
+- Irá conter os seguintes filtros:
+  - Preço
+  - Cor
+  - Material da Lente
+- Será carregado 6 óculos por vez, podendo carregar mais
 ### Produto específico
 - Essa página é a paginá especifica do produto
 - Irá conter uma foto do produto
