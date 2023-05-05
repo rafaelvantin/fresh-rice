@@ -53,12 +53,12 @@ h1 {
     color: #A9ABBD;
 }
 
-.signup-form input::-webkit-inner-spin-button,
-.signup-form input::-webkit-outer-spin-button {
+.signup-form .form-input::-webkit-inner-spin-button,
+.signup-form .form-input::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-.signup-form input[type=number] {
+.signup-form .form-input[type=number] {
     appearance: textfield;
 }
 
@@ -67,3 +67,11 @@ h1 {
     display: flex;
     justify-content: space-between;
 }
+
+.signup-form .form-input[type="date"]::before { 
+    content: attr(placeholder);
+    width: 100%;
+    color: grey;
+}
+.signup-form .form-input[type="date"]:focus::before,
+.signup-form .form-input[type="date"]:valid::before { display: none }
