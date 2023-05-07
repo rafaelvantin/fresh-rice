@@ -58,8 +58,9 @@ Agora, com o lançamento do nosso ecommerce, a Fresh Rice quer levar a experiên
 - Irá conter a descrição
 - Irá conter o preço
 - Poderá selecionar a quantidade de óculos
-- Poderá adicionar ao carrinho
-  -Caso adiciona uma quantidade maior que disponível será disparado uma mensagem de erro
+- Poderá adicionar ao carrinho  
+ -Caso adiciona uma quantidade maior que disponível será disparado uma mensagem de erro  
+- Poderá experimentar o óculos, isto é, sua webcam será aberta e uma imagem do óculos estara na tela para experimetnar.   
 #### Página carrinho
  - Irá conter lista dos produtos adicionados 
  - Opção para prosseguir com o pagamento
