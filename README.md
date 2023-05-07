@@ -124,8 +124,10 @@ Agora, com o lançamento do nosso ecommerce, a Fresh Rice quer levar a experiên
 > Clique [aqui](https://encurtador.com.br/iJKQ6) para acessar o link do figma.
 
 ### Diagrama de navegação:
-> [Clique aqui](https://www.figma.com/proto/0Z40o9PE301GszwxYBSKAF/Ecommerce-Wireframe-Kit-(Community)?type=design&node-id=1-11654&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=1%3A11654&show-proto-sidebar=1) para visualizar o a sequência esperada do usuário 
-> [Clique aqui](https://www.figma.com/proto/0Z40o9PE301GszwxYBSKAF/Ecommerce-Wireframe-Kit-(Community)?type=design&node-id=592-926&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=592%3A926&show-proto-sidebar=1) para visualizar a sequência esperada do admin. 
+> [Clique aqui](https://www.figma.com/proto/0Z40o9PE301GszwxYBSKAF/Ecommerce-Wireframe-Kit-(Community)?type=design&node-id=1-11654&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=1%3A11654&show-proto-sidebar=1) para visualizar o a sequência esperada do usuário   
+> 
+> [Clique aqui](https://www.figma.com/proto/0Z40o9PE301GszwxYBSKAF/Ecommerce-Wireframe-Kit-(Community)?type=design&node-id=592-926&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=592%3A926&show-proto-sidebar=1) para visualizar a sequência esperada do admin.
+>  
 ![Diagrama](img/navigation.png)
 
 
