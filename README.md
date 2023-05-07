@@ -44,7 +44,7 @@ Agora, com o lançamento do nosso ecommerce, a Fresh Rice quer levar a experiên
   - Confirmar senha
 - Irá conter um botão para cadastro
 - Após o cadastro bem sucedido irá redirecionar para a tela inicial
-
+- O Id é gerado automaticamente
 #### Tela de Produtos
 - Irá conter uma lista de todos os produtos
 - Irá conter os seguintes filtros:
@@ -109,6 +109,7 @@ Agora, com o lançamento do nosso ecommerce, a Fresh Rice quer levar a experiên
   - Quantidade
  - Irá conter um botão para salvar essas informações
  - Após isso irá aparecer uma mensagem, caso houve sucesso ou falha
+ - O Id é gerado automaticamente
  ##### Página alterar produto
  - Irá conter uma barra de pesquisa para digitar o id do produto
  - Após a busca com sucesso será possível alterar as informações do produto ou excluir o produto
