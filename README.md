@@ -74,10 +74,12 @@ Agora, com o lançamento do nosso ecommerce, a Fresh Rice quer levar a experiên
  - Botão para realizar pagamento
  #### Página Recibo
  - Essa página irá conter resumidamente as informações do pedido
- #### Página perfil
- - Essa página irá conter as informações do cliente
- - Irá permitr as alterações de informações, execeto email. Senha somente com a confirmação da senha atual
- - Irá conter um link para o histórico do cliente.
+ #### Menu perfil
+ - Esse menu se localizará no canto superior esquerdo, substituindo o botão de Login, após um usuário entrar com sua conta.
+ - Se tratará de um menu dropdown com 3 opções:
+ - Link para página que irá permitr as alterações de informações, execeto email. Senha somente com a confirmação da senha atual
+ - Link para o histórico de pedidos do cliente.
+ - Botão para realizar logout.
  #### Página histórico
  - Irá conter todos os pedidos realizados pelo cliente
  #### Página sobre
