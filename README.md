@@ -135,6 +135,27 @@ Agora, com o lançamento do nosso ecommerce, a Fresh Rice quer levar a experiên
 
 ## 4. Test plan
 
+### Usuário
+#### Tela Inicial
+Verificar se o link para a página de perfil está redirecionando corretamente e somente quando o usuário estiver autenticado.
+Verificar se o link para a página "sobre" está funcionando corretamente.
+#### Login
+Verificar se é exibida uma mensagem de erro caso as credenciais informadas estejam incorretas.
+Verificar se é possível recuperar a senha através da opção "esqueci senha".
+#### Página de Cadastro
+Verificar se é exibida uma mensagem de erro caso as informações fornecidas sejam inválidas ou já existam na base de dados.
+#### Tela de Produtos
+Verificar se os filtros de preço, cor e material de lente estão funcionando corretamente.
+Verificar se é possível carregar mais produtos além dos 6 que são carregados inicialmente.
+#### Produto Específico
+Verificar se é possível selecionar a quantidade de óculos e adicionar ao carrinho com sucesso.
+Verificar se é exibida uma mensagem de erro caso a quantidade de óculos selecionada seja maior que a quantidade disponível em estoque.
+Verificar se é possível experimentar o óculos através da webcam.
+#### Página Carrinho
+Verificar se é possível prosseguir com o pagamento clicando no botão correspondente.
+Verificar se o preço total está sendo exibido corretamente.
+
+
 ## 5. Test results
 
 ## 6. Build procedures
