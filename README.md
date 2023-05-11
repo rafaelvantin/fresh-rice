@@ -44,7 +44,7 @@ Agora, com o lançamento do nosso ecommerce, a Fresh Rice quer levar a experiên
   - Confirmar senha
 - Irá conter um botão para cadastro
 - Após o cadastro bem sucedido irá redirecionar para a tela inicial
-
+- O Id é gerado automaticamente
 #### Tela de Produtos
 - Irá conter uma lista de todos os produtos
 - Irá conter os seguintes filtros:
@@ -58,8 +58,9 @@ Agora, com o lançamento do nosso ecommerce, a Fresh Rice quer levar a experiên
 - Irá conter a descrição
 - Irá conter o preço
 - Poderá selecionar a quantidade de óculos
-- Poderá adicionar ao carrinho
-  -Caso adiciona uma quantidade maior que disponível será disparado uma mensagem de erro
+- Poderá adicionar ao carrinho  
+ -Caso adiciona uma quantidade maior que disponível será disparado uma mensagem de erro  
+- Poderá experimentar o óculos, isto é, sua webcam será aberta e uma imagem do óculos estara na tela para experimetnar.   
 #### Página carrinho
  - Irá conter lista dos produtos adicionados 
  - Opção para prosseguir com o pagamento
@@ -73,10 +74,12 @@ Agora, com o lançamento do nosso ecommerce, a Fresh Rice quer levar a experiên
  - Botão para realizar pagamento
  #### Página Recibo
  - Essa página irá conter resumidamente as informações do pedido
- #### Página perfil
- - Essa página irá conter as informações do cliente
- - Irá permitr as alterações de informações, execeto email. Senha somente com a confirmação da senha atual
- - Irá conter um link para o histórico do cliente.
+ #### Menu perfil
+ - Esse menu se localizará no canto superior esquerdo, substituindo o botão de Login, após um usuário entrar com sua conta.
+ - Se tratará de um menu dropdown com 3 opções:
+   - Link para página que irá permitr as alterações de informações, execeto email. Senha somente com a confirmação da senha atual
+   - Link para o histórico de pedidos do cliente.
+   - Botão para realizar logout.
  #### Página histórico
  - Irá conter todos os pedidos realizados pelo cliente
  #### Página sobre
@@ -109,6 +112,7 @@ Agora, com o lançamento do nosso ecommerce, a Fresh Rice quer levar a experiên
   - Quantidade
  - Irá conter um botão para salvar essas informações
  - Após isso irá aparecer uma mensagem, caso houve sucesso ou falha
+ - O Id é gerado automaticamente
  ##### Página alterar produto
  - Irá conter uma barra de pesquisa para digitar o id do produto
  - Após a busca com sucesso será possível alterar as informações do produto ou excluir o produto
@@ -122,12 +126,37 @@ Agora, com o lançamento do nosso ecommerce, a Fresh Rice quer levar a experiên
 > Clique [aqui](https://encurtador.com.br/iJKQ6) para acessar o link do figma.
 
 ### Diagrama de navegação:
-![Falstad](img/navigation.png)
+> [Clique aqui](https://www.figma.com/proto/0Z40o9PE301GszwxYBSKAF/Ecommerce-Wireframe-Kit-(Community)?type=design&node-id=1-11654&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=1%3A11654&show-proto-sidebar=1) para visualizar o a sequência esperada do usuário   
+> 
+> [Clique aqui](https://www.figma.com/proto/0Z40o9PE301GszwxYBSKAF/Ecommerce-Wireframe-Kit-(Community)?type=design&node-id=592-926&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=592%3A926&show-proto-sidebar=1) para visualizar a sequência esperada do admin.
+>  
+![Diagrama](img/navigation.png)
 
 
 ## 3. Comments about the code
 
 ## 4. Test plan
+
+### Usuário
+#### Tela Inicial
+Verificar se o link para a página de perfil está redirecionando corretamente e somente quando o usuário estiver autenticado.
+Verificar se o link para a página "sobre" está funcionando corretamente.
+#### Login
+Verificar se é exibida uma mensagem de erro caso as credenciais informadas estejam incorretas.
+Verificar se é possível recuperar a senha através da opção "esqueci senha".
+#### Página de Cadastro
+Verificar se é exibida uma mensagem de erro caso as informações fornecidas sejam inválidas ou já existam na base de dados.
+#### Tela de Produtos
+Verificar se os filtros de preço, cor e material de lente estão funcionando corretamente.
+Verificar se é possível carregar mais produtos além dos 6 que são carregados inicialmente.
+#### Produto Específico
+Verificar se é possível selecionar a quantidade de óculos e adicionar ao carrinho com sucesso.
+Verificar se é exibida uma mensagem de erro caso a quantidade de óculos selecionada seja maior que a quantidade disponível em estoque.
+Verificar se é possível experimentar o óculos através da webcam.
+#### Página Carrinho
+Verificar se é possível prosseguir com o pagamento clicando no botão correspondente.
+Verificar se o preço total está sendo exibido corretamente.
+
 
 ## 5. Test results
 
