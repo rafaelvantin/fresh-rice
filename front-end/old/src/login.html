@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <title>Login - Fresh Rice</title>
+        <meta charset="utf-8">
+
+        <!-- Import Font Public Sans -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Public+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+        <!-- Import Material Icons -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+        <!-- Import CSS -->
+        <link href="reset.css" rel="stylesheet">
+        <link href="index.css" rel="stylesheet">
+        <link href="login.css" rel="stylesheet">
+    </head>
+
+
+
+    <body>
+        <header>
+            <div class="containerHeaderItens">
+                <div class="logo">
+                    <img src="../img/logo.png" alt="Logo Fresh Rice">
+                </div>
+                <div class="centerItens">
+                    <span style="font-weight: bold;">Home</span>
+                    <span>Produtos</span>
+                    <span>Sobre</span>
+                    <div class="containerSearchbox">
+                        <span class="material-symbols-outlined">search</span>
+                        <input class="searchbox" type="text" placeholder="óculos de sol rayban" />
+                    </div>
+                </div>
+                <div class="backItens">
+                    <span class="material-symbols-outlined">local_mall</span>
+                    <span>3</span>
+                    <span id="headerLogin">Login</span>
+                </div>
+
+            </div>
+        </header>
+        
+        <main class="container">
+            <h1>Bem-vindo de volta!</h1>
+            <div class="login-box">
+                <h2>Login com email</h2>
+                <form class="login-form">
+                    <input class="textbox" type="text" placeholder="Email" name="email" value="">
+                    <input class="textbox" type="password" placeholder="Senha" name="senha" value="">
+
+                    <span style="text-align: right; width: 100%;">
+                        <a class="login-link" href="login-email.html">Esqueceu a senha?</a>
+                    </span>
+
+                    <input class="btn" style="margin-top: 15px" type="submit" name="" value="Entrar">
+                    
+                </form>
+                <span style="text-align: center; width: 100%; margin-top: 10px;">
+                    <a class="login-link" href="cadastro.html">Ou crie uma <strong>conta</strong>.</a>
+                </span>
+            </div>
+        </main>
+
+    </body>
+</html>
