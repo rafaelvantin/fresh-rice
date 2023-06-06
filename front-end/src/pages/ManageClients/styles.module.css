@@ -1,0 +1,97 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fdfcf6;
+}
+
+.welcome{
+    margin-top: 100px;
+    font-size: 48px;
+}
+
+.table{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.thead{
+    display: flex;
+    align-items: center;
+    background-color: #003049;
+    color: #fff;
+    font-weight: bold;
+    height: 50px;
+}
+
+.th{
+    display: flex;
+    justify-content: center;
+    width: 100px;
+}
+
+.th_name{
+    display: flex;
+    justify-content: center;
+    width: 250px;
+}
+
+.tr{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+}
+
+.td{
+    display: flex;
+    justify-content: center;
+    width: 100px;
+}
+
+.td_name{
+    width: 250px;
+    display: flex;
+    justify-content: center;
+}
+
+.operationsContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.containerPages {
+    display: flex;
+    margin-top: 50px;
+}
+
+.active {
+    background-color: #003049;
+    color: #fff;
+    font-weight: bold;
+    border : none;
+    border-radius: 6px;
+    padding: 6px;
+    margin: 6px;
+    cursor: pointer;
+}
+
+.unactive {
+    background-color: #fff;
+    border : none;
+    color: #003049;
+    padding: 6px;
+    margin: 6px;
+    cursor: pointer;
+}
+
+.icon {
+    cursor: pointer;
+}
