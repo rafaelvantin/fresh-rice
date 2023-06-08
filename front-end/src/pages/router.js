@@ -2,8 +2,13 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import HomeAdmin from './HomeAdmin';
 import ManageClients from './ManageClients';
+import Home from './Home';
 
 const pagesData = [
+    {
+        path: '/',
+        element: <Home />
+    },
     {
         path: '/admin',
         element: <HomeAdmin />,
