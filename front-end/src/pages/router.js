@@ -3,11 +3,16 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import HomeAdmin from './HomeAdmin';
 import ManageClients from './ManageClients';
 import Home from './Home';
+import About from './About';
 
 const pagesData = [
     {
         path: '/',
         element: <Home />
+    },
+    {
+        path: '/about',
+        element: <About />
     },
     {
         path: '/admin',

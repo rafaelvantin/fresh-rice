@@ -42,6 +42,11 @@ header{
     font-size: larger;
     font-weight: 400;
     margin-right: 30px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.centerItens span:hover{
+    font-weight: bold;
 }
 
 
