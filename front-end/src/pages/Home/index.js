@@ -2,6 +2,7 @@ import styles from "./styles.module.css"
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import { useState, useEffect } from "react";
+import Header from "../../components/header";
 
 const Home = () => {
   const [isDesktop, setDesktop] = useState(window.innerWidth > 900);
@@ -16,6 +17,8 @@ const Home = () => {
       return () => window.removeEventListener("resize", updateMedia);
     });
   return (
+    <>
+    <Header />
     <div className={styles.container}>
        <h1 className={styles.title} >Fresh Rice</h1>
        <h3 className={styles.subtitle}>Jeito mais fácil de comprar óculos</h3>
@@ -72,6 +75,7 @@ const Home = () => {
       </Carousel>)
     }
     </div>
+    </>
   );
 }
 
