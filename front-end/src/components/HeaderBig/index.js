@@ -1,8 +1,11 @@
 import React, { useState } from "react"
 import styles from './styles.module.css';
 import SearchInput from "../SearchInput";
+import { useNavigate } from "react-router-dom";
 
 function HeaderBig(){
+    const navigate = useNavigate();
+
     const [cartTotal, setCartTotal] = useState(0);
     return(
         <header>
@@ -12,9 +15,9 @@ function HeaderBig(){
                     <img src="../../../img/logo.png" alt="Logo Fresh Rice" />
                 </div>
                 <div className={styles.centerItens}>
-                    <span>Home</span>
+                    <span onClick={() => navigate('/')}>Home</span>
                     <span>Produtos</span>
-                    <span>Sobre</span>
+                    <span onClick={() => navigate('/about')}>Sobre</span>
                     <SearchInput />
                 </div>
                 <div className={styles.backItens}>
