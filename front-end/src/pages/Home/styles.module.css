@@ -1,0 +1,63 @@
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 10px;
+    max-width: 1500px;
+}
+
+.title{
+    font-size: 56px;
+    filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, 0.4));
+}   
+
+.subtitle{
+    max-width: 80%;
+    margin-top: 50px;
+    font-size: 20px;
+    color: #979797;
+    text-align: center;
+}
+
+.button{
+    width: 200px;
+    background: none;
+    border:solid 1px #003049;
+    color: #003049;
+    font-weight: bold;
+    padding: 15px;
+    margin: 40px;
+    font-size: 16px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.button:hover{
+    font-size: 20px;
+    background-color: #f0f0f0;
+}
+
+.carouselContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.displayImg{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+.displayImg img{
+    margin: 0 20px;
+    width: 300px;
+}
+
+.displayImg > :first-child{
+    margin-top: 30px;
+}
+
+.displayImg > :last-child{
+    margin-top: 30px;
+}
