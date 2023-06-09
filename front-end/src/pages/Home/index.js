@@ -16,6 +16,11 @@ const Home = () => {
       window.addEventListener("resize", updateMedia);
       return () => window.removeEventListener("resize", updateMedia);
     });
+
+    useEffect(() => {
+        document.title = "Fresh Rice";
+    }, []);
+
   return (
     <>
     <Header />
