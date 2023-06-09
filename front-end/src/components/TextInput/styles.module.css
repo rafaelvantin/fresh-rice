@@ -12,3 +12,22 @@
 .textbox::placeholder {
     color: #A9ABBD;
 }
+
+.textbox::-webkit-inner-spin-button,
+.textbox::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.textbox[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.textbox[type="date"]::before { 
+    content: attr(placeholder);
+    width: 100%;
+    color: grey;
+}
+.textbox[type="date"]:focus::before,
+.textbox[type="date"]:valid::before { display: none }

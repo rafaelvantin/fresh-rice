@@ -5,10 +5,12 @@ function TextInput({
     value = "",
     type = "text",
     style,
-    placeholder, onChange
+    placeholder, 
+    required = false,
+    onChange
 }){
     return(
-        <input className={styles.textbox} style={{width: `${width}`, ...style}} type={type} placeholder={placeholder} onChange={onChange} value={value}/>
+        <input className={styles.textbox} style={{width: `${width}`, ...style}} type={type} placeholder={placeholder} onChange={onChange} value={value} required={required}/>
     )
 }
 
