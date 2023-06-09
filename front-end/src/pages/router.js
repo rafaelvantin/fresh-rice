@@ -4,6 +4,7 @@ import HomeAdmin from './HomeAdmin';
 import ManageClients from './ManageClients';
 import Home from './Home';
 import About from './About';
+import { Login, Signup, PasswordRecovery } from './Auth';
 
 const pagesData = [
     {
@@ -12,7 +13,19 @@ const pagesData = [
     },
     {
         path: '/about',
-        element: <About />
+        element: <About />  
+    },
+    {
+        path: '/login',
+        element: <Login />, 
+    },
+    {
+        path: '/cadastro',
+        element: <Signup />,
+    },
+    {
+        path: '/recuperar-senha',
+        element: <PasswordRecovery />,
     },
     {
         path: '/admin',
@@ -21,7 +34,7 @@ const pagesData = [
     {
         path: '/admin/clients',
         element: <ManageClients />,
-    }
+    },
 ];
 
 const router = createBrowserRouter(pagesData);

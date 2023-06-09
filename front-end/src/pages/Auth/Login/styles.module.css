@@ -1,0 +1,59 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fdfcf6;
+}
+
+h1 {
+    text-align: center;
+    font-size: 40px;
+    font-weight: 600;
+    margin-top: 40px;
+    color: #111;
+}
+
+.loginBox {
+    width: 30%;
+    margin-top: 10px;
+    color: #A9ABBD;
+    background-color: white;
+    padding: 15px 40px;
+
+    border: 1px solid #A9ABBD;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.loginBox > h2 {
+    text-align: left;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginForm::placeholder {
+    color: #A9ABBD;
+}
+
+.loginLink {
+    text-decoration: none;
+    color: #A9ABBD;
+    padding: 5px 0px;
+}
+
+.loginLink:hover {
+    text-decoration: underline;
+}
+
+strong {
+    font-weight: 600;
+}
