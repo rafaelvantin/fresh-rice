@@ -9,6 +9,7 @@
 .container img{
     width: 200px;
     border: solid 1px #003049;
+    cursor: pointer;
 }
 
 .container p{

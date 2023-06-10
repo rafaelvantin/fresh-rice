@@ -6,6 +6,7 @@ import Home from './Home';
 import About from './About';
 import { Login, Signup, PasswordRecovery } from './Auth';
 import Shop from './Shop';
+import Product from './Product';
 
 const pagesData = [
     {
@@ -15,6 +16,10 @@ const pagesData = [
     {
         path:'/shop',
         element: <Shop />
+    },
+    {
+        path: '/shop/product',
+        element: <Product />
     },
     {
         path: '/about',

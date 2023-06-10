@@ -1,0 +1,50 @@
+.container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px;
+    margin-top: 50px;
+}
+.container > img{
+    width: 300px;
+    border: 1px solid #003049;
+    margin: 15px;
+}
+p{
+    font-size: 18px;
+}
+
+.product{
+    max-width: 600px;
+}
+.boxTitle{
+    margin-bottom: 30px;
+}
+
+.boxTitle > h2{
+    font-size: 32px;
+    font-weight: 600;
+    margin: 10px 0;
+    text-transform: uppercase;
+}
+
+.boxTitle > p{
+    font-size: 16px;
+    font-weight: 300;
+}
+.color{
+    margin: 10px 0;
+}
+.color > p {
+    font-weight: 400;
+    opacity: 0.5;
+}
+/* A perfect circle*/
+.circle{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
