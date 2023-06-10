@@ -4,6 +4,7 @@ import products from "../../products.json";
 import styles from "./styles.module.css";
 import { useMemo, useState, useEffect } from "react";
 import Button from "../../components/Button";
+import QuantityInput from "../../components/QuantityInput";
 const Product = () => {
     const {id} =  useLocation().state;
     const [totalPrice, setTotalPrice] = useState(0);
@@ -14,6 +15,17 @@ const Product = () => {
         return product;
     }, [id]);
 
+    function handleChangeQuantityPlus(){
+        if(quantity + 1 <= currentProduct.estoque){
+            setQuantity(quantity + 1);
+        }
+    }
+
+    function handleChangeQuantityMinus(){
+        if(quantity - 1 > 0){
+            setQuantity(quantity - 1);
+        }
+    }
     useEffect(() => {
         setTotalPrice(currentProduct.preco * quantity);
     },[currentProduct.preco, quantity]);
@@ -33,11 +45,11 @@ const Product = () => {
                     <div className={styles.circle} style={{backgroundColor: `${currentProduct.cor}`}}/>                   
                 </div>
                 <p><strong>Material </strong> {currentProduct.armacao}</p>
-                <div>
-                    <Button text={`Adicionar ao carrinho R$${totalPrice}`} />
-                    <div>
-                        +
-                    </div>
+                <p>Estoque {currentProduct.estoque}</p>
+                <div style={{display: "flex"}}>
+                    <Button text={`Adicionar ao carrinho R$${totalPrice}`} width="60%"/>
+                    <QuantityInput value={quantity} onChangePlus={handleChangeQuantityPlus} onChangeMinus={handleChangeQuantityMinus}/>
+
                 </div>
                 
             </div>

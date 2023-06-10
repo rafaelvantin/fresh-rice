@@ -48,3 +48,22 @@ p{
     justify-content: center;
     align-items: center;
 }
+ 
+
+
+/* Media queries */
+@media only screen and (max-width: 900px){
+    .container{
+        flex-direction: column;
+    }
+    .container > img{
+        width: 100%;
+    }
+    .product{
+        max-width: 100%;
+    }
+}
+
+@media only screen and (max-width: 900px){
+    
+}

@@ -11,13 +11,18 @@
     background-color: #003049;
 }
 
-.menu a{
+.menu span{
     text-decoration: none;
     color: #fdfcf6;
     margin-bottom: 10px;
     transition: 0.5s;
     margin-left: 10px;
 }
-.menu a:hover{
+.menu span:hover{
     font-size: large;
+}
+
+.burgerButton > button{
+    width: 10% !important;
+    height: 20% !important;
 }
