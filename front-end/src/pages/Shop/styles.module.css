@@ -1,0 +1,9 @@
+.boxProducts{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.product{
+    flex: 1 0 21%; /* explanation below */
+    margin: 5px;
+}

@@ -5,11 +5,16 @@ import ManageClients from './ManageClients';
 import Home from './Home';
 import About from './About';
 import { Login, Signup, PasswordRecovery } from './Auth';
+import Shop from './Shop';
 
 const pagesData = [
     {
         path: '/',
         element: <Home />
+    },
+    {
+        path:'/shop',
+        element: <Shop />
     },
     {
         path: '/about',

@@ -16,15 +16,9 @@ const Home = () => {
       window.addEventListener("resize", updateMedia);
       return () => window.removeEventListener("resize", updateMedia);
     });
-<<<<<<< HEAD
-  return (<>
-    <Header />
-
-=======
   return (
     <>
     <Header />
->>>>>>> d599496632b12b123ddf8600accd279573a06fb8
     <div className={styles.container}>
        <h1 className={styles.title} >Fresh Rice</h1>
        <h3 className={styles.subtitle}>Jeito mais fácil de comprar óculos</h3>

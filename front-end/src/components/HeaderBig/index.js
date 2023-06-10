@@ -16,7 +16,7 @@ function HeaderBig(){
                 </div>
                 <div className={styles.centerItens}>
                     <span onClick={() => navigate('/')}>Home</span>
-                    <span>Produtos</span>
+                    <span onClick={() => navigate('/shop')}>Produtos</span>
                     <span onClick={() => navigate('/about')}>Sobre</span>
                     <SearchInput />
                 </div>
