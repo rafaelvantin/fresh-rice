@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 import styles from './styles.module.css';
@@ -15,8 +15,8 @@ const Login = () => {
         document.title = "Fresh Rice - Login";
     }, []);
 
-    const [email, setEmail] = React.useState("");
-    const [password, setPassword] = React.useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     const handleLogin = () => {
         // TODO: handle login with API.
