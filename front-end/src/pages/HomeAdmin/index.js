@@ -1,9 +1,14 @@
+import React, { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
 import styles from './styles.module.css';
 
 const HomeAdmin = () => {
   const navigate = useNavigate();
+
+    useEffect(() => {
+        document.title = "Fresh Rice - Menu Admin";
+    }, []);
 
   return (
     <div className={styles.container}>

@@ -15,6 +15,10 @@ const ManageClients = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        document.title = "Fresh Rice - Gerenciar Clientes";
+    }, []);
+
+    useEffect(() => {
         // CALL API FOR NUMBER OF TOTAL PAGES
         setTotalPages(5);
         // CALL API FOR DATA OF CURRENT PAGE
