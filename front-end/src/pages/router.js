@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 
 import HomeAdmin from './HomeAdmin';
 import ManageClients from './ManageClients';
@@ -37,11 +37,11 @@ const pagesData = [
         element: <Login />, 
     },
     {
-        path: '/cadastro',
+        path: '/signup',
         element: <Signup />,
     },
     {
-        path: '/recuperar-senha',
+        path: '/recover-password',
         element: <PasswordRecovery />,
     },
     {
