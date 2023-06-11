@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
-import styles from './styles.module.css';
+import styles from '../styles.module.css';
 
 import Header from "../../../components/header";
 import Button from "../../../components/Button";
@@ -39,11 +39,11 @@ const Signup = () => {
         <Header />
         <main className={styles.container}>
             <h1>Cadastre-se</h1>
-            <div className={styles.signupBox}>
+            <div className={styles.contentBox}>
 
                 <h2>Dados Pessoais</h2>
                 
-                <form className={styles.signupForm}>
+                <form className={styles.form}>
                     <TextInput type="text" placeholder="Digite seu nome completo" name="nome" value={name} onChange={(e) => setName(e.target.value)} required={true}/>
 
                     <TextInput type="email" placeholder="Digite seu email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required={true}/>
@@ -55,7 +55,7 @@ const Signup = () => {
 
                 <h2>Endereço</h2>
 
-                <form className={styles.signupForm}>
+                <form className={styles.form}>
                     <TextInput type="text" placeholder="Digite seu CEP" name="cep" value={cep}onChange={(e) => setCep(e.target.value)} required={true}/>
 
                     <div className={styles.rowInput}>
@@ -106,13 +106,13 @@ const Signup = () => {
 
                 <h2>Senha</h2>
 
-                <form className={styles.signupForm}>
+                <form className={styles.form}>
                     <TextInput type="password" placeholder="Digite sua senha" name="senha" value={password} onChange={(e) => setPassword(e.target.value)} required={true}/>
 
                     <TextInput type="password" placeholder="Confirme sua senha" name="senha" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required={true}/>
                 </form>
 
-                <div className={styles.signupForm} style={{marginBottom: 0}}>
+                <div className={styles.form} style={{marginBottom: 0}}>
                     <Button text="Cadastrar" onClick={handleSignup}/>
 
                     <Link className={styles.link} to="/login">Já possui uma conta? <strong>Faça login</strong>.</Link>
