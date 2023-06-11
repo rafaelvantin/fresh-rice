@@ -5,6 +5,9 @@ import './index.css';
 import Router from './pages/router';
 import CartState from './context/Cart/CartState';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
@@ -12,5 +15,6 @@ root.render(
     <CartState >
     <Router />
     </CartState>
+    <ToastContainer position='bottom-center' newestOnTop={true}/>
   </React.StrictMode>
 );

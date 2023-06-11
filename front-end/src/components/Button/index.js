@@ -3,7 +3,7 @@ import styles from './styles.module.css';
 function Button({
     width = "100%",
     text,
-    onClick,
+    onClick = () => {},
     style
 }){
     return(
