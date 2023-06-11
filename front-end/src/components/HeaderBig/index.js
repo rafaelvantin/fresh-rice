@@ -1,13 +1,17 @@
-import React, { useContext} from "react"
+import React, { useContext } from "react"
+import { Link } from "react-router-dom";
+
 import styles from './styles.module.css';
+import { AuthContext } from "../../auth-handler";
+
 import SearchInput from "../SearchInput";
-import { useNavigate } from "react-router-dom";
 import CartContext from "../../context/Cart/CartContext";
+import UserMenu from "../UserMenu";
 
 function HeaderBig(){
-    const navigate = useNavigate();
+    const Auth = useContext(AuthContext);
     const {itemCount} = useContext(CartContext);
- 
+    
     return(
         <header>
         
@@ -16,15 +20,26 @@ function HeaderBig(){
                     <img src="../../../img/logo.png" alt="Logo Fresh Rice" />
                 </div>
                 <div className={styles.centerItens}>
-                    <span onClick={() => navigate('/')}>Home</span>
-                    <span onClick={() => navigate('/shop')}>Produtos</span>
-                    <span onClick={() => navigate('/about')}>Sobre</span>
+                    <Link to="/" className={styles.navItem}>Home</Link>
+                    <Link to="/shop" className={styles.navItem}>Produtos</Link>
+                    <Link to="/about" className={styles.navItem}>Sobre</Link>
                     <SearchInput />
                 </div>
                 <div className={styles.backItens}>
-                    <span className="material-symbols-outlined" onClick={() => navigate('/cart')}>local_mall</span>
-                    <span>{itemCount}</span>
-                    <span id="headerLogin" onClick={() => navigate('/login')}>Login</span>
+                    <Link to="/cart" className={styles.navItem}>
+                        <span className="material-symbols-outlined">local_mall</span>
+                        <span>{itemCount}</span>
+                    </Link>
+                    
+                    <div className={styles.userMenu}>
+                        {Auth.isAuthenticated ? (
+                            <UserMenu />
+                        ) : (
+                            <Link to="/login" className={styles.navItem}>Login</Link>
+                        )}
+                        
+                    </div>
+
                 </div>
 
             </div>
