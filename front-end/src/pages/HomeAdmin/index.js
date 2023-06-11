@@ -13,10 +13,10 @@ const HomeAdmin = () => {
         <div className={styles.button} onClick={() => navigate('/admin/clients')}>
           Gereciar Clientes
         </div>
-        <div className={styles.button}>
+        <div className={styles.button} onClick={() => navigate('/admin/products')}>
           Gerenciar Produtos
         </div>
-        <div className={styles.button}>
+        <div className={styles.button} onClick={() => navigate('/admin/admins')}>
           Gerenciar Admins
         </div>
       </div>

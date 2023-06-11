@@ -85,22 +85,13 @@ const ManageClients = () => {
         );
     }
 
-    const popupResponse = (response) => {
-        
-        if(response === true) {
-            // CALL API TO DELETE currClient.id
-        }
-
-        setPopupVisible(false);
-        setCurrClient({});
-    }
-
 
 
 
     return (
       <div className={styles.container}>
-        <h1 className={styles.welcome}>Clientes</h1>
+        <h1 className={styles.welcome}>Produtos</h1>
+
         
         <div className={styles.table}>
             <table>
@@ -117,7 +108,7 @@ const ManageClients = () => {
             {renderPagination()}
         </div>
 
-        <DeletePopup visible={popupVisible} name={currClient.name} popupResponse={popupResponse} />
+        <DeletePopup visible={popupVisible} setVisible={setPopupVisible} client={currClient} />
       </div>
     );
   }
