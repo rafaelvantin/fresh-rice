@@ -36,7 +36,7 @@ const Cart = () => {
                 <p>R$ {total}</p>
             </div>
         </div>
-        <Button onClick={() => navigate('/checkout')} 
+        <Button onClick={() => navigate('/cart/checkout')} 
             text={"Finalizar compra"}
             width="50%"
         />        </div>
