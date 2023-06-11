@@ -14,7 +14,8 @@ root.render(
   <React.StrictMode>
     <CartState >
     <Router />
-    </CartState>
     <ToastContainer position='bottom-center' newestOnTop={true}/>
+
+    </CartState>
   </React.StrictMode>
 );

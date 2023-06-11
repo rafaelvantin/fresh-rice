@@ -35,7 +35,7 @@ const Product = () => {
     },[currentProduct.preco, quantity]);
 
 
-    const { addToCart, increase, cartItems, sumItems, itemCount } =
+    const { addToCart } =
     useContext(CartContext);
 
 
@@ -62,7 +62,7 @@ const Product = () => {
                 <p><strong>Material </strong> {currentProduct.armacao}</p>
                 <p>Estoque {currentProduct.estoque}</p>
                 <div style={{display: "flex"}}>
-                    <Button text={`Adicionar ao carrinho R$${totalPrice}`} width="60%" onClick={handleAddToCart}/>
+                    <Button text={`Adicionar ao carrinho R$${totalPrice.toFixed(2)}`} width="60%" onClick={handleAddToCart}/>
                     <QuantityInput value={quantity} onChangePlus={handleChangeQuantityPlus} onChangeMinus={handleChangeQuantityMinus}/>
 
                 </div>

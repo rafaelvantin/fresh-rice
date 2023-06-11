@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import QuantityInput from "../QuantityInput";
 import CartContext from "../../context/Cart/CartContext";
-
-const HorizontalProduct = ({product}) => {
+import styles from "./styles.module.css";
+const HorizontalProduct = ({product, maxWidth}) => {
     const [totalPrice, setTotalPrice] = useState(product.preco * product.quantity);
     const [quantity, setQuantity] = useState(product.quantity);
     const {changeQuantity, removeFromCart  } = useContext(CartContext);
@@ -29,24 +29,23 @@ const HorizontalProduct = ({product}) => {
     }
 
     return (
-        <div className="horizontal-product">
-            <div className="horizontal-product__image">
+        <div className={styles['horizontal-product']}>
+            <div className={styles['horizontal-product__image']}>
                 <img src={product.imagem} alt={product.nome} />
             </div>
-            <div className="horizontal-product__info">
+            <div className={styles['horizontal-product__info']}>
                 <h1>{product.nome}</h1>
                 <p>Material: {product.armacao}</p>
 
-                <div className="horizontal-product__info__quantity">
+                <div className={styles['horizontal-product__info__quantity']}>
                     <p>Quantidade</p>
                     <QuantityInput value={quantity} onChangeMinus={handleChangeQuantityMinus} onChangePlus={handleChangeQuantityPlus}/>
                 </div>
-                <div className="horizontal-product__info__price">
-                    <p>Preço</p>
-                    <p>R$ {totalPrice}</p>
+                <div className={styles['horizontal-product__info__price']}>
+                    <p>R$ {totalPrice.toFixed(2)}</p>
                 </div>
             </div>
-            <div className="horizontal-product__remove">
+            <div className={styles['horizontal-product__remove']}>
                 <span onClick={removeProduct}>Remover</span>
             </div>
         </div>
