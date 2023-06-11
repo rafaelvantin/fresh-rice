@@ -19,6 +19,6 @@ root.render(
             <Router />
         </CartState>
     </AuthProvider>
-    <ToastContainer position='bottom-center' newestOnTop={true} autoClose={2500}/>
+    <ToastContainer position='top-center' newestOnTop={true} autoClose={2500}/>
   </React.StrictMode>
 );

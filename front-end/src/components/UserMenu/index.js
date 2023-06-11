@@ -23,7 +23,9 @@ export default function UserMenu() {
                     },
                 },
             }
-        );
+        ).then(() => {
+            navigate("/");
+        }).catch(() => {});
 
         setMenuOpen(false);
     }

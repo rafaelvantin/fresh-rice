@@ -67,14 +67,8 @@ header{
     margin-bottom: 3px;
 }
 
-.backItens span{
-    font-weight: 300;
-    font-size: 18px;
+.backItens>span{
+    font-size: larger;
     margin-left: 5px;
-}
-
-.userMenu {
-    margin-left: 5px;
-    padding: 5px;
 }
 
