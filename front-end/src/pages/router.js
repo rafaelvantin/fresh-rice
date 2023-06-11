@@ -9,6 +9,7 @@ import About from './About';
 import { Login, Signup, PasswordRecovery } from './Auth';
 import Shop from './Shop';
 import Product from './Product';
+import Cart from './Cart';
 
 const pagesData = [
     {
@@ -22,6 +23,10 @@ const pagesData = [
     {
         path: '/shop/product',
         element: <Product />
+    },
+    {
+        path: '/cart',
+        element: <Cart />
     },
     {
         path: '/about',

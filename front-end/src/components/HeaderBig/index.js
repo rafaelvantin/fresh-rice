@@ -1,12 +1,13 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import styles from './styles.module.css';
 import SearchInput from "../SearchInput";
 import { useNavigate } from "react-router-dom";
+import CartContext from "../../context/Cart/CartContext";
 
 function HeaderBig(){
     const navigate = useNavigate();
-
-    const [cartTotal, setCartTotal] = useState(0);
+    const {itemCount} = useContext(CartContext);
+ 
     return(
         <header>
         
@@ -21,8 +22,8 @@ function HeaderBig(){
                     <SearchInput />
                 </div>
                 <div className={styles.backItens}>
-                    <span className="material-symbols-outlined">local_mall</span>
-                    <span>{cartTotal}</span>
+                    <span className="material-symbols-outlined" onClick={() => navigate('/cart')}>local_mall</span>
+                    <span>{itemCount}</span>
                     <span id="headerLogin" onClick={() => navigate('/login')}>Login</span>
                 </div>
 
