@@ -3,9 +3,12 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from 'react-responsive-carousel';
 import { useState, useEffect } from "react";
 import Header from "../../components/header";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [isDesktop, setDesktop] = useState(window.innerWidth > 900);
+
+    const navigate = useNavigate();
 
   const updateMedia = () => {
       console.log(window.innerWidth)
@@ -28,7 +31,7 @@ const Home = () => {
        <h1 className={styles.title} >Fresh Rice</h1>
        <h3 className={styles.subtitle}>Jeito mais fácil de comprar óculos</h3>
 
-       <button className={styles.button}> Ver Produtos</button>
+       <button className={styles.button} onClick={() => navigate('/shop')}> Ver Produtos</button>
         <Carousel 
           autoPlay={true}
           interval={4000}

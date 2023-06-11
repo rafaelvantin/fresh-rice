@@ -26,8 +26,10 @@ function HeaderBig(){
                     <SearchInput />
                 </div>
                 <div className={styles.backItens}>
-                    <span className="material-symbols-outlined" onClick={() => navigate('/cart')}>local_mall</span>
-                    <span>{itemCount}</span>
+                    <Link to="/cart" className={styles.navItem}>
+                        <span className="material-symbols-outlined">local_mall</span>
+                        <span>{itemCount}</span>
+                    </Link>
                     
                     <div className={styles.userMenu}>
                         {Auth.isAuthenticated ? (
