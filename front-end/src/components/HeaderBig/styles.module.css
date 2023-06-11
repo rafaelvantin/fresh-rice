@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0");
+body{
+    background-color: #fdfcf6;
+    font-family: 'Public Sans', sans-serif;
+}
+
+/* Header */
+header{
+    width: 100%;
+    height: 65px;
+    border-bottom: 1px solid #000;
+    background-color: #003049;
+    display: flex;
+    justify-content: center;
+    color: #fdfcf6;
+}
+
+.containerHeaderItens{
+    width: 100%;
+    height: 100%;
+    padding: 0 50px 0 10px;
+    /* background-color: blue; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.logo img{
+    max-height: 50px;
+}
+
+.centerItens{
+    width: 60%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.centerItens span{
+    font-size: larger;
+    font-weight: 400;
+    margin-right: 30px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.centerItens span:hover{
+    font-weight: bold;
+}
+
+
+.backItens{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.backItens .material-symbols-outlined{
+    font-size: 32px;
+    margin-bottom: 3px;
+}
+.backItens span{
+    font-weight: 300;
+    font-size: 18px;
+    margin-left: 5px;
+}
+
+#headerLogin{
+    font-size: 20px;
+    margin-left: 50px;
+    font-weight: 500;
+}

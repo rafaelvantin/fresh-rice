@@ -4,8 +4,41 @@ import HomeAdmin from './HomeAdmin';
 import ManageClients from './ManageClients';
 import ManageProducts from './ManageProducts';
 import ManageAdmins from './ManageAdmins';
+import Home from './Home';
+import About from './About';
+import { Login, Signup, PasswordRecovery } from './Auth';
+import Shop from './Shop';
+import Product from './Product';
 
 const pagesData = [
+    {
+        path: '/',
+        element: <Home />
+    },
+    {
+        path:'/shop',
+        element: <Shop />
+    },
+    {
+        path: '/shop/product',
+        element: <Product />
+    },
+    {
+        path: '/about',
+        element: <About />  
+    },
+    {
+        path: '/login',
+        element: <Login />, 
+    },
+    {
+        path: '/cadastro',
+        element: <Signup />,
+    },
+    {
+        path: '/recuperar-senha',
+        element: <PasswordRecovery />,
+    },
     {
         path: '/admin',
         element: <HomeAdmin />,

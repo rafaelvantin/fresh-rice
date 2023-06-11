@@ -1,0 +1,27 @@
+.container{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    flex: 30%; /* explanation below */
+    margin: 10px;
+}
+
+.container img{
+    width: 200px;
+    border: solid 1px #003049;
+    cursor: pointer;
+}
+
+.container p{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.container p span{
+    margin-top: 10px;
+    font-size: 16px;
+}
+.container p > :first-child{
+    font-weight: bold;
+}
