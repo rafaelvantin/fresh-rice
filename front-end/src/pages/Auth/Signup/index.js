@@ -6,10 +6,11 @@ import styles from '../styles.module.css';
 import Header from "../../../components/header";
 import Button from "../../../components/Button";
 import TextInput from "../../../components/TextInput";
+import { toast } from "react-toastify";
 
 
 const Signup = () => {
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -31,7 +32,23 @@ const Signup = () => {
     
     const handleSignup = () => {
         // TODO: handle login with API.
-        console.log("Signup");
+        // Mock signup:
+        toast.promise(
+            new Promise((resolve, reject) => {
+                setTimeout(() => resolve(), 2000);
+            }),
+            {
+                pending: "Cadastrando...",
+                success:  "Cadastro realizado com sucesso!",
+                error: {
+                    render({ data }) {
+                        return data;
+                    }
+                }
+            }).then(() => {
+                navigate("/login");
+            }
+        ).catch(() => {});
     };
 
     return (
@@ -39,7 +56,11 @@ const Signup = () => {
         <Header />
         <main className={styles.container}>
             <h1>Cadastre-se</h1>
-            <div className={styles.contentBox}>
+            <div className={styles.contentBox} onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                    handleSignup();
+                }
+            }}>
 
                 <h2>Dados Pessoais</h2>
                 
