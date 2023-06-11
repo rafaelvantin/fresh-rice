@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 import styles from './styles.module.css';
 
+import Button from '../../components/Button';
+
 const HomeAdmin = () => {
   const navigate = useNavigate();
 
@@ -15,15 +17,9 @@ const HomeAdmin = () => {
       <h1 className={styles.welcome}>Welcome Admin!</h1>
 
       <div className={styles.optionsContainer}>
-        <div className={styles.button} onClick={() => navigate('/admin/clients')}>
-          Gereciar Clientes
-        </div>
-        <div className={styles.button} onClick={() => navigate('/admin/products')}>
-          Gerenciar Produtos
-        </div>
-        <div className={styles.button} onClick={() => navigate('/admin/admins')}>
-          Gerenciar Admins
-        </div>
+        <Button text="Gerenciar Clientes" style={{width: "400px", height: "120px"}} onClick={() => navigate('/admin/clients')}/>
+        <Button text="Gerenciar Produtos" style={{width: "400px", height: "120px"}} onClick={() => navigate('/admin/products')}/>
+        <Button text="Gerenciar Clientes" style={{width: "400px", height: "120px"}} onClick={() => navigate('/admin/admins')}/>
       </div>
       
     </div>

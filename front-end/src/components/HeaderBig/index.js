@@ -23,7 +23,7 @@ function HeaderBig(){
                 <div className={styles.backItens}>
                     <span className="material-symbols-outlined">local_mall</span>
                     <span>{cartTotal}</span>
-                    <span id="headerLogin">Login</span>
+                    <span id="headerLogin" onClick={() => navigate('/login')}>Login</span>
                 </div>
 
             </div>
