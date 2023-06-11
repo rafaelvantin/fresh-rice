@@ -56,14 +56,14 @@ const Login = () => {
                     <TextInput type="password" placeholder="Senha" name="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
 
                     <span style={{textAlign: "right", width: "100%"}}>
-                        <Link className={styles.link} to="/recuperar-senha">Esqueci minha senha.</Link>
+                        <Link className={styles.link} to="/recover-password">Esqueci minha senha.</Link>
                     </span>
 
                     <Button text="Entrar" onClick={handleLogin} style={{marginTop: "15px"}}/>
                     
                 </form>
                 <span style={{textAlign: "center", width: "100%", marginTop: "10px"}}>
-                    <Link className={styles.link} to="/cadastro">Ou crie uma <strong>conta</strong>.</Link>
+                    <Link className={styles.link} to="/signup">Ou crie uma <strong>conta</strong>.</Link>
                 </span>
             </div>
         </main>
