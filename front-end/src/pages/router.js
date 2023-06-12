@@ -1,6 +1,4 @@
-import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
-import { useContext } from 'react';
-import { AuthContext } from '../auth-handler';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import RouteGuard from '../components/RouteGuard';
 
@@ -19,13 +17,10 @@ import Checkout from './Checkout';
 
 const Router = () => {
 
-    const Auth = useContext(AuthContext);
-
-    const { isAuthenticated, user: { type: userType } } = Auth;
-
     const pagesData = [
         {
             path: '/',
+            index: true,
             element: <Home />
         },
         {
@@ -41,9 +36,8 @@ const Router = () => {
             element: <RouteGuard />,
             children: [
                 {
-                    //path: '/',
+                    index: true,
                     element: <Cart />,
-                    index: true
                 },
                 {
                     path: '/cart/checkout',
@@ -57,13 +51,7 @@ const Router = () => {
         },
         {
             path: '/login',
-            element: <RouteGuard authenticated={false} />,
-            children: [
-                {
-                    index: true,
-                    element: <Login />
-                }
-            ]
+            element: <Login />
         },
         {
             path: '/signup',
@@ -98,14 +86,12 @@ const Router = () => {
                     element: <ManageClients />
                 },
                 {
+                    path: '/admin/products/add',
+                    element: <NewProduct />
+                },
+                {
                     path: '/admin/products',
                     element: <ManageProducts />,
-                    children: [
-                        {
-                            path: '/admin/products/add',
-                            element: <NewProduct />
-                        }
-                    ]
                 },
                 {
                     path: '/admin/admins',

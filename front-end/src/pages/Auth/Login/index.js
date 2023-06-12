@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useNavigate, useLocation, useSearchParams, Link } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import styles from '../styles.module.css';
@@ -12,13 +12,10 @@ import { AuthContext } from "../../../auth-handler";
 
 const Login = () => {
     const navigate = useNavigate();
-    const { state } = useLocation();
-
-    const [searchParams] = useSearchParams();
-    const nextParam = state?.next || searchParams.get("next");
-    
     const Auth = useContext(AuthContext);
 
+    const { state } = useLocation();
+    const next = state?.next || "/";    
 
     useEffect(() => {
         document.title = "Fresh Rice - Login";
@@ -39,13 +36,16 @@ const Login = () => {
                     },
                 },
             }
-        ).then(() => {
-            if (nextParam) {
-                navigate(nextParam);
-            }
-            else navigate("/");
-        }).catch(() => {});
+        ).catch(() => {});
     };
+
+    // Redirect to next page when user gets authenticated
+    useEffect(() => {
+        console.log(Auth.isAuthenticated + " " + next);
+        if (Auth.isAuthenticated) {
+            navigate(next);
+        }
+    }, [Auth.isAuthenticated, navigate, next]);
 
     return (
     <>

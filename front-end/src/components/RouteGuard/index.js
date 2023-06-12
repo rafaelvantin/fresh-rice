@@ -10,16 +10,18 @@ const RouteGuard = ({ authenticated = true, type = 'any', to = '/login' }) => {
 
     if(authenticated) {
         if(!isAuthenticated) {
-            return <Navigate to={to} state={{next: location.pathname}}/>;
+            console.log(location.pathname);
+            return <Navigate to={to} state={{next: location.pathname}} replace/>;
         }
         else if(type !== 'any' && type !== userType) {
-            return <Navigate to="/"/>;
+            return <Navigate to="/" replace/>;
         }
         else return <Outlet />;
     }
     else {
         if(isAuthenticated) {
-            return <Navigate to="/"/>;
+            console.log("here");
+            return <Navigate to="/" replace/>;
         }
         else return <Outlet />;
     }
