@@ -18,12 +18,12 @@ const RequestEmail = ({
     }
 
     return (
-        <form className={styles.form} >
+        <form className={styles.form} onSubmit={handleSubmit}>
             <label className={styles.label} htmlFor="email">Digite seu email para recuperar sua senha:</label>
 
             <TextInput type="email" placeholder="Digite seu email" name="email" required={true} value={email} onChange={(e) => setEmail(e.target.value)}/>
 
-            <Button text="Enviar" onClick={handleSubmit}/>
+            <Button text="Enviar" submit/>
         </form>
     );
 }

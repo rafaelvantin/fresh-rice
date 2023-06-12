@@ -44,14 +44,14 @@ const VerifyCode = ({
     }
 
     return (
-        <form className={styles.form} >
+        <form className={styles.form} onSubmit={handleSubmit}>
             <label className={styles.label} htmlFor="codigo">Digite o código de verificação enviado para seu email:</label>
 
-            <TextInput type="text" placeholder="Digite o código de verificação" name="codigo" required={true} value={code} onChange={(e) => setCode(e.target.value)}/>
+            <TextInput type="text" placeholder="Digite o código de verificação" name="codigo" required value={code} onChange={(e) => setCode(e.target.value)} maxLength={6} minLength={6}/>
 
             <span className={styles.link} onClick={handleResendCode} style={{display: (resendCode ? "inline" : "none")}} disabled={!resendCode}>Não recebeu? Reenviar código.</span>
 
-            <Button text="Enviar" onClick={handleSubmit}/>
+            <Button text="Enviar" submit/>
         </form>
     );
 }

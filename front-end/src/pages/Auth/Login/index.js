@@ -24,7 +24,9 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleLogin = () => {
+    const handleLogin = (e) => {
+        e.preventDefault();
+
         toast.promise(
             Auth.login(email, password),
             {
@@ -53,22 +55,16 @@ const Login = () => {
         <main className={styles.container}>
             <h1>Bem-vindo de volta!</h1>
             <div className={styles.contentBox} style={{width: "30%", padding: "15px 40px"}}>
-                <form className={styles.form} style={{width: "100%"}} onKeyDown={
-                    (e) => {
-                        if (e.key === "Enter") {
-                            handleLogin();
-                        }
-                    }
-                }>
-                    <TextInput type="email" placeholder="Email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                <form className={styles.form} style={{width: "100%"}} onSubmit={handleLogin}>
+                    <TextInput type="email" placeholder="Email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
 
-                    <TextInput type="password" placeholder="Senha" name="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                    <TextInput type="password" placeholder="Senha" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={8}/>
 
                     <span style={{textAlign: "right", width: "100%"}}>
                         <Link className={styles.link} to="/recover-password">Esqueci minha senha.</Link>
                     </span>
 
-                    <Button text="Entrar" onClick={handleLogin} style={{marginTop: "15px"}}/>
+                    <Button submit text="Entrar" style={{marginTop: "15px"}}/>
                     
                 </form>
                 <span style={{textAlign: "center", width: "100%", marginTop: "10px"}}>

@@ -25,11 +25,12 @@ const ChangePassword = ({
     }
 
     return (
-        <form className={styles.form} >
-            <TextInput type="password" placeholder="Digite sua nova senha" name="senha" required={true} value={newPassword} onChange={(e) => setNewPassword(e.target.value)}/>
-            <TextInput type="password" placeholder="Confirme sua nova senha" name="confirmarSenha" required={true} value={confirmNewPassword} onChange={(e) => setConfirmNewPassword(e.target.value)}/>
+        <form className={styles.form} onSubmit={handleSubmit}>
+            <TextInput type="password" placeholder="Digite sua nova senha" name="senha" required value={newPassword} onChange={(e) => setNewPassword(e.target.value)} minLength={8}/>
 
-            <Button text="Alterar senha" onClick={handleSubmit}/>
+            <TextInput type="password" placeholder="Confirme sua nova senha" name="confirmarSenha" required value={confirmNewPassword} onChange={(e) => setConfirmNewPassword(e.target.value)} minLength={8}/>
+
+            <Button text="Alterar senha" submit/>
         </form>
     );
 }

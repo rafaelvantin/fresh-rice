@@ -4,10 +4,11 @@ function Button({
     width = "100%",
     text,
     onClick = () => {},
-    style
+    style,
+    submit = false
 }){
     return(
-        <input className={styles.button} style={{width: `${width}`, ...style}} type="button" value={text} onClick={onClick}/>
+        <input className={styles.button} style={{width: `${width}`, ...style}} type={submit ? 'submit' : 'button'} value={text} onClick={onClick}/>
     )
 }
 
