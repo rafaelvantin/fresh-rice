@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useMask } from "@react-input/mask"
 
 import styles from '../styles.module.css';
 
 import Header from "../../../components/header";
 import Button from "../../../components/Button";
 import TextInput from "../../../components/TextInput";
-import { toast } from "react-toastify";
-
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -25,6 +25,42 @@ const Signup = () => {
     const [state, setState] = useState("UF");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+
+    const [maskedCpf, setMaskedCpf] = useState("");
+    const cpfMask = useMask({
+        mask: "ddd.ddd.ddd-dd",
+        replacement: { d: /\d/ },
+        separate: false,
+        showMask: false,
+        onMask: (e) => {
+            setMaskedCpf(e.target.value)
+            setCpf(e.detail.input);
+            if(e.detail.isValid) {
+                e.target.setCustomValidity("");
+            }
+            else {
+                e.target.setCustomValidity("Por favor, digite um CPF válido.");
+            }
+        }
+    });
+
+    const [maskedCep, setMaskedCep] = useState("");
+    const cepMask = useMask({
+        mask: "ddddd-ddd",
+        replacement: { d: /\d/ },
+        separate: false,
+        showMask: false,
+        onMask: (e) => {
+            setMaskedCep(e.target.value)
+            setCep(e.detail.input);
+            if(e.detail.isValid) {
+                e.target.setCustomValidity("");
+            }
+            else {
+                e.target.setCustomValidity("Por favor, digite um CEP válido.");
+            }
+        }
+    });
 
     const forms = [
         useRef(),
@@ -88,7 +124,7 @@ const Signup = () => {
 
                     <TextInput type="email" placeholder="Digite seu email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
 
-                    <TextInput type="text" placeholder="Digite seu CPF" name="cpf" value={cpf} onChange={(e) => setCpf(e.target.value)} required maxLength={11} minLength={11}/>
+                    <TextInput type="text" placeholder="Digite seu CPF" name="cpf" required ref={cpfMask} value={maskedCpf}/>
 
                     <TextInput type="date" placeholder="Digite sua data de nascimento" name="dataNascimento" value={dob} onChange={(e) => setDob(e.target.value)} required/>
 
@@ -98,7 +134,8 @@ const Signup = () => {
                 <h2>Endereço</h2>
 
                 <form className={styles.form} ref={forms[1]} onSubmit={handleSubmit}>
-                    <TextInput type="text" placeholder="Digite seu CEP" name="cep" value={cep}onChange={(e) => setCep(e.target.value)} required maxLength={8} minLength={8}/>
+
+                    <TextInput type="text" placeholder="Digite seu CEP" name="cep" value={maskedCep} required ref={cepMask}/>
 
                     <div className={styles.rowInput}>
                         <TextInput type="text" placeholder="Digite sua rua" name="rua" value={street} onChange={(e) => setStreet(e.target.value)} required width="65%"/>

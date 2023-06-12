@@ -130,7 +130,7 @@ Agora, com o lançamento do nosso ecommerce, a Fresh Rice quer levar a experiên
 > 
 > [Clique aqui](https://www.figma.com/proto/0Z40o9PE301GszwxYBSKAF/Ecommerce-Wireframe-Kit-(Community)?type=design&node-id=592-926&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=592%3A926&show-proto-sidebar=1) para visualizar a sequência esperada do admin.
 >  
-![Diagrama](img/navigation.png)
+![Diagrama](front-end/public/navigation.png)
 
 
 ## 3. Comments about the code
