@@ -12,7 +12,7 @@
             "numero": "123",
             "complemento": "",
             "bairro": "Centro",
-            "localidade": "São Paulo",
+            "cidade": "São Paulo",
             "uf": "SP"
         },
         "password": "123456"
@@ -29,7 +29,7 @@
             "numero": "456",
             "complemento": "",
             "bairro": "Vila Nova",
-            "localidade": "Rio de Janeiro",
+            "cidade": "Rio de Janeiro",
             "uf": "RJ"
         },
         "password": "password123"
@@ -46,7 +46,7 @@
             "numero": "789",
             "complemento": "",
             "bairro": "Centro",
-            "localidade": "Belo Horizonte",
+            "cidade": "Belo Horizonte",
             "uf": "MG"
         },
         "password": "securepass"
@@ -63,7 +63,7 @@
             "numero": "321",
             "complemento": "",
             "bairro": "Jardim",
-            "localidade": "Curitiba",
+            "cidade": "Curitiba",
             "uf": "PR"
         },
         "password": "mypassword"
@@ -80,7 +80,7 @@
             "numero": "987",
             "complemento": "",
             "bairro": "Itaim",
-            "localidade": "São Paulo",
+            "cidade": "São Paulo",
             "uf": "SP"
         },
         "password": "pass1234"
@@ -97,7 +97,7 @@
             "numero": "654",
             "complemento": "",
             "bairro": "Copacabana",
-            "localidade": "Rio de Janeiro",
+            "cidade": "Rio de Janeiro",
             "uf": "RJ"
         },
         "password": "juliapass"
@@ -114,7 +114,7 @@
             "numero": "321",
             "complemento": "",
             "bairro": "Centro",
-            "localidade": "Belo Horizonte",
+            "cidade": "Belo Horizonte",
             "uf": "MG"
         },
         "password": "rafaelpassword"
@@ -131,7 +131,7 @@
             "numero": "987",
             "complemento": "apto 123",
             "bairro": "Jardins",
-            "localidade": "São Paulo",
+            "cidade": "São Paulo",
             "uf": "SP"
         },
         "password": "securepass123"
@@ -148,7 +148,7 @@
             "numero": "654",
             "complemento": "Apto 3-165",
             "bairro": "Botafogo",
-            "localidade": "Rio de Janeiro",
+            "cidade": "Rio de Janeiro",
             "uf": "RJ"
         },
         "password": "carlospass"
@@ -165,7 +165,7 @@
             "numero": "123",
             "complemento": "",
             "bairro": "Centro",
-            "localidade": "Belo Horizonte",
+            "cidade": "Belo Horizonte",
             "uf": "MG"
         },
         "password": "mypassword123"
@@ -182,7 +182,7 @@
             "numero": "789",
             "complemento": "",
             "bairro": "Vila Nova",
-            "localidade": "Rio de Janeiro",
+            "cidade": "Rio de Janeiro",
             "uf": "RJ"
         },
         "password": "marianapass"
@@ -199,7 +199,7 @@
             "numero": "654",
             "complemento": "",
             "bairro": "Centro",
-            "localidade": "Belo Horizonte",
+            "cidade": "Belo Horizonte",
             "uf": "MG"
         },
         "password": "password12345"
@@ -216,7 +216,7 @@
             "numero": "321",
             "complemento": "",
             "bairro": "Jardim",
-            "localidade": "Curitiba",
+            "cidade": "Curitiba",
             "uf": "PR"
         },
         "password": "mypassword1234"
@@ -233,7 +233,7 @@
             "numero": "987",
             "complemento": "",
             "bairro": "Itaim",
-            "localidade": "São Paulo",
+            "cidade": "São Paulo",
             "uf": "SP"
         },
         "password": "pass12345"
@@ -250,7 +250,7 @@
             "numero": "654",
             "complemento": "",
             "bairro": "Copacabana",
-            "localidade": "Rio de Janeiro",
+            "cidade": "Rio de Janeiro",
             "uf": "RJ"
         },
         "password": "camilapass"
@@ -267,7 +267,7 @@
             "numero": "321",
             "complemento": "",
             "bairro": "Centro",
-            "localidade": "Belo Horizonte",
+            "cidade": "Belo Horizonte",
             "uf": "MG"
         },
         "password": "gustavopassword"
@@ -284,7 +284,7 @@
             "numero": "987",
             "complemento": "apto 456",
             "bairro": "Jardins",
-            "localidade": "São Paulo",
+            "cidade": "São Paulo",
             "uf": "SP"
         },
         "password": "securepass456"
@@ -301,7 +301,7 @@
             "numero": "654",
             "complemento": "Apto 7-218",
             "bairro": "Botafogo",
-            "localidade": "Rio de Janeiro",
+            "cidade": "Rio de Janeiro",
             "uf": "RJ"
         },
         "password": "ricardopass"
@@ -318,7 +318,7 @@
             "numero": "123",
             "complemento": "",
             "bairro": "Centro",
-            "localidade": "Belo Horizonte",
+            "cidade": "Belo Horizonte",
             "uf": "MG"
         },
         "password": "mypassword456"
@@ -335,7 +335,7 @@
             "numero": "456",
             "complemento": "",
             "bairro": "Vila Nova",
-            "localidade": "São Paulo",
+            "cidade": "São Paulo",
             "uf": "SP"
         },
         "password": "felipepass"

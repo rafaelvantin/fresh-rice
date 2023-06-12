@@ -1,83 +1,88 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import Products from '../../products.json';
+
 import DeletePopup from '../../components/DeletePopup';
+import EditProduct from '../../components/EditProduct';
+import ArrowBack from '../../components/ArrowBack';
 
 import styles from './styles.module.css';
 
-const ManageClients = () => {
+const ManageProducts = () => {
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
     const [products, setProducts] = useState([]);
 
-    const [popupVisible, setPopupVisible] = useState(false);
-    const [currClient, setCurrClient] = useState({});
+    const [deletePopupVisible, setDeletePopupVisible] = useState(false);
+    const [editPopupVisible, setEditPopupVisible] = useState(false);
+    const [currProduct, setCurrProduct] = useState({});
 
     const [search, setSearch] = useState('');
 
     const navigate = useNavigate();
 
     useEffect(() => {
+        document.title = "Fresh Rice - Gerenciar Admins";
         // CALL API FOR NUMBER OF TOTAL PAGES
-        setTotalPages(5);
-        // CALL API FOR DATA OF CURRENT PAGE
+        setTotalPages(2);
 
-        setProducts([
-            { id: 1, name: 'Óculos de Sol Rayban', price: 10.00, quantity: 5 },
-            { id: 2, name: 'Armação de óculos Polaroid', price: 10.00, quantity: 5 },
-            { id: 3, name: 'Óculos de Sol Rayban 2', price: 10.00, quantity: 5 },
-            { id: 4, name: 'Armação de óculos Polaroid 2', price: 10.00, quantity: 5 },
-            { id: 5, name: 'Óculos de Sol Rayban 3', price: 10.00, quantity: 5 },
-            { id: 6, name: 'Armação de óculos Polaroid 3', price: 10.00, quantity: 5 },
-            { id: 7, name: 'Óculos de Sol Rayban 4', price: 10.00, quantity: 5 },
-            { id: 8, name: 'Armação de óculos Polaroid 4', price: 10.00, quantity: 5 },
-            { id: 9, name: 'Óculos de Sol Rayban 5', price: 10.00, quantity: 5 },
-            { id: 10, name: 'Armação de óculos Polaroid 5', price: 10.00, quantity: 5 },
-        ]);
-
+        searchProduct();
     }, []);
-
+    
     useEffect(() => {
-        // CALL API FOR DATA OF CURRENT PAGE
+        searchProduct();
     }, [page]);
 
-
-    const openPopup = (client) => {
-        setCurrClient(client);
-        setPopupVisible(true);
+    const openDeletePopup = (client) => {
+        setCurrProduct(client);
+        setDeletePopupVisible(true);
+    }
+    const openEditPopup = (client) => {
+        setCurrProduct(client);
+        setEditPopupVisible(true);
     }
 
-
-
-    
 
     const searchProduct = () => {
         // CALL API FOR SEARCH
-    }
-
-    const popupResponse = (response) => {
-        
-        if(response === true) {
-            // CALL API TO DELETE currClient.id
+        if(search === '') {
+            setProducts(Products.slice((page-1) * 10, page * 10));
+            return;
         }
 
-        setProducts([]);
-        setPopupVisible(false);
-        setCurrClient({});
+        const filteredProducts = Products.filter((product) => product.nome.toLowerCase().includes(search.toLowerCase()));
+        setProducts(filteredProducts.slice((page-1) * 10, page * 10));
+    }
+
+    const deletePopupResponse = (response) => {
+        
+        if(response === true) {
+            // CALL API TO DELETE currProduct.id
+        }
+
+        searchProduct();
+        setDeletePopupVisible(false);
+        setCurrProduct({});
+    }
+
+    const editPopupResponse = (response, newProd = {}) => {
+        if(response === true) {
+            // CALL API TO EDIT currProduct.id
+        }
+
+        searchProduct();
+        setEditPopupVisible(false);
+        setCurrProduct({});
     }
 
 
     const renderDataTable = () => {
-        // CALL API FOR CURRENT PAGE
-
-        // MOCK
-        
-
         if(products.length === 0) {
             return (
                 <tr className={styles.tr}>
-                    <td className={styles.td_name} colSpan="4">Nenhum cliente encontrado</td>
+                    <td className={styles.td_name} colSpan="4">Nenhum produto encontrado</td>
                 </tr>
             );
         }
@@ -86,13 +91,13 @@ const ManageClients = () => {
             return (
                 <tr className={styles.tr} key={product.id}>
                     <td className={styles.td}>{product.id}</td>
-                    <td className={styles.td_name}>{product.name}</td>
-                    <td className={styles.td}>R${product.price.toFixed(2)}</td>
-                    <td className={styles.td}>{product.quantity}</td>
+                    <td className={styles.td_name}>{product.nome}</td>
+                    <td className={styles.td}>R${product.preco.toFixed(2)}</td>
+                    <td className={styles.td}>{product.estoque}</td>
                     <td className={styles.td}>
                         <div className={styles.operationsContainer}>
-                            <i className={`material-symbols-outlined ${styles.icon}`} onClick={() => navigate(`/admin/products/${product.id}`)}>edit_square</i>
-                            <i className={`material-symbols-outlined ${styles.icon}`} onClick={() => openPopup(product)} style={{marginLeft: '8px', marginTop: '3px'}}>delete</i>
+                            <i className={`material-symbols-outlined ${styles.icon}`} onClick={() => openEditPopup(product)}>edit_square</i>
+                            <i className={`material-symbols-outlined ${styles.icon}`} onClick={() => openDeletePopup(product)} style={{marginLeft: '8px', marginTop: '3px'}}>delete</i>
                         </div>
                     </td>
                 </tr>
@@ -116,19 +121,15 @@ const ManageClients = () => {
         );
     }
 
-    const handleKeyUp = (e) => {
-        if(e.key === 'Enter') {
-            searchProduct();
-        }
-    }
-
-
     return (
       <div className={styles.container}>
+        <ArrowBack />
+
         <h1 className={styles.welcome}>Produtos</h1>
 
+
         <div className={styles.searchbar}>
-            <input className={styles.input} type="text" placeholder="Pesquisar" value={search} onChange={(e) => setSearch(e.target.value)} onKeyUp={handleKeyUp} />
+            <input className={styles.input} type="text" placeholder="Pesquisar pelo nome" value={search} onChange={(e) => setSearch(e.target.value)} onKeyUp={() => searchProduct()} />
             <i className={`material-symbols-outlined ${styles.icon}`} onClick={() => searchProduct()}>search</i>
         </div>
         
@@ -148,10 +149,15 @@ const ManageClients = () => {
             {renderPagination()}
         </div>
 
-        <DeletePopup visible={popupVisible} name={currClient.name} popupResponse={popupResponse} />
+        <div className={styles.add} onClick={() => navigate('/admin/products/add')}>
+            <i className={`material-symbols-outlined ${styles.icon}`}>add</i>
+        </div>
+
+        <DeletePopup visible={deletePopupVisible} nome={currProduct.nome} popupResponse={deletePopupResponse} />
+        <EditProduct visible={editPopupVisible} product={currProduct} popupResponse={editPopupResponse} />
       </div>
     );
   }
   
-  export default ManageClients;
+  export default ManageProducts;
   

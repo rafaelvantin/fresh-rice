@@ -4,6 +4,7 @@ import HomeAdmin from './HomeAdmin';
 import ManageClients from './ManageClients';
 import ManageProducts from './ManageProducts';
 import ManageAdmins from './ManageAdmins';
+import NewProduct from './NewProduct';
 import Home from './Home';
 import About from './About';
 import { Login, Signup, PasswordRecovery } from './Auth';
@@ -50,6 +51,10 @@ const pagesData = [
     {
         path: '/admin/products',
         element: <ManageProducts />,
+    },
+    {
+        path: '/admin/products/add',
+        element: <NewProduct />,
     },
     {
         path: '/admin/admins',

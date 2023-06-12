@@ -19,7 +19,7 @@ const HomeAdmin = () => {
       <div className={styles.optionsContainer}>
         <Button text="Gerenciar Clientes" style={{width: "400px", height: "120px"}} onClick={() => navigate('/admin/clients')}/>
         <Button text="Gerenciar Produtos" style={{width: "400px", height: "120px"}} onClick={() => navigate('/admin/products')}/>
-        <Button text="Gerenciar Clientes" style={{width: "400px", height: "120px"}} onClick={() => navigate('/admin/admins')}/>
+        <Button text="Gerenciar Admins" style={{width: "400px", height: "120px"}} onClick={() => navigate('/admin/admins')}/>
       </div>
       
     </div>

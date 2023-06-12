@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import Clients from '../../clients.json';
+
 import DeletePopup from '../../components/DeletePopup';
+import EditClient from '../../components/EditClient';
+import ArrowBack from '../../components/ArrowBack';
 
 import styles from './styles.module.css';
 
@@ -9,63 +13,92 @@ const ManageClients = () => {
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
-    const [popupVisible, setPopupVisible] = useState(false);
+    const [clients, setClients] = useState([]);
+
+    const [deletePopupVisible, setDeletePopupVisible] = useState(false);
+    const [editPopupVisible, setEditPopupVisible] = useState(false);
     const [currClient, setCurrClient] = useState({});
 
-    const navigate = useNavigate();
+    const [search, setSearch] = useState('');
 
+    const navigate = useNavigate();
+    
     useEffect(() => {
         document.title = "Fresh Rice - Gerenciar Clientes";
-    }, []);
-
-    useEffect(() => {
         // CALL API FOR NUMBER OF TOTAL PAGES
-        setTotalPages(5);
-        // CALL API FOR DATA OF CURRENT PAGE
+        setTotalPages(2);
+
+        searchClient();
 
     }, []);
 
     useEffect(() => {
-        // CALL API FOR DATA OF CURRENT PAGE
+        searchClient();
     }, [page]);
 
 
-    const openPopup = (client) => {
+    const openDeletePopup = (client) => {
         setCurrClient(client);
-        setPopupVisible(true);
+        setDeletePopupVisible(true);
+    }
+    const openEditPopup = (client) => {
+        setCurrClient(client);
+        setEditPopupVisible(true);
+    }
+
+    const searchClient = () => {
+        // CALL API FOR SEARCH
+        if(search === '') {
+            setClients(Clients.slice((page-1) * 10, page * 10));
+            return;
+        }
+
+        const filteredClients = Clients.filter((client) => client.nome.toLowerCase().includes(search.toLowerCase()));
+        setClients(filteredClients.slice((page-1) * 10, page * 10));
+    }
+
+    const deletePopupResponse = (response) => {
+        
+        if(response === true) {
+            // CALL API TO DELETE currClient.id
+        }
+
+        searchClient();
+        setDeletePopupVisible(false);
+        setCurrClient({});
+    }
+
+    const editPopupResponse = (response, newClient = {}) => {
+        if(response === true) {
+            // CALL API TO EDIT currClient.id
+        }
+
+        searchClient();
+        setEditPopupVisible(false);
+        setCurrClient({});
     }
 
 
 
     const renderDataTable = () => {
-        // CALL API FOR CURRENT PAGE
+        if(clients.length === 0) {
+            return (
+                <tr className={styles.tr}>
+                    <td className={styles.td_name} colSpan="4">Nenhum cliente encontrado</td>
+                </tr>
+            );
+        }
 
-        // MOCK
-        const data = {
-            clients: [
-                { id: 1, name: 'João', orders: 5 },
-                { id: 2, name: 'Maria', orders: 10 },
-                { id: 3, name: 'José', orders: 15 },
-                { id: 4, name: 'Pedro', orders: 20 },
-                { id: 5, name: 'Ana', orders: 25 },
-                { id: 6, name: 'Paulo', orders: 30 },
-                { id: 7, name: 'Carlos', orders: 35 },
-                { id: 8, name: 'Mariana', orders: 40 },
-                { id: 9, name: 'Fernanda', orders: 45 },
-                { id: 10, name: 'Rafael', orders: 50 },
-            ]
-        };
-
-        return data.clients.map((client) => {
+        return clients.map((client) => {
             return (
                 <tr className={styles.tr} key={client.id}>
                     <td className={styles.td}>{client.id}</td>
-                    <td className={styles.td_name}>{client.name}</td>
-                    <td className={styles.td}>{client.orders}</td>
+                    <td className={styles.td_name}>{client.nome}</td>
+                    <td className={styles.td_name}>{client.email}</td>
                     <td className={styles.td}>
                         <div className={styles.operationsContainer}>
-                            <i className={`material-symbols-outlined ${styles.icon}`} onClick={() => navigate(`/admin/clients/${client.id}`)}>edit_square</i>
-                            <i className={`material-symbols-outlined ${styles.icon}`} onClick={() => openPopup(client)} style={{marginLeft: '8px', marginTop: '3px'}}>delete</i>
+                            <i className={`material-symbols-outlined ${styles.icon}`} onClick={() => openEditPopup(client)}>edit_square</i>
+                            <i className={`material-symbols-outlined ${styles.icon}`} onClick={() => openDeletePopup(client)} style={{marginLeft: '8px', marginTop: '3px'}}>delete</i>
                         </div>
                     </td>
                 </tr>
@@ -89,30 +122,26 @@ const ManageClients = () => {
         );
     }
 
-    const popupResponse = (response) => {
-        
-        if(response === true) {
-            // CALL API TO DELETE currClient.id
-        }
-
-        setPopupVisible(false);
-        setCurrClient({});
-    }
-
-
 
 
     return (
       <div className={styles.container}>
+        <ArrowBack />
+
         <h1 className={styles.welcome}>Clientes</h1>
         
+        <div className={styles.searchbar}>
+            <input className={styles.input} type="text" placeholder="Pesquisar pelo nome" value={search} onChange={(e) => setSearch(e.target.value)} onKeyUp={() => searchClient()} />
+            <i className={`material-symbols-outlined ${styles.icon}`} onClick={() => searchClient()}>search</i>
+        </div>
+
         <div className={styles.table}>
             <table>
                 <thead>
                     <tr className={styles.thead}>
                         <td className={styles.th}>ID</td>
                         <td className={styles.th_name}>Nome</td>
-                        <td className={styles.th}>Pedidos</td>
+                        <td className={styles.th_name}>Email</td>
                         <td className={styles.th}>Editar</td>
                     </tr>
                 </thead>
@@ -121,7 +150,8 @@ const ManageClients = () => {
             {renderPagination()}
         </div>
 
-        <DeletePopup visible={popupVisible} name={currClient.name} popupResponse={popupResponse} />
+        <DeletePopup visible={deletePopupVisible} nome={currClient.name} popupResponse={deletePopupResponse} />
+        <EditClient visible={editPopupVisible} client={currClient} popupResponse={editPopupResponse} />
       </div>
     );
   }

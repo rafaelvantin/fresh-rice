@@ -1,11 +1,11 @@
 import styles from './styles.module.css';
 
-const DeletePopup = ({ visible, popupResponse, name }) => {
+const DeletePopup = ({ visible, popupResponse, nome }) => {
 
     return (visible) ? (
         <div className={styles.popup}>
             <div className={styles.box}>
-                <h1 className={styles.title}>Tem certeza que deseja excluir {name}?</h1>
+                <h1 className={styles.title}>Tem certeza que deseja excluir {nome}?</h1>
                 <div className={styles.buttons_container}>
                     <button className={styles.button} onClick={() => popupResponse(true)}>Sim</button>
                     <button className={styles.button} onClick={() => popupResponse(false)}>Não</button>

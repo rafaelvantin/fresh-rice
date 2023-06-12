@@ -1,69 +1,57 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import DeletePopup from '../../components/DeletePopup';
+import Admins from '../../admins.json';
 
 import styles from './styles.module.css';
+import ArrowBack from '../../components/ArrowBack';
 
 const ManageClients = () => {
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
-    const [popupVisible, setPopupVisible] = useState(false);
-    const [currClient, setCurrClient] = useState({});
+    const [admins, setAdmins] = useState([]);
 
-    const navigate = useNavigate();
+    const [search, setSearch] = useState('');
 
     useEffect(() => {
         // CALL API FOR NUMBER OF TOTAL PAGES
-        setTotalPages(5);
-        // CALL API FOR DATA OF CURRENT PAGE
+        setTotalPages(1);
 
+        searchAdmin();        
     }, []);
-
+    
     useEffect(() => {
-        // CALL API FOR DATA OF CURRENT PAGE
+        searchAdmin();
     }, [page]);
 
 
-    const openPopup = (client) => {
-        setCurrClient(client);
-        setPopupVisible(true);
+    const searchAdmin = () => {
+        // CALL API FOR SEARCH
+        if(search === '') {
+            setAdmins(Admins.slice((page-1) * 10, page * 10));
+            return;
+        }
+
+        const filteredAdmins = Admins.filter((admin) => admin.nome.toLowerCase().includes(search.toLowerCase()));
+        setAdmins(filteredAdmins.slice((page-1) * 10, page * 10));
     }
 
-
-
     const renderDataTable = () => {
-        // CALL API FOR CURRENT PAGE
-
-        // MOCK
-        const data = {
-            clients: [
-                { id: 1, name: 'João', orders: 5 },
-                { id: 2, name: 'Maria', orders: 10 },
-                { id: 3, name: 'José', orders: 15 },
-                { id: 4, name: 'Pedro', orders: 20 },
-                { id: 5, name: 'Ana', orders: 25 },
-                { id: 6, name: 'Paulo', orders: 30 },
-                { id: 7, name: 'Carlos', orders: 35 },
-                { id: 8, name: 'Mariana', orders: 40 },
-                { id: 9, name: 'Fernanda', orders: 45 },
-                { id: 10, name: 'Rafael', orders: 50 },
-            ]
-        };
-
-        return data.clients.map((client) => {
+        if(admins.length === 0) {
             return (
-                <tr className={styles.tr} key={client.id}>
-                    <td className={styles.td}>{client.id}</td>
-                    <td className={styles.td_name}>{client.name}</td>
-                    <td className={styles.td}>{client.orders}</td>
-                    <td className={styles.td}>
-                        <div className={styles.operationsContainer}>
-                            <i className={`material-symbols-outlined ${styles.icon}`} onClick={() => navigate(`/admin/clients/${client.id}`)}>edit_square</i>
-                            <i className={`material-symbols-outlined ${styles.icon}`} onClick={() => openPopup(client)} style={{marginLeft: '8px', marginTop: '3px'}}>delete</i>
-                        </div>
-                    </td>
+                <tr className={styles.tr}>
+                    <td className={styles.td_name} colSpan="4">Nenhum admin encontrado</td>
+                </tr>
+            );
+        }
+
+        return admins.map((admin) => {
+            return (
+                <tr className={styles.tr} key={admin.id}>
+                    <td className={styles.td}>{admin.id}</td>
+                    <td className={styles.td_name}>{admin.nome}</td>
+                    <td className={styles.td_name}>{admin.email}</td>
                 </tr>
             );
         });
@@ -85,13 +73,22 @@ const ManageClients = () => {
         );
     }
 
-
+    const handleKeyUp = () => {
+        searchAdmin();
+    }
 
 
     return (
       <div className={styles.container}>
-        <h1 className={styles.welcome}>Produtos</h1>
+        <ArrowBack />
 
+        <h1 className={styles.welcome}>Admins</h1>
+
+
+        <div className={styles.searchbar}>
+            <input className={styles.input} type="text" placeholder="Pesquisar por nome" value={search} onChange={(e) => setSearch(e.target.value)} onKeyUp={handleKeyUp} />
+            <i className={`material-symbols-outlined ${styles.icon}`} onClick={() => searchAdmin()}>search</i>
+        </div>
         
         <div className={styles.table}>
             <table>
@@ -99,16 +96,13 @@ const ManageClients = () => {
                     <tr className={styles.thead}>
                         <td className={styles.th}>ID</td>
                         <td className={styles.th_name}>Nome</td>
-                        <td className={styles.th}>Pedidos</td>
-                        <td className={styles.th}>Editar</td>
+                        <td className={styles.th_name}>Email</td>
                     </tr>
                 </thead>
                 <tbody>{renderDataTable()}</tbody>
             </table>
             {renderPagination()}
         </div>
-
-        <DeletePopup visible={popupVisible} setVisible={setPopupVisible} client={currClient} />
       </div>
     );
   }
