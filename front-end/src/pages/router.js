@@ -33,14 +33,14 @@ const Router = () => {
         },
         {
             path: '/cart',
+            element: <Cart />,
+        },
+        {
+            path: '/cart/checkout',
             element: <RouteGuard />,
             children: [
                 {
                     index: true,
-                    element: <Cart />,
-                },
-                {
-                    path: '/cart/checkout',
                     element: <Checkout />
                 }
             ]
