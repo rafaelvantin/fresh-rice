@@ -1,4 +1,8 @@
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../auth-handler';
+
+import RouteGuard from '../components/RouteGuard';
 
 import HomeAdmin from './HomeAdmin';
 import ManageClients from './ManageClients';
@@ -13,73 +17,106 @@ import Product from './Product';
 import Cart from './Cart';
 import Checkout from './Checkout';
 
-const pagesData = [
-    {
-        path: '/',
-        element: <Home />
-    },
-    {
-        path:'/shop',
-        element: <Shop />
-    },
-    {
-        path: '/shop/product',
-        element: <Product />
-    },
-    {
-        path: '/cart',
-        element: <Cart />
-    },
-    {
-        path: '/cart/checkout',
-        element: <Checkout />
-    },
-    {
-        path: '/about',
-        element: <About />  
-    },
-    {
-        path: '/login',
-        element: <Login />, 
-    },
-    {
-        path: '/signup',
-        element: <Signup />,
-    },
-    {
-        path: '/recover-password',
-        element: <PasswordRecovery />,
-    },
-    {
-        path: '/admin',
-        element: <HomeAdmin />,
-    },
-    {
-        path: '/admin/clients',
-        element: <ManageClients />,
-    },
-    {
-        path: '/admin/products',
-        element: <ManageProducts />,
-    },
-    {
-        path: '/admin/products/add',
-        element: <NewProduct />,
-    },
-    {
-        path: '/admin/admins',
-        element: <ManageAdmins />,
-    },
-    // {
-    //     path: '/admin/clients/:id',
-    //     element: <ManageClients />,
-    // And then const {id} = useParams(); (react-router-dom)
-    // }
-];
-
-const router = createBrowserRouter(pagesData);
-
 const Router = () => {
+
+    const Auth = useContext(AuthContext);
+
+    const { isAuthenticated, user: { type: userType } } = Auth;
+
+    const pagesData = [
+        {
+            path: '/',
+            element: <Home />
+        },
+        {
+            path:'/shop',
+            element: <Shop />
+        },
+        {
+            path: '/shop/product',
+            element: <Product />
+        },
+        {
+            path: '/cart',
+            element: <RouteGuard />,
+            children: [
+                {
+                    //path: '/',
+                    element: <Cart />,
+                    index: true
+                },
+                {
+                    path: '/cart/checkout',
+                    element: <Checkout />
+                }
+            ]
+        },
+        {
+            path: '/about',
+            element: <About />  
+        },
+        {
+            path: '/login',
+            element: <RouteGuard authenticated={false} />,
+            children: [
+                {
+                    index: true,
+                    element: <Login />
+                }
+            ]
+        },
+        {
+            path: '/signup',
+            element: <RouteGuard authenticated={false} />,
+            children: [
+                {
+                    index: true,
+                    element: <Signup />
+                }
+            ]
+        },
+        {
+            path: '/recover-password',
+            element: <RouteGuard authenticated={false} />,
+            children: [
+                {
+                    index: true,
+                    element: <PasswordRecovery />
+                }
+            ]
+        },
+        {
+            path: '/admin',
+            element: <RouteGuard type='admin' />,
+            children: [
+                {
+                    index: true,
+                    element: <HomeAdmin />
+                },
+                {
+                    path: '/admin/clients',
+                    element: <ManageClients />
+                },
+                {
+                    path: '/admin/products',
+                    element: <ManageProducts />,
+                    children: [
+                        {
+                            path: '/admin/products/add',
+                            element: <NewProduct />
+                        }
+                    ]
+                },
+                {
+                    path: '/admin/admins',
+                    element: <ManageAdmins />
+                }
+            ]
+        }
+    ];
+    
+    const router = createBrowserRouter(pagesData);
+
     return (
         <RouterProvider router={router} />
     );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useLocation, useSearchParams, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import styles from '../styles.module.css';
@@ -12,7 +12,13 @@ import { AuthContext } from "../../../auth-handler";
 
 const Login = () => {
     const navigate = useNavigate();
+    const { state } = useLocation();
+
+    const [searchParams] = useSearchParams();
+    const nextParam = state?.next || searchParams.get("next");
+    
     const Auth = useContext(AuthContext);
+
 
     useEffect(() => {
         document.title = "Fresh Rice - Login";
@@ -34,7 +40,10 @@ const Login = () => {
                 },
             }
         ).then(() => {
-            navigate("/");
+            if (nextParam) {
+                navigate(nextParam);
+            }
+            else navigate("/");
         }).catch(() => {});
     };
 
