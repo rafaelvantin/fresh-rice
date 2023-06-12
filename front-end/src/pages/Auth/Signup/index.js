@@ -1,38 +1,54 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
-import styles from './styles.module.css';
+import styles from '../styles.module.css';
 
 import Header from "../../../components/header";
 import Button from "../../../components/Button";
 import TextInput from "../../../components/TextInput";
+import { toast } from "react-toastify";
 
 
 const Signup = () => {
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
+
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [dob, setDob] = useState("");
+    const [cpf, setCpf] = useState("");
+    const [cep, setCep] = useState("");
+    const [street, setStreet] = useState("");
+    const [number, setNumber] = useState("");
+    const [complement, setComplement] = useState("");
+    const [neighborhood, setNeighborhood] = useState("");
+    const [city, setCity] = useState("");
+    const [state, setState] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
     useEffect(() => {
         document.title = "Fresh Rice - Cadastro";
-    }, []);
-
-    const [name, setName] = React.useState("");
-    const [email, setEmail] = React.useState("");
-    const [dob, setDob] = React.useState("");
-    const [cpf, setCpf] = React.useState("");
-    const [cep, setCep] = React.useState("");
-    const [street, setStreet] = React.useState("");
-    const [number, setNumber] = React.useState("");
-    const [complement, setComplement] = React.useState("");
-    const [neighborhood, setNeighborhood] = React.useState("");
-    const [city, setCity] = React.useState("");
-    const [state, setState] = React.useState("");
-    const [password, setPassword] = React.useState("");
-    const [confirmPassword, setConfirmPassword] = React.useState("");
+    }, [])
     
-
     const handleSignup = () => {
         // TODO: handle login with API.
-        console.log("Signup");
+        // Mock signup:
+        toast.promise(
+            new Promise((resolve, reject) => {
+                setTimeout(() => resolve(), 2000);
+            }),
+            {
+                pending: "Cadastrando...",
+                success:  "Cadastro realizado com sucesso!",
+                error: {
+                    render({ data }) {
+                        return data;
+                    }
+                }
+            }).then(() => {
+                navigate("/login");
+            }
+        ).catch(() => {});
     };
 
     return (
@@ -40,11 +56,15 @@ const Signup = () => {
         <Header />
         <main className={styles.container}>
             <h1>Cadastre-se</h1>
-            <div className={styles.signupBox}>
+            <div className={styles.contentBox} onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                    handleSignup();
+                }
+            }}>
 
                 <h2>Dados Pessoais</h2>
                 
-                <form className={styles.signupForm}>
+                <form className={styles.form}>
                     <TextInput type="text" placeholder="Digite seu nome completo" name="nome" value={name} onChange={(e) => setName(e.target.value)} required={true}/>
 
                     <TextInput type="email" placeholder="Digite seu email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required={true}/>
@@ -56,7 +76,7 @@ const Signup = () => {
 
                 <h2>Endereço</h2>
 
-                <form className={styles.signupForm}>
+                <form className={styles.form}>
                     <TextInput type="text" placeholder="Digite seu CEP" name="cep" value={cep}onChange={(e) => setCep(e.target.value)} required={true}/>
 
                     <div className={styles.rowInput}>
@@ -72,7 +92,7 @@ const Signup = () => {
                     <div className={styles.rowInput}>
                         <TextInput type="text" placeholder="Digite sua cidade" name="cidade" value={city} onChange={(e) => setCity(e.target.value)} required={true} width="75%"/>
 
-                        <select className={styles.formInput} name="estado" id="estado" style={{width: "20%"}}>
+                        <select className={styles.formInput} name="estado" id="estado" style={{width: "20%"}} onChange={(e) => setState(e.target.value)}>
                             <option value="" disabled selected hidden>UF</option>
                             <option value="AC">AC</option>
                             <option value="AL">AL</option>
@@ -107,13 +127,13 @@ const Signup = () => {
 
                 <h2>Senha</h2>
 
-                <form className={styles.signupForm}>
+                <form className={styles.form}>
                     <TextInput type="password" placeholder="Digite sua senha" name="senha" value={password} onChange={(e) => setPassword(e.target.value)} required={true}/>
 
                     <TextInput type="password" placeholder="Confirme sua senha" name="senha" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required={true}/>
                 </form>
 
-                <div className={styles.signupForm} style={{marginBottom: 0}}>
+                <div className={styles.form} style={{marginBottom: 0}}>
                     <Button text="Cadastrar" onClick={handleSignup}/>
 
                     <Link className={styles.link} to="/login">Já possui uma conta? <strong>Faça login</strong>.</Link>

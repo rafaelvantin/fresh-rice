@@ -1,0 +1,58 @@
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 0 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid #003049;
+}
+
+.boxTitle{
+    margin-bottom: 30px;
+}
+
+.boxTitle > h2{
+    font-size: 32px;
+    font-weight: 600;
+    margin: 10px 0;
+    text-transform: uppercase;
+}
+
+.boxTitle > p> span{
+    cursor: pointer;
+}
+
+.boxTitle > p> span:hover{
+    text-decoration: underline;
+}
+
+
+.boxMain{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: inherit;
+}
+
+.boxProduct{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-left: 20px;
+    max-width: 900px;
+}
+
+.boxTotal{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-left: 20px;
+    max-width: 900px;
+    align-self: flex-end;
+    font-weight: bold;
+}

@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 
 import HomeAdmin from './HomeAdmin';
 import ManageClients from './ManageClients';
@@ -10,6 +10,8 @@ import About from './About';
 import { Login, Signup, PasswordRecovery } from './Auth';
 import Shop from './Shop';
 import Product from './Product';
+import Cart from './Cart';
+import Checkout from './Checkout';
 
 const pagesData = [
     {
@@ -25,6 +27,14 @@ const pagesData = [
         element: <Product />
     },
     {
+        path: '/cart',
+        element: <Cart />
+    },
+    {
+        path: '/cart/checkout',
+        element: <Checkout />
+    },
+    {
         path: '/about',
         element: <About />  
     },
@@ -33,11 +43,11 @@ const pagesData = [
         element: <Login />, 
     },
     {
-        path: '/cadastro',
+        path: '/signup',
         element: <Signup />,
     },
     {
-        path: '/recuperar-senha',
+        path: '/recover-password',
         element: <PasswordRecovery />,
     },
     {

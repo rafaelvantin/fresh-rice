@@ -4,7 +4,7 @@
     justify-content: center;
     flex-direction: column;
     margin-top: 10px;
-    max-width: 1500px;
+    max-width: 100%;
 }
 
 .title{
@@ -60,4 +60,11 @@
 
 .displayImg > :last-child{
     margin-top: 30px;
+}
+
+@media only screen and (max-width: 1050px){
+
+    .displayImg img{
+        width: 250px;
+    }
 }

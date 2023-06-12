@@ -1,14 +1,18 @@
-import { useLocation} from "react-router-dom";
+import { useLocation, useNavigate} from "react-router-dom";
 import Header from "../../components/header";
 import products from "../../products.json";
 import styles from "./styles.module.css";
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, useContext } from "react";
 import Button from "../../components/Button";
 import QuantityInput from "../../components/QuantityInput";
+import CartContext from "../../context/Cart/CartContext";
 const Product = () => {
     const {id} =  useLocation().state;
     const [totalPrice, setTotalPrice] = useState(0);
     const [quantity, setQuantity] = useState(1);
+
+    const navigate = useNavigate()
+
     const currentProduct = useMemo(() => {
         const product = products.find((product) => product.id === id);
         setTotalPrice(product.preco);
@@ -29,6 +33,17 @@ const Product = () => {
     useEffect(() => {
         setTotalPrice(currentProduct.preco * quantity);
     },[currentProduct.preco, quantity]);
+
+
+    const { addToCart } =
+    useContext(CartContext);
+
+
+    function handleAddToCart(){
+        addToCart([currentProduct, quantity]);
+        navigate("/cart");
+    }
+
     return (
         <>
         <Header />
@@ -47,7 +62,7 @@ const Product = () => {
                 <p><strong>Material </strong> {currentProduct.armacao}</p>
                 <p>Estoque {currentProduct.estoque}</p>
                 <div style={{display: "flex"}}>
-                    <Button text={`Adicionar ao carrinho R$${totalPrice}`} width="60%"/>
+                    <Button text={`Adicionar ao carrinho R$${totalPrice.toFixed(2)}`} width="60%" onClick={handleAddToCart}/>
                     <QuantityInput value={quantity} onChangePlus={handleChangeQuantityPlus} onChangeMinus={handleChangeQuantityMinus}/>
 
                 </div>

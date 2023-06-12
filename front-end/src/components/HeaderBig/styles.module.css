@@ -38,17 +38,23 @@ header{
     align-items: center;
 }
 
-.centerItens span{
+.navItem {
     font-size: larger;
     font-weight: 400;
     margin-right: 30px;
     transition: 0.3s;
     cursor: pointer;
+    text-decoration: none;
 }
-.centerItens span:hover{
+
+.navItem:hover{
     font-weight: bold;
 }
 
+.navItem:visited {
+    color: #fdfcf6;
+    text-decoration: none;
+}
 
 .backItens{
     display: flex;
@@ -60,14 +66,9 @@ header{
     font-size: 32px;
     margin-bottom: 3px;
 }
-.backItens span{
-    font-weight: 300;
-    font-size: 18px;
+
+.backItens>span{
+    font-size: larger;
     margin-left: 5px;
 }
 
-#headerLogin{
-    font-size: 20px;
-    margin-left: 50px;
-    font-weight: 500;
-}
