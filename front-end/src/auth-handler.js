@@ -22,7 +22,7 @@ export const AuthProvider = (props) => {
         
         // Mock login
         return new Promise((resolve, reject) => {
-            if (email === "admin@example.com" && password === "admin") {
+            if (email === "admin@example.com" && password === "adminadmin") {
                 setIsAuthenticated(true);
                 setUser({
                     id: "admin",
@@ -30,7 +30,7 @@ export const AuthProvider = (props) => {
                 });
                 resolve();
             }
-            else if (email === "client@example.com" && password === "client") {
+            else if (email === "client@example.com" && password === "clientclient") {
                 setIsAuthenticated(true);
                 setUser({
                     id: "client",
