@@ -18,7 +18,7 @@ const About = () => {
                     Agora, com o lançamento do nosso ecommerce, a Fresh Rice quer levar a experiência única de compra de óculos para o conforto da sua casa. Com uma vasta seleção de óculos de sol e de grau das melhores marcas, você pode navegar pelo nosso site facilmente e encontrar o par perfeito para você. Nós também oferecemos lentes de alta qualidade para garantir que você tenha a melhor visão possível. Não perca a oportunidade de comprar seus óculos com a Fresh Rice e experimentar o que há de melhor em qualidade e conveniência.
                     </p>
                 </div>
-                <img src="../../img/glasses_woman.png" alt="Mulher de óculos" height={"200px"}/>
+                <img src="../../img/glasses_woman.png" alt="Mulher de óculos" height={"300px"}/>
             </div>
 
             <div className={`${styles.sub_main} ${styles.sub_main3}`}>

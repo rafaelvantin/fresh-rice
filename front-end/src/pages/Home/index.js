@@ -51,7 +51,7 @@ const Home = () => {
       </Carousel>
       <h1 className={styles.title}>Lançamentos</h1>
       <h3 className={styles.subtitle}>Temos ótimas notícias para os amantes de óculos! A loja acaba de receber uma nova coleção de armações e lentes incríveis, perfeitas para todos os estilos e necessidades de visão.</h3>
-      <button className={styles.button}> Comprar</button>
+      <button className={styles.button} onClick={() => navigate('/shop')}> Comprar</button>
 
       
      
