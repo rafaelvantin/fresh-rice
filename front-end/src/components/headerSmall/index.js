@@ -10,7 +10,7 @@ function HeaderSmall(){
     
     return (
         <header className={styles.container}>
-             <SearchInput width={'80%'}/>
+            <SearchInput width={'80%'}/>
             <Menu menuClassName={styles.menu} customBurgerIcon= {
                  <option className="material-symbols-outlined">
                         menu

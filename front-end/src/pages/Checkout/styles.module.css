@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     height: 100vh;
     margin: 10px;
 }
@@ -27,6 +26,26 @@
     justify-content: center;
     width: 100%;
     align-self: flex-end;
+}
+
+.navContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-size: 22px;
+    margin-bottom: 40px;
+}
+.navContainer > span{
+    margin: 0 10px;
+}
+.separator{
+    border: 1px solid black;
+    width: 15%;
+}
+.page{
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .boxCart{

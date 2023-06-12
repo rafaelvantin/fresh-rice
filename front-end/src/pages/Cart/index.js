@@ -17,29 +17,42 @@ const Cart = () => {
                 <h2>Carrinho</h2>
                 <p>Ainda não acabou? <span onClick={() => navigate('/shop')}>Clique aqui para continuar comprando</span></p>
             </div>
-        <div className={styles.boxMain}>
-            {
-                cartItems.length > 0 ? (
-                    <div className={styles.boxProducts}>{
-                        cartItems.map((item) => {
-                            
-                            return (
-                                <HorizontalProduct key={item.id} product={item} />
-                            )
-                        })}</div>
-                ) : (
-                    <div className={styles.boxProducts}>Seu carrinho está vazio</div>
-                )  
-            }
-            <div className={styles.boxTotal}>
-                <p>Total</p>
-                <p>R$ {total}</p>
+            <div className={styles.boxMain}>
+                {
+                    cartItems.length > 0 ? (
+                        <div className={styles.boxProduct}>{
+                            cartItems.map((item) => {
+                                
+                                return (
+                                    <HorizontalProduct key={item.id} product={item} />
+                                )
+                            })}</div>
+                    ) : (
+                        <div className={styles.boxProduct}>Seu carrinho está vazio</div>
+                    )  
+                }
+                <div className={styles.boxTotal}>
+                    <h3>Detalhes do pedido</h3>
+                    <div className={styles.boxTotalItem}>
+                        <div className={styles.subtotal}>
+                            <p>Subtotal</p>
+                            <p>R${total}</p>
+                        </div>
+                        <div className={styles.total}>
+                            <p>Total</p>
+                            <p>R${total}</p>
+                        </div>
+                    </div>
+                    { cartItems.length > 0 && (
+                        <Button onClick={() => navigate('/cart/checkout')} 
+                            text={"Finalizar compra"}
+                            width="100%"
+                        />
+                    )
+                    }
+                </div>
             </div>
         </div>
-        <Button onClick={() => navigate('/cart/checkout')} 
-            text={"Finalizar compra"}
-            width="50%"
-        />        </div>
         </>
 
     )
