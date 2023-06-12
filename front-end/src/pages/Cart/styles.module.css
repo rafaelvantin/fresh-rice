@@ -91,3 +91,13 @@
     width: 100%;
     padding: 10px 0;
 }
+
+@media only screen and (max-width: 900px){
+    .boxMain {
+        flex-direction: column
+    }
+    .boxTotal{
+        width: 80%;
+        margin: 30px 0 0 10px;
+    }
+}
