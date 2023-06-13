@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import styles from './styles.module.css';
 
-import { AuthContext } from "../../auth-handler";
+import { AuthContext } from "../../context/AuthHandler";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -52,7 +52,7 @@ export default function UserMenu() {
         </div>
             <div className={styles.dropdown} style={{display: menuOpen ? "block" : "none"}}>
                 <div className={styles.dropdownItem}>
-                    <span>Olá, {Auth.user.id}</span>
+                    <span>Olá, {Auth.user.name}</span>
                 </div>
                 <div className={`${styles.dropdownItem} ${styles.clickable}`} onClick={() => navigate('/profile')}>
                     <span className="material-symbols-outlined">account_circle</span>

@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import styles from './styles.module.css'
-import { AuthContext } from '../../auth-handler'
+import { AuthContext } from '../../context/AuthHandler'
 import orders from '../../orders.json'
 import OrderCard from '../../components/OrderCard'
 import Header from '../../components/header'

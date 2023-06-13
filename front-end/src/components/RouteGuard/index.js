@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AuthContext } from "../../auth-handler";
+import { AuthContext } from "../../context/AuthHandler";
 import { Navigate, useLocation, Outlet } from "react-router-dom";
 
 const RouteGuard = ({ authenticated = true, type = 'any', to = '/login' }) => {

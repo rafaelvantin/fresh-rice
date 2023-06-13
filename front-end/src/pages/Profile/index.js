@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { AuthContext } from "../../auth-handler";
+import { AuthContext } from "../../context/AuthHandler";
 
 import Header from "../../components/header";
 import TextInput from "../../components/TextInput";

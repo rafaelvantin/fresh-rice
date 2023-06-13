@@ -8,7 +8,7 @@ import Header from "../../../components/header";
 import Button from "../../../components/Button";
 import TextInput from "../../../components/TextInput";
 
-import { AuthContext } from "../../../auth-handler";
+import { AuthContext } from "../../../context/AuthHandler";
 
 const Login = () => {
     const navigate = useNavigate();
