@@ -45,6 +45,7 @@ header{
     transition: 0.3s;
     cursor: pointer;
     text-decoration: none;
+    color: #fdfcf6;
 }
 
 .navItem:hover{
