@@ -9,6 +9,7 @@ import Header from "../../../components/header";
 import Button from "../../../components/Button";
 import TextInput from "../../../components/TextInput";
 import MaskedInput from "../../../components/MaskedInput";
+import UFSelect from "../../../components/UFSelect";
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -89,12 +90,7 @@ const Signup = () => {
 
                     <TextInput type="email" placeholder="Digite seu email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
 
-                    <MaskedInput type="text" placeholder="Digite seu CPF" name="cpf" required invalidMessage="Por favor, digite um CPF válido." setUnmaskedValue={setCpf} maskOptions={{
-                        mask: "ddd.ddd.ddd-dd",
-                        replacement: { d: /\d/ },
-                        separate: false,
-                        showMask: false
-                    }}/>
+                    <MaskedInput type="text" placeholder="Digite seu CPF" name="cpf" required invalidMessage="Por favor, digite um CPF válido." setUnmaskedValue={setCpf} maskOptions={{ mask: "ddd.ddd.ddd-dd" }}/>
 
                     <TextInput type="date" placeholder="Digite sua data de nascimento" name="dataNascimento" value={dob} onChange={(e) => setDob(e.target.value)} required/>
 
@@ -105,12 +101,7 @@ const Signup = () => {
 
                 <form className={styles.form} ref={forms[1]} onSubmit={handleSubmit}>
 
-                    <MaskedInput type="text" placeholder="Digite seu CEP" name="cep" required invalidMessage="Por favor, digite um CEP válido." setUnmaskedValue={setCep} maskOptions={{
-                        mask: "ddddd-ddd",
-                        replacement: { d: /\d/ },
-                        separate: false,
-                        showMask: false
-                    }}/>
+                    <MaskedInput type="text" placeholder="Digite seu CEP" name="cep" required invalidMessage="Por favor, digite um CEP válido." setUnmaskedValue={setCep} maskOptions={{ mask: "ddddd-ddd" }}/>
 
                     <div className={styles.rowInput}>
                         <TextInput type="text" placeholder="Digite sua rua" name="rua" value={street} onChange={(e) => setStreet(e.target.value)} required width="65%"/>
@@ -125,36 +116,7 @@ const Signup = () => {
                     <div className={styles.rowInput}>
                         <TextInput type="text" placeholder="Digite sua cidade" name="cidade" value={city} onChange={(e) => setCity(e.target.value)} required width="75%"/>
 
-                        <select className={styles.formInput} name="estado" id="estado" style={{width: "20%"}} onChange={(e) => setState(e.target.value)} value={state}>
-                            <option value="UF" disabled hidden>UF</option>
-                            <option value="AC">AC</option>
-                            <option value="AL">AL</option>
-                            <option value="AM">AM</option>	
-                            <option value="AP">AP</option>	
-                            <option value="BA">BA</option>	
-                            <option value="CE">CE</option>	
-                            <option value="DF">DF</option>	
-                            <option value="ES">ES</option>	
-                            <option value="GO">GO</option>	
-                            <option value="MA">MA</option>	
-                            <option value="MG">MG</option>	
-                            <option value="MS">MS</option>	
-                            <option value="MT">MT</option>	
-                            <option value="PA">PA</option>	
-                            <option value="PB">PB</option>	
-                            <option value="PE">PE</option>	
-                            <option value="PI">PI</option>	
-                            <option value="PR">PR</option>	
-                            <option value="RJ">RJ</option>	
-                            <option value="RN">RN</option>	
-                            <option value="RO">RO</option>	
-                            <option value="RR">RR</option>	
-                            <option value="RS">RS</option>	
-                            <option value="SC">SC</option>	
-                            <option value="SE">SE</option>	
-                            <option value="SP">SP</option>	
-                            <option value="TO">TO</option>
-                        </select>
+                        <UFSelect value={state} setValue={setState} required style={{width: "20%"}}/>
                     </div>
 
                     <input type="submit" style={{display: "none"}}/>

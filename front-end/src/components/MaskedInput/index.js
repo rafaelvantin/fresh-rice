@@ -4,11 +4,22 @@ import { useMask } from "@react-input/mask";
 import TextInput from '../TextInput';
 
 const MaskedInput = forwardRef(({
-    maskOptions,
     setUnmaskedValue,
-    invalidMessage,
+    maskOptions,
+    invalidMessage = "Por favor, insira um valor válido",
     ...props
 }) => {
+
+    maskOptions = {
+        showMask: false,
+        separate: false,
+        ...maskOptions,
+        replacement: {
+            d: /\d/,
+            ...maskOptions.replacement
+        }
+    }
+
     const [maskedValue, setMaskedValue] = useState("");
 
     const mask = useMask({

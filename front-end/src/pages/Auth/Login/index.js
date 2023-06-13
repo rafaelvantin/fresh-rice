@@ -53,9 +53,10 @@ const Login = () => {
     <>
         <Header />
         <main className={styles.container}>
-            <h1>Bem-vindo de volta!</h1>
+            <h1>Bem-vindo!</h1>
             <div className={styles.contentBox} style={{width: "30%", padding: "15px 40px"}}>
-                <form className={styles.form} style={{width: "100%"}} onSubmit={handleLogin}>
+
+                <form className={styles.form} style={{width: "100%", marginBottom: "0"}} onSubmit={handleLogin}>
                     <TextInput type="email" placeholder="Email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
 
                     <TextInput type="password" placeholder="Senha" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={8}/>

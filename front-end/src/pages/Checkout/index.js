@@ -5,6 +5,8 @@ import CartContext from "../../context/Cart/CartContext";
 
 import HorizontalProduct from "../../components/HorizontalProduct";
 import TextInput from "../../components/TextInput";
+import MaskedInput from "../../components/MaskedInput";
+import UFSelect from "../../components/UFSelect";
 import Button from "../../components/Button";
 import Header from "../../components/header";
 import OkPurchasePoup from "../../components/OkPurchasePoup";
@@ -39,8 +41,15 @@ const Checkout = () => {
        
     }
 
-    const handleCheckoutOnClick = () => {
-       
+    const handleAddressSubmit = (e) => {
+        e.preventDefault();
+
+        setOnPayment(true);
+    }
+
+    const handlePaymentSubmit = (e) => {
+        e.preventDefault();
+
         if(isEmpty(name) || isEmpty(cardNumber) || isEmpty(cardDate) || isEmpty(cardCVV)){
             alert("Preencha todos os campos");
         }else{
@@ -51,7 +60,7 @@ const Checkout = () => {
     
     const handlePopupResponse = (response) => {
         setPopupVisible(false);
-        navigate('/shop')
+        navigate('/shop');
     }
 
     return (
@@ -69,25 +78,41 @@ const Checkout = () => {
                     </div>
                     {
                         onPayment ? (
-                            <>
-                            <h2>Detalhes do pagamento</h2>
-                            <TextInput placeholder="Nome no cartão" value={name} onChange={(e) => setName(e.target.value)}/>
-                            <TextInput placeholder="Número do cartão" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)}/>
-                            <TextInput placeholder="Validade" value={cardDate} onChange={(e) => setCardDate(e.target.value)}/>
-                            <TextInput placeholder="CVV" value={cardCVV} onChange={(e) => setCardCVV(e.target.value)}/>
-                            <Button onClick={handleCheckoutOnClick} text={"Finalizar comprar"} />
-                            </>
+                            <form onSubmit={handlePaymentSubmit} style={{width: "75%"}}>
+                                <h2>Detalhes do pagamento</h2>
+
+                                <TextInput placeholder="Nome no cartão" name="ccname" value={name} onChange={(e) => setName(e.target.value)} required/>
+
+                                <MaskedInput placeholder="Número do cartão" name="cardNumber" required setUnmaskedValue={setCardNumber} invalidMessage="Por favor, insira um cartão válido" maskOptions={{ mask: 'dddd dddd dddd dddd' }}/>
+
+                                <MaskedInput placeholder="Validade" name="exp-date" required setUnmaskedValue={setCardDate} maskOptions={{ mask: 'dd/dd' }}/>
+
+                                <MaskedInput placeholder="CVV" name="cvv" required setUnmaskedValue={setCardCVV} maskOptions={{ mask: "ddd" }}/>
+
+                                <Button submit text={"Finalizar compra!"} />
+                            </form>
                         ) : (
-                            <>
-                            <h2>Informações de entrega</h2>
-                            <TextInput placeholder="CEP" value={cep} onChange={(e) => setCep(e.target.value)}/>
-                            <TextInput placeholder="Rua" value={rua} onChange={(e) => setRua(e.target.value)}/>
-                            <TextInput placeholder="Número" value={numero} onChange={(e) => setNumero(e.target.value)}/>
-                            <TextInput placeholder="Complemento" value={complemento} onChange={(e) => setComplemento(e.target.value)}/>
-                            <TextInput placeholder="Cidade" value={cidade} onChange={(e) => setCidade(e.target.value)}/>
-                            <TextInput placeholder="UF" value={uf} onChange={(e) => setUF(e.target.value)}/>
-                            <Button onClick={() => setOnPayment(true)} text={"Continue para pagamento"} />
-                            </>
+                            <form onSubmit={handleAddressSubmit} style={{width: "75%"}}>
+                                <h2>Informações de entrega</h2>
+
+                                <MaskedInput placeholder="CEP" required setUnmaskedValue={setCep} maskOptions={{ mask: "ddddd-ddd" }} />
+                                
+                                <div className={styles.rowInput}>
+                                    <TextInput placeholder="Rua" value={rua} onChange={(e) => setRua(e.target.value)} required width="65%"/>
+
+                                    <TextInput type="number" placeholder="Número" value={numero} onChange={(e) => setNumero(e.target.value)} required width="30%"/>
+                                </div>
+
+                                <TextInput placeholder="Complemento" value={complemento} onChange={(e) => setComplemento(e.target.value)}/>
+
+                                <div className={styles.rowInput}>
+                                    <TextInput placeholder="Cidade" value={cidade} onChange={(e) => setCidade(e.target.value)} width="75%" required/>
+
+                                    <UFSelect value={uf} setValue={setUF} required style={{width: "20%"}}/>
+                                </div>
+
+                                <Button submit text={"Continuar para pagamento"} />
+                            </form>
                         )
                     }
                 </div>
