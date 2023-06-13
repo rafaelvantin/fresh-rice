@@ -14,6 +14,7 @@ import Shop from './Shop';
 import Product from './Product';
 import Cart from './Cart';
 import Checkout from './Checkout';
+import Profile from './Profile';
 
 const Router = () => {
 
@@ -42,6 +43,16 @@ const Router = () => {
                 {
                     index: true,
                     element: <Checkout />
+                }
+            ]
+        },
+        {
+            path: '/profile',
+            element: <RouteGuard />,
+            children: [
+                {
+                    index: true,
+                    element: <Profile />
                 }
             ]
         },
