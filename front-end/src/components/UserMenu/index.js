@@ -55,7 +55,7 @@ export default function UserMenu() {
                     <span>Olá, {Auth.user.name}</span>
                 </div>
                 <div className={`${styles.dropdownItem} ${styles.clickable}`} onClick={() => navigate('/profile')}>
-                    <span className="material-symbols-outlined">account_circle</span>
+                    <span className="material-symbols-outlined">person</span>
                     <span>Minha conta</span>
                 </div>
                 <div className={`${styles.dropdownItem} ${styles.clickable}`} onClick={() => navigate('/cart')}>
@@ -69,7 +69,7 @@ export default function UserMenu() {
                 <div className={styles.divider}></div>
                 {Auth.user.type === 'admin' &&
                 (<div className={`${styles.dropdownItem} ${styles.clickable}`} onClick={() => navigate('/admin')}>
-                    <span className="material-symbols-outlined">admin_panel_settings</span>
+                    <span className="material-symbols-outlined">shield_person</span>
                     <span>Administração</span>
                 </div>)}
                 <div className={`${styles.dropdownItem} ${styles.clickable}`} onClick={handleLogout}>

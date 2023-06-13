@@ -10,16 +10,46 @@
 .menu {
     background-color: #003049;
 }
+.menuItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px;
+    text-decoration: none;
+}
 
-.menu span{
+.menuItem:visited {
+    color: #fdfcf6;
+    text-decoration: none;
+}
+
+.menuItem > span {
+    font-size: large;
+    transition: 0.5s;
+    cursor: pointer;
     text-decoration: none;
     color: #fdfcf6;
-    margin-bottom: 10px;
-    transition: 0.5s;
-    margin-left: 10px;
 }
-.menu span:hover{
-    font-size: large;
+
+.menuItem > span:first-of-type {
+    margin-right: 5px;
+}
+
+.menuItem.clickable:hover{
+    font-weight: bold;
+}
+
+.menuItem > .icon {
+    font-size: x-large;
+}
+
+
+.divider {
+    display: block;
+    height: 1px;
+    margin: 10px 0;
+    overflow: hidden;
+    background-color: #e5e5e5;
 }
 
 .burgerButton > button{
