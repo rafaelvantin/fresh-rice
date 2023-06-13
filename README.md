@@ -152,7 +152,6 @@ Verificar se é possível carregar mais produtos além dos 6 que são carregados
 #### Produto Específico
 Verificar se é possível selecionar a quantidade de óculos e adicionar ao carrinho com sucesso.
 Verificar se é exibida uma mensagem de erro caso a quantidade de óculos selecionada seja maior que a quantidade disponível em estoque.
-Verificar se é possível experimentar o óculos através da webcam.
 #### Página Carrinho
 Verificar se é possível prosseguir com o pagamento clicando no botão correspondente.
 Verificar se o preço total está sendo exibido corretamente.

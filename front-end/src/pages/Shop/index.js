@@ -1,4 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+
 import ProductSmall from "../../components/ProductSmall"
 import Header from "../../components/header"
 import products from "../../products.json"
@@ -11,10 +13,18 @@ function valuetext(value) {
     return `${value}°C`;
   }
 const Shop = () => {
+    const [searchParams] = useSearchParams();
+    const [search, setSearch] = useState("");
+
     const [numberPages, setNumberPages] = useState(1);
     const [price, setPrice] =useState([20, 37]);
     const [maxPrice, setMaxPrice] = useState(0);
     const [listArmacoes, setListArmacoes] = useState(new Array(4).fill(true));
+
+    useEffect(() => {
+        setSearch(searchParams.get("search") || "");
+    }, [searchParams]);
+
     useEffect(() => {
         const prices = products.map((product) => product.preco);
         setMaxPrice(Math.max(...prices));
@@ -27,8 +37,10 @@ const Shop = () => {
 
     const currentTableData = useMemo(() => {
         const lastPageIndex = 0 + numberPages*PageSize;
-        const auxProducts = products.filter((product) => product.preco >= price[0] && product.preco <= price[1]);
-        const auxArmacoes = auxProducts.filter((product) => { 
+        
+        const filterByPrice = products.filter((product) => product.preco >= price[0] && product.preco <= price[1]);
+        
+        const filterByArmacao = filterByPrice.filter((product) => { 
             if(listArmacoes[0] && product.armacao === "Metal"){
                 return true;
             }
@@ -43,8 +55,11 @@ const Shop = () => {
             }
             return false;
          })
-        return auxArmacoes.slice(0, lastPageIndex);
-    }, [numberPages, price, listArmacoes]);
+
+        const filterBySearch = filterByArmacao.filter((product) => product.nome.toLowerCase().includes(search.toLowerCase()));
+        
+        return filterBySearch.slice(0, lastPageIndex);
+    }, [numberPages, price, listArmacoes, search]);
 
     
     function handlePagination(){
