@@ -14,6 +14,7 @@ import Shop from './Shop';
 import Product from './Product';
 import Cart from './Cart';
 import Checkout from './Checkout';
+import MyOrders from './MyOrders';
 
 const Router = () => {
 
@@ -70,6 +71,16 @@ const Router = () => {
                 {
                     index: true,
                     element: <PasswordRecovery />
+                }
+            ]
+        },
+        {
+            path: '/user',
+            element: <RouteGuard />,
+            children: [
+                {
+                    path: '/user/orders',
+                    element: <MyOrders />
                 }
             ]
         },

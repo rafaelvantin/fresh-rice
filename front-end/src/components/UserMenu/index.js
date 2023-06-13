@@ -62,7 +62,7 @@ export default function UserMenu() {
                     <span className="material-symbols-outlined">shopping_cart</span>
                     <span>Meu carrinho</span>
                 </div>
-                <div className={`${styles.dropdownItem} ${styles.clickable}`} onClick={() => navigate('/orders')}>
+                <div className={`${styles.dropdownItem} ${styles.clickable}`} onClick={() => navigate('/user/orders')}>
                     <span className="material-symbols-outlined">receipt</span>
                     <span>Meus pedidos</span>
                 </div>
