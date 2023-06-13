@@ -5,6 +5,7 @@ import Admins from '../../admins.json';
 
 import styles from './styles.module.css';
 import ArrowBack from '../../components/ArrowBack';
+import Header from '../../components/header';
 
 const ManageClients = () => {
     const [page, setPage] = useState(1);
@@ -80,6 +81,7 @@ const ManageClients = () => {
 
     return (
       <div className={styles.container}>
+        <Header />
         <ArrowBack />
 
         <h1 className={styles.welcome}>Admins</h1>

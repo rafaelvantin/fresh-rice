@@ -8,6 +8,7 @@ import EditClient from '../../components/EditClient';
 import ArrowBack from '../../components/ArrowBack';
 
 import styles from './styles.module.css';
+import Header from '../../components/header';
 
 const ManageClients = () => {
     const [page, setPage] = useState(1);
@@ -126,6 +127,7 @@ const ManageClients = () => {
 
     return (
       <div className={styles.container}>
+        <Header />
         <ArrowBack />
 
         <h1 className={styles.welcome}>Clientes</h1>

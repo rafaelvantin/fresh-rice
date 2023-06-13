@@ -8,6 +8,7 @@ import EditProduct from '../../components/EditProduct';
 import ArrowBack from '../../components/ArrowBack';
 
 import styles from './styles.module.css';
+import Header from '../../components/header';
 
 const ManageProducts = () => {
     const [page, setPage] = useState(1);
@@ -123,6 +124,7 @@ const ManageProducts = () => {
 
     return (
       <div className={styles.container}>
+        <Header />
         <ArrowBack />
 
         <h1 className={styles.welcome}>Produtos</h1>

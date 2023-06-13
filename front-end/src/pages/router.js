@@ -14,11 +14,8 @@ import Shop from './Shop';
 import Product from './Product';
 import Cart from './Cart';
 import Checkout from './Checkout';
-<<<<<<< HEAD
 import Profile from './Profile';
-=======
 import MyOrders from './MyOrders';
->>>>>>> fcbee5e0d5c0b68779cbfa443f5323ccf3d2682b
 
 const Router = () => {
 

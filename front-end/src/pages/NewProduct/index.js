@@ -5,6 +5,8 @@ import styles from './styles.module.css';
 
 import Button from "../../components/Button";
 import TextInput from "../../components/TextInput";
+import Header from "../../components/header";
+import ArrowBack from "../../components/ArrowBack";
 
 
 const Signup = () => {
@@ -49,6 +51,8 @@ const Signup = () => {
 
     return (
     <>
+        <Header />
+        <ArrowBack />
         <main className={styles.container}>
             <h1>Cadastre um novo produto</h1>
             <div className={styles.signupBox}>
