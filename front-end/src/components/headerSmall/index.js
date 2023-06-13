@@ -68,7 +68,7 @@ function HeaderSmall(){
                 </Link>
 
                 <Link to="/cart" className={`${styles.menuItem} ${styles.clickable}`}>
-                    <span className={`material-symbols-outlined ${styles.icon}`}>shopping_bag</span>
+                    <span className={`material-symbols-outlined ${styles.icon}`}>local_mall</span>
                     <span>Meu Carrinho</span>
                 </Link>
 

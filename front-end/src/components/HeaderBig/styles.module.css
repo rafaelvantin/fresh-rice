@@ -39,6 +39,8 @@ header{
 }
 
 .navItem {
+    display: flex;
+    align-items: center;
     font-size: larger;
     font-weight: 400;
     margin-right: 30px;
@@ -55,6 +57,10 @@ header{
 .navItem:visited {
     color: #fdfcf6;
     text-decoration: none;
+}
+
+.navItem > :nth-child(2) {
+    margin-left: 5px;
 }
 
 .backItens{
