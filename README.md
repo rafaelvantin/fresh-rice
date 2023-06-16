@@ -146,6 +146,8 @@ Para testar as funcionalidades do front-end no milestone 2, foram criados os seu
 
 ## 3. Comments about the code
 
+A funcionalidade específica da nossa aplicação é o filtro de produtos na página de listagem de produtos (/shop).
+
 ## 4. Test plan
 
 ### Usuário
