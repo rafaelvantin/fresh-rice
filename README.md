@@ -174,6 +174,14 @@ Verificar se o preço total está sendo exibido corretamente.
 
 ## 6. Build procedures
 
+#### Front End
+Para rodar o front-end, é necessário ter o Node.js instalado. Após isso, basta rodar os seguintes comandos:
+```
+cd front-end
+npm install
+npm start
+```
+
 ## 7. Problems
 
 ## 8. Comments
