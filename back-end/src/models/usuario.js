@@ -6,11 +6,20 @@ const UserSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
+    email: {
+        // unique: true,
+        type: String,
+        required: true,
+    },
     created_at: {
         type: Date,
         default: Date.now(),
         select: false,
     },
+    admin: {
+        type: Boolean,
+        default: false,
+    }
 });
 
 const User = mongoose.model("User", UserSchema);

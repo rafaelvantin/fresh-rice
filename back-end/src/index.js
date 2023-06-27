@@ -6,6 +6,7 @@ const app = express();
 require("./database/index.js");
 
 require("./controllers/UserController.js")(app);
+require("./controllers/AdminController.js")(app);
 // require("./controllers/AuthController.js")(app);
 // require("./controllers/SecretariaController.js")(app);
 // require("./controllers/DenunciaController.js")(app);
