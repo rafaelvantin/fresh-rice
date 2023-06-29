@@ -1,4 +1,4 @@
-const mongoose = require("../database/index.js");
+const mongoose = require("mongoose");
 
 const ProductSchema = new mongoose.Schema({
     name: {
@@ -35,8 +35,10 @@ const ProductSchema = new mongoose.Schema({
         default: Date.now(),
         select: false,
     }
-});
+}
+);
 
+console.log("mongoose", mongoose.connection.readyState)
 
 const Product = mongoose.model("Product", ProductSchema);
 module.exports = Product;

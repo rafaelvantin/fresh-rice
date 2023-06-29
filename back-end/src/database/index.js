@@ -1,10 +1,13 @@
 const mongoose = require("mongoose");
 
-main().catch(err => console.log(err));
 
-async function main() {
-    await mongoose.connect(`${process.env.MONGO_URL}/mosquito-finder-db`);
-    const db = mongoose.connection;
+const connectDB= async() => {
+    try{    
+
+        await mongoose.connect(`${process.env.MONGO_URL}` );
+
+    }catch(error){
+        console.log(error);
+    }
 }
-
-module.exports = mongoose;
+module.exports = connectDB;

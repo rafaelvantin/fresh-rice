@@ -1,4 +1,4 @@
-const mongoose = require("../database/index.js");
+const mongoose = require("mongoose");
 
 const OrderSchema = new mongoose.Schema({
     user: {
