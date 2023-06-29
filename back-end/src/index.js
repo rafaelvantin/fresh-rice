@@ -9,14 +9,15 @@ app.use(express.json());
 
 //Connect to mongoDB
 connectDB();
-
-//require("./controllers/UserController.js")(app);
-//require("./controllers/AdminController.js")(app);
 const productRouter = require("./controllers/ProductController.js")
+const userRouter = require("./controllers/UserController.js")
+const orderRouter = require("./controllers/OrderController.js")
+const adminRouter = require("./controllers/AdminController.js")
+
+app.use('/user', userRouter);
 app.use('/products', productRouter);
-// require("./controllers/AuthController.js")(app);
-// require("./controllers/SecretariaController.js")(app);
-// require("./controllers/DenunciaController.js")(app);
+app.use('/orders', orderRouter);
+app.use('/admin', adminRouter);
 mongoose.connection.once('open', function() {
     console.log("Connected successfully");
     app.listen(process.env.PORT || 3000, () => {

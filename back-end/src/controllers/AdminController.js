@@ -28,4 +28,4 @@ router.delete("/:id", async (req, res) => {
     return res.send();
 });
 
-module.exports = (app) => app.use("/admin", router);
+module.exports = router;
