@@ -1,3 +1,9 @@
+const fs = require('fs');
+const { promisify } = require('util');
+const unlinkAsync = promisify(fs.unlink);
+
+const upload = require('../config/multer');
+
 const router = require("express").Router();
 const Product = require("../models/product.js");
 
@@ -33,42 +39,56 @@ router.get('/:id', async (request, response) => {
 
 });
 
-router.post('/', async (request, response) => {
-    const { name, price, description, pathImage, stock, color, frameMaterial } = request.body;
+router.post('/', upload.single('file'), async (request, response) => {
+    const { name, price, description, stock, color, frameMaterial } = request.body;
+
+    console.log(request.file);
     
+    const pathImage = request.file ? request.file.path : "";
+
+
     try{
         const product = await Product.create({ 
             "name":name, 
             "price": price,
             description, color, stock, pathImage, frameMaterial}
-        );
-
-        return response.status(201).json(product)
-    }
-    
+            );
+            
+            return response.status(201).json(product)
+        }
+        
     catch(erro){
+        if(pathImage !== "")
+            await unlinkAsync(filepath);
+
         return response.status(400).send({error: 'Error creating new product', msg: erro});
     }
 });
 
-router.put('/:id', async (request, response)=> {
-    const { name, price, description, pathImage, stock, color, frameMaterial } = request.body;
+router.put('/:id', upload.single('file'), async (request, response)=> {
+    const { name, price, description, stock, color, frameMaterial } = request.body;
     
     try{
         const { id } = request.params;
         const product = await Product.find({ _id: id});
+
+        
         
         if(product){
             product[0].name = name ? name : product[0].name;
             product[0].price = price ? price : product[0].price;
             product[0].description = description ? description : product[0].description;
-            product[0].pathImage = pathImage ? pathImage : product[0].pathImage;
             product[0].stock = stock ? stock : product[0].stock;
             product[0].color = color ? color : product[0].color;
             product[0].frameMaterial = frameMaterial ? frameMaterial : product[0].frameMaterial;
             
-            console.log(product[0]);
+            if(request.file){
+                await unlinkAsync(product[0].pathImage);
+                product[0].pathImage = pathImage;
+            }
 
+            console.log(product[0]);
+            
             await product[0].save();
             
             return response.json(product);
