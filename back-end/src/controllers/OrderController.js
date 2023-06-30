@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
     // create a new order
-    const { products, total } = req.body;
+    const { products, total, payment} = req.body;
     try{
         const user = User.findOne({ _id: req.query.id });
         if(user == null){
@@ -37,9 +37,9 @@ router.post("/", async (req, res) => {
             product.stock -= products[i].quantity;
             await product.save();
         }
-       
+        
 
-        const order = await Order.create({ user: req.query.id, products, total });
+        const order = await Order.create({ user: req.query.id, products, total, payment });
         return res.status(201).json(
             {
                 message:"Order created successfully", 

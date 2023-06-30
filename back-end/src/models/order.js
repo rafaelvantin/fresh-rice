@@ -20,7 +20,21 @@ const OrderSchema = new mongoose.Schema({
         default: Date.now(),
         select: false,
     },
-            
+    payment: {
+        name: String,
+        cardNumber: String,
+        expirationDate: String,
+        cvv: String,
+    },
+    deliveryAddress: {
+        street: String,
+        number: String,
+        complement: String,
+        neighborhood: String,
+        city: String,
+        state: String,
+        zipCode: String,
+    }            
 });
 
 const Order = mongoose.model("Order", OrderSchema);
