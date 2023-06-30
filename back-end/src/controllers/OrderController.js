@@ -19,29 +19,25 @@ router.post("/", async (req, res) => {
     // create a new order
     const { products, total } = req.body;
     try{
-        if(products.length === 0){
-            return res.status(400).send({ error: "No products in order" });
-        } 
-        /*const errors = [];
-        products.forEach(async (product) => {
-            const productResult = await Product.findOne({ _id: product.id });
-            if(productResult == null){
-                errors.push("Product not found");
-                return;
-            }
-            if(productResult.stock < product.quantity){
-                errors.push("Product out of stock");
-                return;
-            }
-        });
-        console.log(errors);
-        if(errors.length > 0){
-            return res.status(400).send({ error: errors });
-        }*/
         const user = User.findOne({ _id: req.query.id });
         if(user == null){
             return res.status(400).send({ error: "User not found" });
         }
+        if(products.length === 0){
+            return res.status(400).send({ error: "No products in order" });
+        } 
+        for(let i = 0; i < products.length; i++){
+            const product = await Product.findOne({ _id: products[i].id });
+            if(product == null){
+                return res.status(400).send({ error: "Product not found" });
+            }
+            if(product.stock < products[i].quantity){
+                return res.status(400).send({ error: "Product out of stock" });
+            }
+            product.stock -= products[i].quantity;
+            await product.save();
+        }
+       
 
         const order = await Order.create({ user: req.query.id, products, total });
         return res.status(201).json(
