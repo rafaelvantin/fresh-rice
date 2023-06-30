@@ -1,0 +1,39 @@
+[
+    {
+        "name": "Óculos Rayban",
+        "price": 500,
+        "description": "Óculos de sol Rayban",
+        "pathImage": "rayban.jpg",
+        "stock": 10,
+        "color": "#000",
+        "frameMaterial": "Metal"
+    },
+    {
+        "name": "Óculos Oakley",
+        "price": 600,
+        "description": "Óculos de sol Oakley",
+        "pathImage": "oakley.jpg",
+        "stock": 10,
+        "color": "#fff",
+        "frameMaterial": "Metal"
+    },
+    {
+        "name": "Óculos Mormaii",
+        "price": 400,
+        "description": "Óculos de sol Mormaii",
+        "pathImage": "mormaii.jpg",
+        "stock": 10,
+        "color": "#fff",
+        "frameMaterial": "Metal"
+    },
+    {
+        "name": "Óculos Carrera",
+        "price": 300,
+        "description": "Óculos de sol Carrera",
+        "pathImage": "carrera.jpg",
+        "stock": 10,
+        "color": "#000",
+        "frameMaterial": "Acetato"
+    }
+
+]
