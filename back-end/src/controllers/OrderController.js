@@ -17,9 +17,13 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
     // create a new order
-    const { products, total, payment} = req.body;
+    const { products, total, payment, address} = req.body;
+    console.log(req.body);
+    console.log(req.query.id)
     try{
         const user = User.findOne({ _id: req.query.id });
+        console.log(user);
+
         if(user == null){
             return res.status(400).send({ error: "User not found" });
         }
@@ -39,7 +43,7 @@ router.post("/", async (req, res) => {
         }
         
 
-        const order = await Order.create({ user: req.query.id, products, total, payment });
+        const order = await Order.create({ user: req.query.id, products, total, payment, });
         return res.status(201).json(
             {
                 message:"Order created successfully", 

@@ -1,6 +1,7 @@
 import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom";
-
+import { toast } from "react-toastify";
+import api from "../../services/api";
 import CartContext from "../../context/Cart/CartContext";
 
 import HorizontalProduct from "../../components/HorizontalProduct";
@@ -12,10 +13,11 @@ import Header from "../../components/header";
 import OkPurchasePoup from "../../components/OkPurchasePoup";
 
 import styles from "./styles.module.css"
+import { AuthContext } from "../../context/AuthHandler";
 
 const Checkout = () => {
     const { cartItems, handleCheckout } = useContext(CartContext)
-    
+    const {user} = useContext(AuthContext)
     const [popupVisible, setPopupVisible] = useState(false)
 
     const [cep, setCep] = useState("")
@@ -53,8 +55,43 @@ const Checkout = () => {
         if(isEmpty(name) || isEmpty(cardNumber) || isEmpty(cardDate) || isEmpty(cardCVV)){
             alert("Preencha todos os campos");
         }else{
-            setPopupVisible(true);
-            handleCheckout();
+            toast.promise(
+                api.post(`/orders?id=${user.id}`, {
+                    products: cartItems,
+                    total: cartItems.reduce((total, item) => total + item.price * item.quantity, 0),
+                    payment: {
+                        name,
+                        cardNumber,
+                        cardDate,
+                        cardCVV
+                    },
+                    address: {
+                        cep,    
+                        rua,
+                        numero,
+                        complemento,
+                        cidade,
+                        uf
+                    }
+                }).then((response) => {
+                        setPopupVisible(true);
+                        handleCheckout();
+                    }
+                )
+                .catch((err) => {
+                  throw new Error(err.response.data.error);
+                }), {
+                    pending: "Finalizando compra...",
+                    success: "Compra finalizada com sucesso!",
+                    error: {
+                        render({ data }) {  
+                            return `${data}`;
+    
+                        }
+                    }
+                }
+            )   
+
         }
     }
     
