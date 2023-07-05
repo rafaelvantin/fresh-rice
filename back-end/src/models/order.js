@@ -8,6 +8,8 @@ const OrderSchema = new mongoose.Schema({
         product: {
             type: mongoose.Schema.Types.ObjectId, ref: 'products',
         },
+        pathImage: String,
+        name: String,
         quantity: Number,
         price: Number,
     }],
@@ -18,15 +20,14 @@ const OrderSchema = new mongoose.Schema({
     created_at: {
         type: Date,
         default: Date.now(),
-        select: false,
     },
-    payment: {
+    payment: {  
         name: String,
         cardNumber: String,
         expirationDate: String,
         cvv: String,
     },
-    deliveryAddress: {
+    address: {
         street: String,
         number: String,
         complement: String,

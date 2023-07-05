@@ -37,6 +37,7 @@ const Cart = () => {
                         <div className={styles.subtotal}>
                             <p>Subtotal</p>
                             <p>R${total}</p>
+                            
                         </div>
                         <div className={styles.total}>
                             <p>Total</p>

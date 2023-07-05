@@ -171,6 +171,11 @@ Verificar se o preço total está sendo exibido corretamente.
 
 
 ## 5. Test results
+Os testes devem ser executados sem erros ou problemas técnicos significativos.
+As funcionalidades devem operar de acordo com as especificações fornecidas.
+Mensagens de erro devem ser exibidas quando aplicável, com os textos corretos e informativos.
+O sistema deve fornecer respostas adequadas às ações do usuário e exibir informações corretas.
+Os resultados obtidos devem estar em conformidade com as expectativas dos requisitos de cada funcionalidade testada.
 
 ## 6. Build procedures
 
@@ -181,7 +186,17 @@ cd front-end
 npm install
 npm start
 ```
+#### Back end
+Para rodar o back-end, é necessário ter um conta no mongodb e cadastrar um novo cluster. Por motivos de segurança para quem for revisar por favor entrar em contato com um dos membros do grupo para obter a url com login e senha do mongo. 
+Além do mongo tambem é necessário ter o Node.Js instalado. Após isso isso: 
+```
+cd back-end
+npm install
+npm run serve
+```
 
+Para funcionamento correto tanto o front-end quanto o back-end deve estar rodando simultaneamente. 
 ## 7. Problems
-
+No problems
 ## 8. Comments
+No comments

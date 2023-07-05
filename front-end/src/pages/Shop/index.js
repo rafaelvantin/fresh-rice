@@ -26,7 +26,7 @@ const Shop = () => {
     }, [searchParams]);
 
     useEffect(() => {
-        const prices = products.map((product) => product.preco);
+        const prices = products.map((product) => product.price);
         setMaxPrice(Math.max(...prices));
     },[maxPrice]);
 
@@ -38,25 +38,25 @@ const Shop = () => {
     const currentTableData = useMemo(() => {
         const lastPageIndex = 0 + numberPages*PageSize;
         
-        const filterByPrice = products.filter((product) => product.preco >= price[0] && product.preco <= price[1]);
+        const filterByPrice = products.filter((product) => product.price >= price[0] && product.price <= price[1]);
         
         const filterByArmacao = filterByPrice.filter((product) => { 
-            if(listArmacoes[0] && product.armacao === "Metal"){
+            if(listArmacoes[0] && product.frameMaterial === "Metal"){
                 return true;
             }
-            if(listArmacoes[1] && product.armacao === "Acetato"){
+            if(listArmacoes[1] && product.frameMaterial === "Acetato"){
                 return true;
             }
-            if(listArmacoes[2] && product.armacao === "Plástico"){
+            if(listArmacoes[2] && product.frameMaterial === "Plástico"){
                 return true;
             }
-            if(listArmacoes[3] && product.armacao === "Titânio"){
+            if(listArmacoes[3] && product.frameMaterial === "Titânio"){
                 return true;
             }
             return false;
          })
 
-        const filterBySearch = filterByArmacao.filter((product) => product.nome.toLowerCase().includes(search.toLowerCase()));
+        const filterBySearch = filterByArmacao.filter((product) => product.name.toLowerCase().includes(search.toLowerCase()));
         
         return filterBySearch.slice(0, lastPageIndex);
     }, [numberPages, price, listArmacoes, search]);
@@ -150,9 +150,9 @@ const Shop = () => {
                     return (
                         <ProductSmall
                             key={product.id}
-                            name={product.nome}
-                            image={product.imagem}
-                            price={product.preco}
+                            name={product.name}
+                            image={product.pathImage}
+                            price={product.price}
                             id={product.id}
                          />
                     )

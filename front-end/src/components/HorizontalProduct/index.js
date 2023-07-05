@@ -3,15 +3,15 @@ import QuantityInput from "../QuantityInput";
 import CartContext from "../../context/Cart/CartContext";
 import styles from "./styles.module.css";
 const HorizontalProduct = ({product, maxWidth}) => {
-    const [totalPrice, setTotalPrice] = useState(product.preco * product.quantity);
+    const [totalPrice, setTotalPrice] = useState(product.price * product.quantity);
     const [quantity, setQuantity] = useState(product.quantity);
     const {changeQuantity, removeFromCart  } = useContext(CartContext);
 
     useEffect(() => {
-        setTotalPrice(product.preco * quantity);
-    }, [product.preco, quantity]);
+        setTotalPrice(product.price * quantity);
+    }, [product.price, quantity]);
     function handleChangeQuantityPlus(){
-        if(quantity + 1 <= product.estoque){
+        if(quantity + 1 <= product.stock){
             changeQuantity([product, quantity + 1]);
             setQuantity(quantity + 1);
         }
@@ -31,11 +31,11 @@ const HorizontalProduct = ({product, maxWidth}) => {
     return (
         <div className={styles['horizontal-product']}>
             <div className={styles['horizontal-product__image']}>
-                <img src={product.imagem} alt={product.nome} />
+                <img src={product.pathImage} alt={product.name} />
             </div>
             <div className={styles['horizontal-product__info']}>
-                <h1>{product.nome}</h1>
-                <p>Material: {product.armacao}</p>
+                <h1>{product.name}</h1>
+                <p>Material: {product.frameMaterial}</p>
 
                 <div className={styles['horizontal-product__info__quantity']}>
                     <p>Quantidade</p>

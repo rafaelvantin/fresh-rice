@@ -4,21 +4,28 @@ const User = require("../models/usuario.js");
 
 router.get("/", async (req, res) => {
     // return all admin users from database 
-    const users = await User.find({ admin: true });
-    return res.json(users);
+    const {page = 1, limit = 10, name = ""} = req.query;
+    const users = await User.find({ admin: true, name: { $regex: name, $options: "i" } }).limit(limit * 1).skip((page - 1) * limit);
+    const count = await User.countDocuments({ admin: true });
+    return res.json({
+        totalPages: Math.ceil(count / limit),
+        currentPage: page,
+        users
+    });
 });
+
 
 router.post("/", async (req, res) => {
     // create a new admin user
-    const { name, email } = req.body;
-    const user = await User.create({ name, email, admin: true });
+    const { name, email, password } = req.body;
+    const user = await User.create({ name, email, password, admin: true });
     return res.json(user);
 });
 
 router.put("/:id", async (req, res) => {
     // update an admin user
-    const { name, email } = req.body;
-    const user = await User.findByIdAndUpdate(req.params.id, { name, email }, { new: true });
+    const { name, email, birthdate, phone, cpf } = req.body;
+    const user = await User.findByIdAndUpdate(req.params.id, { name, email, birthdate, phone, cpf }, { new: true });
     return res.json(user);
 });
 
