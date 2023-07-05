@@ -15,6 +15,18 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    birthdate: {
+        type: Date,
+        required: true,
+    },
+    cpf: {
+        type: String,
+        required: true,
+    },
+    phone: {
+        type: String,
+        required: true,
+    },
     created_at: {
         type: Date,
         default: Date.now(),
