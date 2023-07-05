@@ -181,7 +181,16 @@ cd front-end
 npm install
 npm start
 ```
+#### Back end
+Para rodar o back-end, é necessário ter um conta no mongodb e cadastrar um novo cluster. Por motivos de segurança para quem for revisar por favor entrar em contato com um dos membros do grupo para obter a url com login e senha do mongo. 
+Além do mongo tambem é necessário ter o Node.Js instalado. Após isso isso: 
+```
+cd back-end
+npm install
+npm run serve
+```
 
+Para funcionamento correto tanto o front-end quanto o back-end deve estar rodando simultaneamente. 
 ## 7. Problems
 
 ## 8. Comments
