@@ -171,6 +171,11 @@ Verificar se o preço total está sendo exibido corretamente.
 
 
 ## 5. Test results
+Os testes devem ser executados sem erros ou problemas técnicos significativos.
+As funcionalidades devem operar de acordo com as especificações fornecidas.
+Mensagens de erro devem ser exibidas quando aplicável, com os textos corretos e informativos.
+O sistema deve fornecer respostas adequadas às ações do usuário e exibir informações corretas.
+Os resultados obtidos devem estar em conformidade com as expectativas dos requisitos de cada funcionalidade testada.
 
 ## 6. Build procedures
 
