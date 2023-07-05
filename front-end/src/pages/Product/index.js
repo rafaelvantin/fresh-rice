@@ -15,12 +15,12 @@ const Product = () => {
 
     const currentProduct = useMemo(() => {
         const product = products.find((product) => product.id === id);
-        setTotalPrice(product.preco);
+        setTotalPrice(product.price);
         return product;
     }, [id]);
 
     function handleChangeQuantityPlus(){
-        if(quantity + 1 <= currentProduct.estoque){
+        if(quantity + 1 <= currentProduct.stock){
             setQuantity(quantity + 1);
         }
     }
@@ -31,8 +31,8 @@ const Product = () => {
         }
     }
     useEffect(() => {
-        setTotalPrice(currentProduct.preco * quantity);
-    },[currentProduct.preco, quantity]);
+        setTotalPrice(currentProduct.price * quantity);
+    },[currentProduct.price, quantity]);
 
 
     const { addToCart } =
@@ -48,19 +48,19 @@ const Product = () => {
         <>
         <Header />
         <main className={styles.container}>
-            <img src={currentProduct.imagem} alt={currentProduct.nome} />
+            <img src={currentProduct.pathImage} alt={currentProduct.name} />
             <div className={styles.product}>
                 <div className={styles.boxTitle}>
-                    <h2>{currentProduct.nome}</h2>
-                    <p>{currentProduct.preco}</p>
+                    <h2>{currentProduct.name}</h2>
+                    <p>{currentProduct.price}</p>
                 </div>
-                <p>{currentProduct.descricao}</p>
+                <p>{currentProduct.description}</p>
                 <div className={styles.color}>
                     <p>Cor</p>
-                    <div className={styles.circle} style={{backgroundColor: `${currentProduct.cor}`}}/>                   
+                    <div className={styles.circle} style={{backgroundColor: `${currentProduct.color}`}}/>                   
                 </div>
-                <p><strong>Material </strong> {currentProduct.armacao}</p>
-                <p>Estoque {currentProduct.estoque}</p>
+                <p><strong>Material </strong> {currentProduct.frameMaterial}</p>
+                <p>Estoque {currentProduct.stock}</p>
                 <div style={{display: "flex"}}>
                     <Button text={`Adicionar ao carrinho R$${totalPrice.toFixed(2)}`} width="60%" onClick={handleAddToCart}/>
                     <QuantityInput value={quantity} onChangePlus={handleChangeQuantityPlus} onChangeMinus={handleChangeQuantityMinus}/>

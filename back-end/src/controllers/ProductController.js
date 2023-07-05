@@ -39,13 +39,11 @@ router.get('/:id', async (request, response) => {
 
 });
 
-router.post('/', upload.single('file'), async (request, response) => {
+router.post('/',upload.single('file'), async (request, response) => {
     const { name, price, description, stock, color, frameMaterial } = request.body;
-
-    console.log(request.file);
-    
     const pathImage = request.file ? request.file.path : "";
 
+    //console.log(request.file);
 
     try{
         const product = await Product.create({ 

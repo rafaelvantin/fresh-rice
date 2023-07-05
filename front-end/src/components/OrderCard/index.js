@@ -1,22 +1,24 @@
 import styles from './styles.module.css'
-import products from "../../products.json"
 
 const OrderCard = ({order}) => {
-
+    const date = new Date(order.created_at)
+    const day = date.getDate()
+    const month = date.getMonth() + 1
+    const year = date.getFullYear()
+    const formattedDate = `${day}/${month}/${year}`
     return (
         <div className={styles.container}>
-            <h1>Pedido {order.id}</h1>
+            
+            <h1>Pedido {formattedDate}</h1>
             <div className={styles.products}>
                 {order.products.map(product => {
-                    const productData = products.find(p => p.id === product.id)
-                    console.log(productData)
                     return (
                         <div className={styles.product}>
-                            <img src={productData.imagem} alt={productData.nome} />
+                            <img src={product.pathImage} alt={product.name} />
                             <div className={styles.productInfo}>
-                                <h2>{productData.nome}</h2>
+                                <h2>{product.name}</h2>
                                 <span>Quantidade: {product.quantity}</span>
-                                <span>Total pago: R$ {(product.quantity * productData.preco).toFixed(2)}</span>
+                                <span>Total pago: R$ {(product.quantity * product.price).toFixed(2)}</span>
                             </div>
                         </div>
                     )

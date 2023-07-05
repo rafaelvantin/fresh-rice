@@ -53,7 +53,7 @@ const ManageProducts = () => {
             return;
         }
 
-        const filteredProducts = Products.filter((product) => product.nome.toLowerCase().includes(search.toLowerCase()));
+        const filteredProducts = Products.filter((product) => product.name.toLowerCase().includes(search.toLowerCase()));
         setProducts(filteredProducts.slice((page-1) * 10, page * 10));
     }
 
@@ -92,7 +92,7 @@ const ManageProducts = () => {
             return (
                 <tr className={styles.tr} key={product.id}>
                     <td className={styles.td}>{product.id}</td>
-                    <td className={styles.td_name}>{product.nome}</td>
+                    <td className={styles.td_name}>{product.n}</td>
                     <td className={styles.td}>R${product.preco.toFixed(2)}</td>
                     <td className={styles.td}>{product.estoque}</td>
                     <td className={styles.td}>

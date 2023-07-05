@@ -62,16 +62,16 @@ const Checkout = () => {
                     payment: {
                         name,
                         cardNumber,
-                        cardDate,
-                        cardCVV
+                        expirationDate: cardDate,
+                        cvv: cardCVV
                     },
                     address: {
-                        cep,    
-                        rua,
-                        numero,
-                        complemento,
-                        cidade,
-                        uf
+                        zipCode: cep,    
+                        street: rua,
+                        number: numero,
+                        complement: complemento,
+                        city: cidade,
+                        state: uf
                     }
                 }).then((response) => {
                         setPopupVisible(true);

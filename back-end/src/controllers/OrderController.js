@@ -18,8 +18,6 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
     // create a new order
     const { products, total, payment, address} = req.body;
-    console.log(req.body);
-    console.log(req.query.id)
     try{
         const user = User.findOne({ _id: req.query.id });
         console.log(user);
@@ -41,16 +39,15 @@ router.post("/", async (req, res) => {
             product.stock -= products[i].quantity;
             await product.save();
         }
-        
-
-        const order = await Order.create({ user: req.query.id, products, total, payment, });
+        console.log("Cadastrando");
+        console.log(products, total, payment, address);
+        const order = await Order.create({ user: req.query.id, products, total, payment, address});
         return res.status(201).json(
             {
                 message:"Order created successfully", 
                 order: order
             });
     }catch(erro){
-        console.log(erro);
         return res.status(400).send({error: 'Error creating new order', msg: erro});
     }
     

@@ -23,7 +23,7 @@ import {
       0
     );
     let total = cartItems
-      .reduce((total, product) => total + product.preco * product.quantity, 0)
+      .reduce((total, product) => total + product.price * product.quantity, 0)
       .toFixed(2);
     return { itemCount, total };
   };
