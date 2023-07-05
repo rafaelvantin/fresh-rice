@@ -192,5 +192,6 @@ npm run serve
 
 Para funcionamento correto tanto o front-end quanto o back-end deve estar rodando simultaneamente. 
 ## 7. Problems
-
+No problems
 ## 8. Comments
+No comments
