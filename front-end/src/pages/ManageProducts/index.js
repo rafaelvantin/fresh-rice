@@ -91,10 +91,9 @@ const ManageProducts = () => {
         return products.map((product) => {
             return (
                 <tr className={styles.tr} key={product.id}>
-                    <td className={styles.td}>{product.id}</td>
-                    <td className={styles.td_name}>{product.n}</td>
-                    <td className={styles.td}>R${product.preco.toFixed(2)}</td>
-                    <td className={styles.td}>{product.estoque}</td>
+                    <td className={styles.td_name}>{product.name}</td>
+                    <td className={styles.td}>R${product.price}</td>
+                    <td className={styles.td}>{product.stock}</td>
                     <td className={styles.td}>
                         <div className={styles.operationsContainer}>
                             <i className={`material-symbols-outlined ${styles.icon}`} onClick={() => openEditPopup(product)}>edit_square</i>
@@ -139,10 +138,9 @@ const ManageProducts = () => {
             <table>
                 <thead>
                     <tr className={styles.thead}>
-                        <td className={styles.th}>ID</td>
-                        <td className={styles.th_name}>Nome</td>
+                        <td className={styles.th_long}>Nome</td>
                         <td className={styles.th}>Preço</td>
-                        <td className={styles.th}>Vendidos</td>
+                        <td className={styles.th}>Estoque</td>
                         <td className={styles.th}>Editar</td>
                     </tr>
                 </thead>
