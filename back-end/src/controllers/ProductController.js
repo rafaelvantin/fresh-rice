@@ -140,7 +140,12 @@ router.delete('/:id', async (request, response)=> {
         console.log(product);
 
         if(product[0]){
+            if(product[0].pathImage !== ""){
+                await unlinkAsync(`public/${product[0].pathImage}`);
+            }
+
             await Product.deleteOne({ _id: id});
+
 
             return response.json({message: 'Product deleted'});
         }else{

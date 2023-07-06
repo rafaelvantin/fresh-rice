@@ -14,7 +14,7 @@ const OrderCard = ({order}) => {
                 {order.products.map(product => {
                     return (
                         <div className={styles.product}>
-                            <img src={product.pathImage} alt={product.name} />
+                            <img src={`http://localhost:3333/${product.pathImage}`} alt={product.name} />
                             <div className={styles.productInfo}>
                                 <h2>{product.name}</h2>
                                 <span>Quantidade: {product.quantity}</span>

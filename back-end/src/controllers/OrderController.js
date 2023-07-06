@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
     }
 
     // return all orders from a user
-    const user = User.findById(req.session.user.id);
+    const user = await User.findOne({_id: req.session.user.id});
     if(user == null){
         return res.status(400).send({ error: "User not found" });
     }
@@ -27,9 +27,10 @@ router.post("/", async (req, res) => {
     // create a new order
     const { products, total, payment, address} = req.body;
 
+
     console.log(products, total, payment, address);
     try{
-        const user = User.findById(req.session.user.id);
+        const user = await User.findOne({_id: req.session.user.id});
 
         if(user == null){
             return res.status(400).send({ error: "User not found" });
@@ -49,7 +50,6 @@ router.post("/", async (req, res) => {
             await product.save();
         }
         console.log("Cadastrando");
-        console.log(products, total, payment, address);
         const order = await Order.create({ user: user._id, products, total, payment, address});
         return res.status(201).json(
             {
