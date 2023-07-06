@@ -43,7 +43,6 @@ const Login = () => {
 
     // Redirect to next page when user gets authenticated
     useEffect(() => {
-        console.log(Auth.isAuthenticated + " " + next);
         if (Auth.isAuthenticated) {
             navigate(next);
         }

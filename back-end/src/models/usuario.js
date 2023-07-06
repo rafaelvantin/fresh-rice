@@ -7,11 +7,11 @@ const UserSchema = new mongoose.Schema({
         trim: true,
     },
     email: {
-        // unique: true,
+        unique: true,
         type: String,
         required: true,
     },
-    password: {
+    hash: {
         type: String,
         required: true,
     },
@@ -22,10 +22,37 @@ const UserSchema = new mongoose.Schema({
     cpf: {
         type: String,
         required: true,
+        unique: true,
     },
-    phone: {
-        type: String,
-        required: true,
+    address: {
+        cep: {
+            type: String,
+            required: true,
+        },
+        street: {
+            type: String,
+            required: true,
+        },
+        number: {
+            type: Number,
+            required: true,
+        },
+        complement: {
+            type: String,
+            required: false,
+        },
+        neighborhood: {
+            type: String,
+            required: true,
+        },
+        city: {
+            type: String,
+            required: true,
+        },
+        uf: {
+            type: String,
+            required: true,
+        },
     },
     created_at: {
         type: Date,

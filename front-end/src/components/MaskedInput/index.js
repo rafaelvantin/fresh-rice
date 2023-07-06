@@ -1,10 +1,11 @@
-import { useState, forwardRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useMask } from "@react-input/mask";
 
 import TextInput from '../TextInput';
 
-const MaskedInput = forwardRef(({
+const MaskedInput = ({
     setUnmaskedValue,
+    getSetMaskedValue = () => {},
     maskOptions,
     invalidMessage = "Por favor, insira um valor válido",
     ...props
@@ -36,6 +37,10 @@ const MaskedInput = forwardRef(({
         }
     });
 
+    useEffect(() => {
+        getSetMaskedValue({ setMaskedValue });
+    }, [getSetMaskedValue]);
+
     return <TextInput 
                 {...props}
                 ref={mask}
@@ -43,6 +48,6 @@ const MaskedInput = forwardRef(({
                 value={maskedValue}
             />  
 
-});
+};
 
 export default MaskedInput;

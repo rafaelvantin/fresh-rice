@@ -14,13 +14,13 @@ router.get("/", async (req, res) => {
     });
 });
 
-
-router.post("/", async (req, res) => {
+// AS USER CREATION IS DONE THROUGH AUTHENTICATION, THIS ROUTE SHOULD NOT EXIST
+/*router.post("/", async (req, res) => {
     // create a new admin user
     const { name, email, password } = req.body;
     const user = await User.create({ name, email, password, admin: true });
     return res.json(user);
-});
+});*/
 
 router.put("/:id", async (req, res) => {
     // update an admin user

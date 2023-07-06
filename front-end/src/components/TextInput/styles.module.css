@@ -9,6 +9,10 @@
     /*background-color: transparent;*/
 }
 
+.textbox:disabled {
+    background-color: #F0F0F0;
+}
+
 .textbox::placeholder {
     color: #A9ABBD;
 }

@@ -1,133 +1,163 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import { AuthContext } from "../../context/AuthHandler";
+import { toast } from "react-toastify";
 
 import Header from "../../components/header";
 import TextInput from "../../components/TextInput";
 import Button from "../../components/Button";
+import MaskedInput from "../../components/MaskedInput";
+import UFSelect from "../../components/UFSelect";
 
 import styles from "./styles.module.css"
 
-const Profile = () => {
-  const Auth = useContext(AuthContext);
+const Profile = () => {  
+    useEffect(() => {
+        document.title = "Fresh Rice - Perfil"
+    }, []);
+    
+    const Auth = useContext(AuthContext);
 
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [cpf, setCpf] = useState("");
-  const [birthdate, setBirthdate] = useState("");
-  const [phone, setPhone] = useState("");
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [birthdate, setBirthdate] = useState("");
+    const [cpf, setCpf] = useState("");
+    const [cep, setCep] = useState("");
+    const [street, setStreet] = useState("");
+    const [number, setNumber] = useState("");
+    const [complement, setComplement] = useState("");
+    const [neighborhood, setNeighborhood] = useState("");
+    const [city, setCity] = useState("");
+    const [uf, setUf] = useState("UF");
 
-  const [cep, setCep] = useState("");
-  const [rua, setRua] = useState("");
-  const [numero, setNumero] = useState("");
-  const [complemento, setComplemento] = useState("");
-  const [bairro, setBairro] = useState("");
-  const [cidade, setCidade] = useState("");
-  const [estado, setEstado] = useState("");
+    let setMaskedCep;
 
-  useEffect(() => {
+    const forms = [
+        useRef(),
+        useRef(),
+    ];
 
-    const {user} = Auth;
-    const { id } = user;
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
-    // SEARCH USER BY ID AND SAVE IN CLIENT 
-      
-    // setNome(client.nome);
-    // setEmail(client.email);
-    // setCpf(client.cpf);
-    // setBirthdate(client.birthdate);
-    // setPhone(client.phone);
+        for(const form of forms) {
+            if(!form.current?.reportValidity()) {
+                return;
+            }
+        }
 
-    // setCep(client.address.cep);
-    // setRua(client.address.rua);
-    // setNumero(client.address.numero);
-    // setComplemento(client.address.complemento);
-    // setBairro(client.address.bairro);
-    // setCidade(client.address.cidade);
-    // setEstado(client.address.estado);
+        handleUpdate();
+    };
 
-  }, []);
+    const populateFields = (user) => {
+        console.log(user);
+        setName(user.name);
+        setEmail(user.email);
+        setStreet(user.address.street);
+        setNumber(user.address.number);
+        setComplement(user.address.complement);
+        setNeighborhood(user.address.neighborhood);
+        setCity(user.address.city);
+        setUf(user.address.uf);
 
-  const handleSalvar = async (e) => {
-    e.preventDefault();
-  };
-  
+        setCpf(`${user.cpf.slice(0, 3)}.${user.cpf.slice(3, 6)}.${user.cpf.slice(6, 9)}-${user.cpf.slice(9, 11)}`);
 
-  useEffect(() => {
-    document.title = "Fresh Rice - Perfil"
-  }, []);
+        setCep(user.address.cep);
+        setMaskedCep(`${user.address.cep.slice(0, 5)}-${user.address.cep.slice(5, 8)}`);
 
-  return (
-    <>
-    <Header />
-    <div className={styles.container}>
-      <h1 className={styles.title}>Seu perfil</h1>
-        <form className={styles.signupForm}>
-            <TextInput type="text" placeholder="Digite seu nome completo" name="nome" value={nome} onChange={(e) => setNome(e.target.value)} required={true}/>
+        // Convert birthdate to yyyy-mm-dd format
+        setBirthdate(user.birthdate.split("T")[0]);
+    };
 
-            <TextInput type="email" placeholder="Digite seu email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required={true}/>
+    // Fetch user data on initial render
+    useEffect(() => {
 
-            <TextInput type="text" placeholder="Digite seu CPF" name="cpf" value={cpf} onChange={(e) => setCpf(e.target.value)} required={true}/>
+        const fetchPromise = Auth.getUserDetails().then(populateFields);
 
-            <TextInput type="date" placeholder="Digite sua data de nascimento" name="dataNascimento" value={birthdate} onChange={(e) => setBirthdate(e.target.value)} required={true}/>
-        </form>
+        toast.promise(fetchPromise, {
+            pending: "Carregando dados...",
+            success: "Dados carregados!",
+            error: "Não foi possível carregar os dados."
+        });
+    }, []);
 
-        <h2>Endereço</h2>
+    const handleUpdate = async () => {
+        const userData = {
+            name,
+            birthdate,
+            address: {
+                cep,
+                street,
+                number,
+                complement,
+                neighborhood,
+                city,
+                uf
+            }
+        };
 
-        <form className={styles.signupForm}>
-            <TextInput type="text" placeholder="Digite seu CEP" name="cep" value={cep}onChange={(e) => setCep(e.target.value)} required={true}/>
+        const updatePromise = Auth.updateUser(userData).then(populateFields);
 
-            <div className={styles.rowInput}>
-                <TextInput type="text" placeholder="Digite sua rua" name="rua" value={rua} onChange={(e) => setRua(e.target.value)} required={true} width="65%"/>
+        toast.promise(updatePromise, {
+            pending: "Atualizando dados...",
+            success: "Dados atualizados!",
+            error: "Não foi possível atualizar os dados."
+        });
+    };
 
-                <TextInput type="number" placeholder="Número" name="numero" value={numero} onChange={(e) => setNumero(e.target.value)} required={true} width="30%"/>
-            </div>
+    return (
+        <>
+        <Header />
+        <main className={styles.container}>
+            <h1>Meu Perfil</h1>
+            <div className={styles.contentBox}>
 
-            <TextInput type="text" placeholder="Digite seu complemento" name="complemento" value={complemento} onChange={(e) => setComplemento(e.target.value)} required={false}/>
+                <h2>Dados Pessoais</h2>
+                
+                <form className={styles.form} ref={forms[0]} onSubmit={handleSubmit}>
+                    <TextInput type="text" placeholder="Digite seu nome completo" name="nome" value={name} onChange={(e) => setName(e.target.value)} required/>
 
-            <TextInput type="text" placeholder="Digite seu bairro" name="bairro" value={bairro} onChange={(e) => setBairro(e.target.value)} required={true}/>
+                    <TextInput type="email" placeholder="Digite seu email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required disabled/>
 
-            <div className={styles.rowInput}>
-                <TextInput type="text" placeholder="Digite sua cidade" name="cidade" value={cidade} onChange={(e) => setCidade(e.target.value)} required={true} width="75%"/>
+                    <TextInput type="text" placeholder="Digite seu CPF" name="cpf" required disabled value={cpf}/>
 
-                <select className={styles.formInput} name="estado" id="estado" style={{width: "20%"}}>
-                    <option value="" disabled selected hidden>UF</option>
-                    <option value="AC">AC</option>
-                    <option value="AL">AL</option>
-                    <option value="AM">AM</option>	
-                    <option value="AP">AP</option>	
-                    <option value="BA">BA</option>	
-                    <option value="CE">CE</option>	
-                    <option value="DF">DF</option>	
-                    <option value="ES">ES</option>	
-                    <option value="GO">GO</option>	
-                    <option value="MA">MA</option>	
-                    <option value="MG">MG</option>	
-                    <option value="MS">MS</option>	
-                    <option value="MT">MT</option>	
-                    <option value="PA">PA</option>	
-                    <option value="PB">PB</option>	
-                    <option value="PE">PE</option>	
-                    <option value="PI">PI</option>	
-                    <option value="PR">PR</option>	
-                    <option value="RJ">RJ</option>	
-                    <option value="RN">RN</option>	
-                    <option value="RO">RO</option>	
-                    <option value="RR">RR</option>	
-                    <option value="RS">RS</option>	
-                    <option value="SC">SC</option>	
-                    <option value="SE">SE</option>	
-                    <option value="SP">SP</option>	
-                    <option value="TO">TO</option>
-                </select>
-            </div>
-        </form>
+                    <TextInput type="date" placeholder="Digite sua data de nascimento" name="dataNascimento" value={birthdate} onChange={(e) => setBirthdate(e.target.value)} required/>
 
-        <div className={styles.btnContainer} style={{marginBottom: 0}}>
-            <Button text="Salvar alterações" onClick={() => handleSalvar()}/>
-        </div>
-    </div>
-    </>
-  );
+                    <input type="submit" style={{display: "none"}}/>
+                </form>
+
+                <h2>Endereço</h2>
+
+                <form className={styles.form} ref={forms[1]} onSubmit={handleSubmit}>
+
+                    <MaskedInput type="text" placeholder="Digite seu CEP" name="cep" required invalidMessage="Por favor, digite um CEP válido." setUnmaskedValue={setCep} maskOptions={{ mask: "ddddd-ddd" }} getSetMaskedValue={({setMaskedValue}) => {setMaskedCep=setMaskedValue}}/>
+
+                    <div className={styles.rowInput}>
+                        <TextInput type="text" placeholder="Digite sua rua" name="rua" value={street} onChange={(e) => setStreet(e.target.value)} required width="65%"/>
+
+                        <TextInput type="number" placeholder="Número" name="numero" value={number} onChange={(e) => setNumber(e.target.value)} required width="30%"/>
+                    </div>
+
+                    <TextInput type="text" placeholder="Digite seu complemento" name="complemento" value={complement} onChange={(e) => setComplement(e.target.value)} required={false}/>
+
+                    <TextInput type="text" placeholder="Digite seu bairro" name="bairro" value={neighborhood} onChange={(e) => setNeighborhood(e.target.value)} required/>
+
+                    <div className={styles.rowInput}>
+                        <TextInput type="text" placeholder="Digite sua cidade" name="cidade" value={city} onChange={(e) => setCity(e.target.value)} required width="75%"/>
+
+                        <UFSelect value={uf} setValue={setUf} required style={{width: "20%"}}/>
+                    </div>
+
+                    <input type="submit" style={{display: "none"}}/>
+                </form>
+
+                <div className={styles.form} style={{marginBottom: 0}}>
+                    <Button text="Salvar alterações" onClick={handleSubmit}/>
+                </div>
+
+              </div>
+          </main>
+      </>
+    );
 }
 
 export default Profile;
