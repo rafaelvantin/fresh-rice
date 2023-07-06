@@ -98,8 +98,10 @@ router.put('/:id', upload.single('file'), async (request, response)=> {
             product[0].frameMaterial = frameMaterial ? frameMaterial : product[0].frameMaterial;
             
             if(request.file){
-                await unlinkAsync(`public/${product[0].pathImage}`);
-                product[0].pathImage = filename;
+                if(product[0].pathImage !== "")
+                    await unlinkAsync(`public/${product[0].pathImage}`);
+                
+                    product[0].pathImage = filename;
             }
 
 
