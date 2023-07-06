@@ -55,6 +55,8 @@ const Checkout = () => {
         if(isEmpty(name) || isEmpty(cardNumber) || isEmpty(cardDate) || isEmpty(cardCVV)){
             alert("Preencha todos os campos");
         }else{
+            console.log(cartItems);
+
             toast.promise(
                 api.post(`/orders?id=${user.id}`, {
                     products: cartItems,

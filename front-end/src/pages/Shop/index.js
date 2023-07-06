@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import api from '../../services/api';
 
 import ProductSmall from "../../components/ProductSmall"
 import Header from "../../components/header"
@@ -15,19 +16,25 @@ function valuetext(value) {
 const Shop = () => {
     const [searchParams] = useSearchParams();
     const [search, setSearch] = useState("");
+    const [products, setProducts] = useState([]);
 
     const [numberPages, setNumberPages] = useState(1);
-    const [price, setPrice] =useState([20, 37]);
-    const [maxPrice, setMaxPrice] = useState(0);
+    const [price, setPrice] =useState([0, 100]);
+    const [maxPrice, setMaxPrice] = useState(1000);
     const [listArmacoes, setListArmacoes] = useState(new Array(4).fill(true));
+
+    useEffect(() => {
+        handleFiltrar();
+    }, []);
 
     useEffect(() => {
         setSearch(searchParams.get("search") || "");
     }, [searchParams]);
 
     useEffect(() => {
-        const prices = products.map((product) => product.price);
-        setMaxPrice(Math.max(...prices));
+        // const prices = products.map((product) => product.price);
+        // setMaxPrice(Math.max(...prices));
+        setPrice([0, 50]);
     },[maxPrice]);
 
     const handleChangePrice = (event, newValue) => {
@@ -35,35 +42,97 @@ const Shop = () => {
     };
     
 
-    const currentTableData = useMemo(() => {
-        const lastPageIndex = 0 + numberPages*PageSize;
-        
-        const filterByPrice = products.filter((product) => product.price >= price[0] && product.price <= price[1]);
-        
-        const filterByArmacao = filterByPrice.filter((product) => { 
-            if(listArmacoes[0] && product.frameMaterial === "Metal"){
-                return true;
-            }
-            if(listArmacoes[1] && product.frameMaterial === "Acetato"){
-                return true;
-            }
-            if(listArmacoes[2] && product.frameMaterial === "Plástico"){
-                return true;
-            }
-            if(listArmacoes[3] && product.frameMaterial === "Titânio"){
-                return true;
-            }
-            return false;
-         })
+    const handleFiltrar = async () => {
+        try{
+   
+            let strQuery = `/products?limit=${numberPages*10}&name=${search}&minPrice=${price[0]}&maxPrice=${price[1]}`;
 
-        const filterBySearch = filterByArmacao.filter((product) => product.name.toLowerCase().includes(search.toLowerCase()));
-        
-        return filterBySearch.slice(0, lastPageIndex);
-    }, [numberPages, price, listArmacoes, search]);
+            strQuery = strQuery + "&frameMaterial=";
 
+            const nomeArmacoes = ['Metal', 'Acetato', 'Plástico', 'Titânio']
+
+            // Add nome das armacoes na query se o checkbox estiver marcado, adicione no formato nomeArmacoes[i]|nomeArmacoes[i+1]...
+            let flagAdded = false;
+            nomeArmacoes.forEach((nome, index) => {
+                if(listArmacoes[index]){
+                    if(flagAdded){
+                        strQuery = strQuery + "|";
+                    }
+
+                    strQuery = strQuery + nome;
+
+                    flagAdded = true;
+                }
+            });
+
+            if(flagAdded === false){
+                strQuery = strQuery + "NENHUMA";
+            }
+
+            console.log(strQuery);
+                    
+
+            console.log(await api.get(strQuery));
+
+            const { data } = await api.get(strQuery);
+
+            setProducts(data);
+        }catch(err){
+            console.log(err);
+        }
+    }
+
+    useEffect(() => {
+        handleFiltrar();
+    }, [numberPages]);
+
+    // const currentTableData = useMemo(() => {
+    //     const lastPageIndex = 0 + numberPages*PageSize;
+        
+    //     const filterByPrice = products.filter((product) => product.price >= price[0] && product.price <= price[1]);
+        
+    //     const filterByArmacao = filterByPrice.filter((product) => { 
+    //         if(listArmacoes[0] && product.frameMaterial === "Metal"){
+    //             return true;
+    //         }
+    //         if(listArmacoes[1] && product.frameMaterial === "Acetato"){
+    //             return true;
+    //         }
+    //         if(listArmacoes[2] && product.frameMaterial === "Plástico"){
+    //             return true;
+    //         }
+    //         if(listArmacoes[3] && product.frameMaterial === "Titânio"){
+    //             return true;
+    //         }
+    //         return false;
+    //      })
+
+    //     const filterBySearch = filterByArmacao.filter((product) => product.name.toLowerCase().includes(search.toLowerCase()));
+        
+    //     return filterBySearch.slice(0, lastPageIndex);
+    // }, [numberPages, price, listArmacoes, search]);
+
+    const loadProducts = () => {
+
+        if(products.length === 0){
+            return <div>Nenhum produto encontrado</div>
+        }
+
+        return products.map((product) => {
+            return (
+                <ProductSmall
+                    key={product._id}
+                    name={product.name}
+                    image={product.pathImage}
+                    price={product.price}
+                    id={product._id}
+                 />
+            )
+        })
+    }
     
     function handlePagination(){
-        setNumberPages(numberPages +1);
+        setNumberPages(numberPages+1);
     }
 
     function handleChangeCheckebox(index){
@@ -140,24 +209,16 @@ const Shop = () => {
                         max={maxPrice}
                     />
                     </div>
+                    <div onClick={handleFiltrar}>
+                        Filtrar
+                    </div>
 
                 </div>
             </div>
             <div className={styles.box}>
             <div className={styles.boxProducts}>
-            {
-                currentTableData.map((product) => {
-                    return (
-                        <ProductSmall
-                            key={product.id}
-                            name={product.name}
-                            image={product.pathImage}
-                            price={product.price}
-                            id={product.id}
-                         />
-                    )
-                })
-            }
+            
+            {loadProducts()}
 
             </div>
             <Button onClick={handlePagination} width="150px" text={"Carregar mais"}/>

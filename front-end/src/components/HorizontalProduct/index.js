@@ -31,7 +31,7 @@ const HorizontalProduct = ({product, maxWidth}) => {
     return (
         <div className={styles['horizontal-product']}>
             <div className={styles['horizontal-product__image']}>
-                <img src={product.pathImage} alt={product.name} />
+                <img src={`http://localhost:3333/${product.pathImage}`} alt={product.name} />
             </div>
             <div className={styles['horizontal-product__info']}>
                 <h1>{product.name}</h1>

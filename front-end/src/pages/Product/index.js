@@ -1,5 +1,7 @@
 import { useLocation, useNavigate} from "react-router-dom";
 import Header from "../../components/header";
+import api from "../../services/api";
+
 import products from "../../products.json";
 import styles from "./styles.module.css";
 import { useMemo, useState, useEffect, useContext } from "react";
@@ -10,14 +12,27 @@ const Product = () => {
     const {id} =  useLocation().state;
     const [totalPrice, setTotalPrice] = useState(0);
     const [quantity, setQuantity] = useState(1);
+    const [currentProduct, setCurrentProduct] = useState({});
 
     const navigate = useNavigate()
 
-    const currentProduct = useMemo(() => {
-        const product = products.find((product) => product.id === id);
-        setTotalPrice(product.price);
-        return product;
-    }, [id]);
+    // const currentProduct = useMemo(() => {
+    //     const product = products.find((product) => product.id === id);
+    //     setTotalPrice(product.price);
+    //     return product;
+    // }, [id]);
+    useEffect(() => {
+        loadProduct();
+    }, []);
+
+    const loadProduct = async () => {
+        try{
+            const { data } = await api.get(`/products/${id}`);
+            setCurrentProduct(data[0]);
+        }catch(err){
+            console.log(err);
+        }
+    }
 
     function handleChangeQuantityPlus(){
         if(quantity + 1 <= currentProduct.stock){
@@ -48,11 +63,11 @@ const Product = () => {
         <>
         <Header />
         <main className={styles.container}>
-            <img src={currentProduct.pathImage} alt={currentProduct.name} />
+            <img src={`http://localhost:3333/${currentProduct.pathImage}`} alt={currentProduct.name} />
             <div className={styles.product}>
                 <div className={styles.boxTitle}>
                     <h2>{currentProduct.name}</h2>
-                    <p>{currentProduct.price}</p>
+                    <p>{currentProduct.price ? currentProduct.price.toFixed(2) : ""}</p>
                 </div>
                 <p>{currentProduct.description}</p>
                 <div className={styles.color}>
@@ -62,7 +77,7 @@ const Product = () => {
                 <p><strong>Material </strong> {currentProduct.frameMaterial}</p>
                 <p>Estoque {currentProduct.stock}</p>
                 <div style={{display: "flex"}}>
-                    <Button text={`Adicionar ao carrinho R$${totalPrice.toFixed(2)}`} width="60%" onClick={handleAddToCart}/>
+                    <Button text={`Adicionar ao carrinho R$${totalPrice.toFixed(2)}`} width="100%" onClick={handleAddToCart}/>
                     <QuantityInput value={quantity} onChangePlus={handleChangeQuantityPlus} onChangeMinus={handleChangeQuantityMinus}/>
 
                 </div>

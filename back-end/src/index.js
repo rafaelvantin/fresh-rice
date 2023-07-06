@@ -30,7 +30,7 @@ app.use('/orders', orderRouter);
 app.use('/admin', adminRouter);
 
 
-const dir = path.join(__dirname, 'public');
+const dir = path.join(__dirname, '../public');
 app.use(express.static(dir));
 mongoose.connection.once('open', function() {
     console.log("Connected successfully");

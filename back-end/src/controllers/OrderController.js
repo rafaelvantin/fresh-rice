@@ -18,6 +18,8 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
     // create a new order
     const { products, total, payment, address} = req.body;
+
+    console.log(products, total, payment, address);
     try{
         const user = User.findOne({ _id: req.query.id });
         console.log(user);
@@ -29,7 +31,7 @@ router.post("/", async (req, res) => {
             return res.status(400).send({ error: "No products in order" });
         } 
         for(let i = 0; i < products.length; i++){
-            const product = await Product.findOne({ _id: products[i].id });
+            const product = await Product.findOne({ _id: products[i]._id });
             if(product == null){
                 return res.status(400).send({ error: "Product not found" });
             }

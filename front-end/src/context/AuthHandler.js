@@ -50,7 +50,7 @@ export const AuthProvider = (props) => {
             email: "admin@example.com",
             password: "adminadmin",
             userData: {
-                id: "admin",
+                id: "64a5f1616d410b5ed08013d5",
                 type: "admin",
                 name: "Administrador Teste"
             }
