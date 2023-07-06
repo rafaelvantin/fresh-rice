@@ -6,70 +6,95 @@ import Button from '../Button';
 import styles from './styles.module.css';
 
 const EditProduct = ({ visible, popupResponse, product }) => {
-    const [nome, setNome] = useState("");
-    const [preco, setPreco] = useState("");
-    const [cor, setCor] = useState("");
-    const [material, setMaterial] = useState("");
-    const [quantidade, setQuantidade] = useState("");
-    const [images, setImages] = useState([]);
-    const [descricao, setDescricao] = useState("");
+    const [name, setName] = useState("");
+    const [price, setPrice] = useState("");
+    const [color, setColor] = useState("");
+    const [frameMaterial, setFrameMaterial] = useState("");
+    const [stock, setStock] = useState("");
+    const [pathImage, setPathImage] = useState("");
+    const [description, setDescription] = useState("");
+
+    const [file, setFile] = useState(null);
 
 
     const inputRef = useRef(null);
 
     useEffect(() => {
-        setNome("");
-        setPreco("");
-        setCor("");
-        setMaterial("");
-        setQuantidade("");
-        setImages([]);
-        setDescricao("");
+        setName("");
+        setPrice("");
+        setColor("");
+        setFrameMaterial("");
+        setStock("");
+        setPathImage([]);
+        setDescription("");
         
         if(visible)
         {
-            setNome(product.nome);
-            setPreco(product.preco);
-            setCor(product.cor);
-            setMaterial(product.armacao);
-            setQuantidade(product.estoque);
-            setImages([{name: product.imagem}]);
-            setDescricao(product.descricao);
+            setName(product.name);
+            setPrice(product.price);
+            setColor(product.color);
+            setFrameMaterial(product.frameMaterial);
+            setStock(product.stock);
+            setPathImage(product.pathImage);
+            setDescription(product.description);
         }
 
     }, [visible]);
 
     const handleSendNewProd = () => {
         const newProd = {
-            nome,
-            preco,
-            cor,
-            armacao: material,
-            estoque: quantidade,
-            imagem: images[0],
-            descricao
+            name,
+            price,
+            color,
+            frameMaterial,
+            stock,
+            pathImage,
+            description,
+            file,
         };
 
         popupResponse(true, newProd);
     }
 
-    const handleFileChange = (e) => {
+    const handleFileChange = (e) => {        
         if(!e.target.files)
             return;
 
-        const newImages = Array.from(e.target.files);
-
-        if(images === [])
-        {
-            setImages(newImages);
-            return;
-        }
-
-        setImages((prevImages) => [...prevImages, ...newImages]);        
+        setFile(e.target.files[0]);
     }
 
-    const handleRemoveFile = (image) => {
-        setImages((prevImages) => prevImages.filter((prevImage) => prevImage !== image));
+    const renderImage = () => {
+        if(file)
+        {
+            return (
+                <div className={styles.listImages}>
+                    <div style={{ fontSize: '11px' }}>
+                        <img src={URL.createObjectURL(file)} alt="Imagem do produto" style={{ width: '100px', height: '100px', objectFit: 'cover'}}/>
+                    </div>
+                </div>
+            );
+        }
+        
+        if(pathImage === "")
+        {
+            return (
+                <ul className={styles.listImages}>
+                    <li key={0}>
+                        <span style={{ fontSize: '13px' }}>Adicione alguma imagem.</span>
+                    </li>
+                </ul>
+            );
+        }
+        else
+        {
+            return (
+                <div className={styles.listImages}>
+                    <div style={{ fontSize: '11px' }}>
+                        <img src={`http://localhost:3333/${pathImage}`} alt="Imagem do produto" style={{ width: '100px', height: '100px', objectFit: 'cover'}}/>                               
+                    </div>
+                </div>
+            );
+        }
     }
 
     return (visible) ? (
@@ -77,46 +102,28 @@ const EditProduct = ({ visible, popupResponse, product }) => {
             <div className={styles.box}>
 
             <form className={styles.signupForm}>
-                <TextInput type="text" placeholder="Digite o nome do produto" name="nome" value={nome} onChange={(e) => setNome(e.target.value)} required={true}/>
+                <TextInput type="text" placeholder="Digite o name do produto" name="name" value={name} onChange={(e) => setName(e.target.value)} required={true}/>
 
-                <TextInput type="text" placeholder="Digite o preço" name="preco" value={preco} onChange={(e) => setPreco(e.target.value)} required={true}/>
+                <TextInput type="text" placeholder="Digite o preço" name="price" value={price} onChange={(e) => setPrice(e.target.value)} required={true}/>
 
-                <TextInput type="text" placeholder="Digite a cor da armação (ex: #fff)" name="cor" value={cor} onChange={(e) => setCor(e.target.value)} required={true}/>
+                <TextInput type="text" placeholder="Digite a color da armação (ex: #fff)" name="color" value={color} onChange={(e) => setColor(e.target.value)} required={true}/>
 
-                <TextInput type="text" placeholder="Material da lente" name="material" value={material} onChange={(e) => setMaterial(e.target.value)} required={true}/>
+                <TextInput type="text" placeholder="Material da lente" name="frameMaterial" value={frameMaterial} onChange={(e) => setFrameMaterial(e.target.value)} required={true}/>
                 <div className={styles.imagesContainer}>
-                    {
-                        images ? (
-                            <div className={styles.listImages}>
-                                {images.map((image, index) => (
-                                <div key={index} style={{ fontSize: '11px' }}>
-                                    {image.name}
-                                    <span style={{ marginLeft: '5px', cursor: 'pointer', color: 'black'}} onClick={() => handleRemoveFile(image)}>X</span>
-                                </div>
-                                ))}
-                            </div>
-
-                        ) : (
-                            <ul className={styles.listImages}>
-                                <li key={0}>
-                                    <span style={{ fontSize: '13px' }}>Adicione alguma imagem.</span>
-                                </li>
-                            </ul>
-                        )
-                    }
+                    {renderImage()}
                     <Button text="+" style={{width: '30px', height: '30px'}} onClick={() => inputRef.current.click()}/>
                 </div>
 
-                <input type="file" ref={inputRef} style={{ display: 'none'}} multiple name="imagens" onChange={handleFileChange}/>
+                <input type="file" ref={inputRef} style={{ display: 'none'}} name="imagens" onChange={handleFileChange}/>
 
-                <TextInput type="text" placeholder="Quantidade em estoque" name="quantidade" value={quantidade} onChange={(e) => setQuantidade(e.target.value)} required={true}/>
+                <TextInput type="text" placeholder="Quantidade em estoque" name="stock" value={stock} onChange={(e) => setStock(e.target.value)} required={true}/>
 
-                <TextInput type="textarea" placeholder="Digite a descrição (limite de 100 caracteres)" name="descricao" value={descricao} rows={3} cols={3} onChange={(e) => setDescricao(e.target.value)} required={true}/>
+                <TextInput type="textarea" placeholder="Digite a descrição (limite de 100 caracteres)" name="description" value={description} rows={3} cols={3} onChange={(e) => setDescription(e.target.value)} required={true}/>
             </form>
 
 
             <div className={styles.btnContainer} style={{marginBottom: 0}}>
-                <Button text="Salvar alterações" onClick={() => handleSendNewProd()}/>
+                <Button text="Salvar alterações" width='300px' onClick={() => handleSendNewProd()}/>
                 <Button text="Cancelar" width='200px' onClick={() => popupResponse(false)}/>
             </div>
             </div>

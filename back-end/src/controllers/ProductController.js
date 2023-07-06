@@ -9,15 +9,29 @@ const Product = require("../models/product.js");
 
 
 router.get('/', async (request, response) => {
-    const { name, minPrice, maxPrice, frameMaterial } = request.query;
+    const { name = "", minPrice = 0, maxPrice = 1e9, frameMaterial = "" } = request.query;
+    const { page = 1, limit = 10 } = request.query;
     
     try{
         const products = await Product.find({
-            price: (minPrice && maxPrice) ? { $gte: minPrice, $lte: maxPrice } : { $gte: 0 },
-            name: name ? { $regex: name, $options: 'i' } : { $regex: '', $options: 'i' },
-            frameMaterial: frameMaterial ? { $regex: frameMaterial, $options: 'i' } : { $regex: '', $options: 'i' },
-        });
-        return response.json(products);
+                                price: { $gte: minPrice, $lte: maxPrice },
+                                name: { $regex: name, $options: 'i' },
+                                frameMaterial: { $regex: frameMaterial, $options: 'i' },
+                            })
+                            .limit(limit * 1)
+                            .skip((page - 1) * limit);
+        
+        const count = await Product.countDocuments({
+                            price: { $gte: minPrice, $lte: maxPrice },
+                            name: { $regex: name, $options: 'i' },
+                            frameMaterial: { $regex: frameMaterial, $options: 'i' },
+                        });
+
+        return response.json({
+                                products,
+                                totalPages: Math.ceil(count / limit),
+                                currentPage: page,
+                            });
     }
 
     catch(erro){
@@ -42,14 +56,16 @@ router.get('/:id', async (request, response) => {
 router.post('/',upload.single('file'), async (request, response) => {
     const { name, price, description, stock, color, frameMaterial } = request.body;
     const pathImage = request.file ? request.file.path : "";
+    const filename = request.file ? request.file.filename : "";
 
-    //console.log(request.file);
+    console.log(request.file);
 
     try{
         const product = await Product.create({ 
             "name":name, 
             "price": price,
-            description, color, stock, pathImage, frameMaterial}
+            "pathImage": filename,
+            description, color, stock, frameMaterial}
             );
             
             return response.status(201).json(product)
@@ -57,7 +73,7 @@ router.post('/',upload.single('file'), async (request, response) => {
         
     catch(erro){
         if(pathImage !== "")
-            await unlinkAsync(filepath);
+            await unlinkAsync(pathImage);
 
         return response.status(400).send({error: 'Error creating new product', msg: erro});
     }
@@ -65,14 +81,15 @@ router.post('/',upload.single('file'), async (request, response) => {
 
 router.put('/:id', upload.single('file'), async (request, response)=> {
     const { name, price, description, stock, color, frameMaterial } = request.body;
+    const pathImage = request.file ? request.file.path : "";
+    const filename = request.file ? request.file.filename : "";
     
     try{
         const { id } = request.params;
         const product = await Product.find({ _id: id});
-
         
         
-        if(product){
+        if(product.length > 0){
             product[0].name = name ? name : product[0].name;
             product[0].price = price ? price : product[0].price;
             product[0].description = description ? description : product[0].description;
@@ -81,9 +98,10 @@ router.put('/:id', upload.single('file'), async (request, response)=> {
             product[0].frameMaterial = frameMaterial ? frameMaterial : product[0].frameMaterial;
             
             if(request.file){
-                await unlinkAsync(product[0].pathImage);
-                product[0].pathImage = pathImage;
+                await unlinkAsync(`public/${product[0].pathImage}`);
+                product[0].pathImage = filename;
             }
+
 
             console.log(product[0]);
             
@@ -94,11 +112,24 @@ router.put('/:id', upload.single('file'), async (request, response)=> {
             return response.status(400).send({error: 'Product not found'});
         }
     }
-
+    
     catch(erro){
+        if(pathImage !== "")
+            await unlinkAsync(pathImage);
+            
         return response.status(400).send({error: 'Error updating product', msg: erro});
     }
 });
+
+router.delete('/', async (request, response)=> {
+    try {
+        await Product.deleteMany({});
+    }
+    
+    catch(erro){
+        return response.status(400).send({error: 'Error deleting product', msg: erro});
+    }
+})
 
 router.delete('/:id', async (request, response)=> {
     const { id } = request.params;
@@ -109,7 +140,12 @@ router.delete('/:id', async (request, response)=> {
         console.log(product);
 
         if(product[0]){
+            if(product[0].pathImage !== ""){
+                await unlinkAsync(`public/${product[0].pathImage}`);
+            }
+
             await Product.deleteOne({ _id: id});
+
 
             return response.json({message: 'Product deleted'});
         }else{

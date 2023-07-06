@@ -51,7 +51,7 @@ app.use('/orders', orderRouter);
 app.use('/admin', adminRouter);
 app.use('/auth', authRouter);
 
-const dir = path.join(__dirname, 'public');
+const dir = path.join(__dirname, '../public');
 app.use(express.static(dir));
 mongoose.connection.once('open', function() {
     console.log(`Connected successfully to db ${mongoose.connection.db.databaseName}`);

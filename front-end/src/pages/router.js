@@ -27,6 +27,7 @@ const Router = () => {
         },
         {
             path:'/shop',
+            key: Math.random(),
             element: <Shop />
         },
         {

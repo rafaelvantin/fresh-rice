@@ -8,6 +8,8 @@ import TextInput from "../../components/TextInput";
 import Header from "../../components/header";
 import ArrowBack from "../../components/ArrowBack";
 
+import api from "../../services/api";
+
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -18,35 +20,71 @@ const Signup = () => {
     }, []);
 
     const [name, setName] = useState("");
-    const [preco, setPreco] = useState("");
-    const [cor, setCor] = useState("");
-    const [material, setMaterial] = useState("");
-    const [quantidade, setQuantidade] = useState("");
-    const [images, setImages] = useState([]);
-    const [descricao, setDescricao] = useState("");
+    const [price, setPrice] = useState("");
+    const [color, setColor] = useState("");
+    const [frameMaterial, setFrameMaterial] = useState("");
+    const [stock, setStock] = useState("");
+    const [file, setFile] = useState(null);
+    const [description, setDescription] = useState("");
 
-    const handleCadastro = () => {
-        // TODO: handle create with API.
-        navigate('/admin');
+    const handleCadastro = async () => {
+        try
+        {
+            let data = new FormData();
+    
+            data.append('name', name);
+            data.append('price', price);
+            data.append('stock', stock);
+            data.append('description', description);
+            data.append('color', color);
+            data.append('frameMaterial', frameMaterial);
+                            
+            if(file)
+                data.append('file', file, file.name);                
+    
+    
+            await api.post(`/products`, data, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+    
+            navigate('/admin');
+        } catch(err) {
+            console.log(err);
+        }
     };
 
     const handleFileChange = (e) => {
         if(!e.target.files)
             return;
 
-        const newImages = Array.from(e.target.files);
-
-        if(images === [])
-        {
-            setImages(newImages);
-            return;
-        }
-
-        setImages((prevImages) => [...prevImages, ...newImages]);        
+        setFile(e.target.files[0]);       
     }
 
     const handleRemoveFile = (image) => {
-        setImages((prevImages) => prevImages.filter((prevImage) => prevImage !== image));
+        setFile((prevImages) => prevImages.filter((prevImage) => prevImage !== image));
+    }
+
+    const renderImage = () => {
+        if(file)
+        {
+            return (
+                <div className={styles.listImages}>
+                    <div style={{ fontSize: '11px' }}>
+                        <img src={URL.createObjectURL(file)} alt="Imagem do produto" style={{ width: '100px', height: '100px', objectFit: 'cover'}}/>
+                    </div>
+                </div>
+            );
+        }
+        
+        return (
+            <ul className={styles.listImages}>
+                <li key={0}>
+                    <span style={{ fontSize: '13px' }}>Adicione alguma imagem.</span>
+                </li>
+            </ul>
+        );
     }
 
     return (
@@ -62,39 +100,21 @@ const Signup = () => {
                 <form className={styles.signupForm}>
                     <TextInput type="text" placeholder="Digite o nome do produto" name="nome" value={name} onChange={(e) => setName(e.target.value)} required={true}/>
 
-                    <TextInput type="text" placeholder="Digite o preço" name="preco" value={preco} onChange={(e) => setPreco(e.target.value)} required={true}/>
+                    <TextInput type="text" placeholder="Digite o preço" name="price" value={price} onChange={(e) => setPrice(e.target.value)} required={true}/>
 
-                    <TextInput type="text" placeholder="Digite a cor da armação (ex: #fff)" name="cor" value={cor} onChange={(e) => setCor(e.target.value)} required={true}/>
+                    <TextInput type="text" placeholder="Digite a color da armação (ex: #fff)" name="color" value={color} onChange={(e) => setColor(e.target.value)} required={true}/>
 
-                    <TextInput type="text" placeholder="Material da lente" name="material" value={material} onChange={(e) => setMaterial(e.target.value)} required={true}/>
+                    <TextInput type="text" placeholder="Material da lente" name="frameMaterial" value={frameMaterial} onChange={(e) => setFrameMaterial(e.target.value)} required={true}/>
                     <div className={styles.imagesContainer}>
-                        {
-                            images.length > 0 ? (
-                                <div className={styles.listImages}>
-                                    {images.map((image, index) => (
-                                    <div key={index} style={{ fontSize: '11px' }}>
-                                        {image.name}
-                                        <span style={{ marginLeft: '5px', cursor: 'pointer', color: 'black'}} onClick={() => handleRemoveFile(image)}>X</span>
-                                    </div>
-                                    ))}
-                                </div>
-
-                            ) : (
-                                <ul className={styles.listImages}>
-                                    <li key={0}>
-                                        <span style={{ fontSize: '13px' }}>Adicione alguma imagem.</span>
-                                    </li>
-                                </ul>
-                            )
-                        }
+                        {renderImage()}
                         <Button text="+" style={{width: '30px', height: '30px'}} onClick={() => inputRef.current.click()}/>
                     </div>
 
                     <input type="file" ref={inputRef} style={{ display: 'none'}} multiple name="imagens" onChange={handleFileChange}/>
 
-                    <TextInput type="text" placeholder="Quantidade em estoque" name="quantidade" value={quantidade} onChange={(e) => setQuantidade(e.target.value)} required={true}/>
+                    <TextInput type="text" placeholder="Quantidade em estoque" name="stock" value={stock} onChange={(e) => setStock(e.target.value)} required={true}/>
 
-                    <TextInput type="textarea" placeholder="Digite a descrição (limite de 100 caracteres)" name="descricao" value={descricao} rows={3} cols={3} onChange={(e) => setDescricao(e.target.value)} required={true}/>
+                    <TextInput type="textarea" placeholder="Digite a descrição (limite de 100 caracteres)" name="description" value={description} rows={3} cols={3} onChange={(e) => setDescription(e.target.value)} required={true}/>
                 </form>
 
 
