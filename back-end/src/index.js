@@ -33,7 +33,8 @@ app.use(session({
     store: MongoStore.create({
         client: mongoose.connection.getClient(),
         collectionName: "sessions",
-        dbName: "fresh-rice"
+        dbName: "fresh-rice",
+        touchAfter: 24 * 3600 // time period in seconds
     })
 }));
 
