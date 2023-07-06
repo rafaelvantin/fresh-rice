@@ -17,12 +17,12 @@ Agora, com o lançamento do nosso ecommerce, a Fresh Rice quer levar a experiên
 Para facilitar o teste da aplicação, foram criados alguns usuários com dados pré-cadastrados. Os dados de acesso são:
 
 **Cliente:**
-* *Email:* client@example.com
-* *Senha:* clientclient
+* *Email:* joao.silva@gmail.com
+* *Senha:* senhasenha
 
 **Administrador:**
-* *Email:* admin@example.com
-* *Senha:* adminadmin
+* *Email:* wave8wavew@gmail.com
+* *Senha:* senhasenha
 
 
 ## 1. Requirements
