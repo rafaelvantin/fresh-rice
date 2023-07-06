@@ -36,13 +36,14 @@ import {
 
       case ADD_TO_CART:
         const [product, quantity] = action.payload;
-
-        if (!state.cartItems.find((item) => item.id === product.id)) {
+        console.log(product);
+        if (!state.cartItems.find((item) => item._id === product._id)) {
           state.cartItems.push({
             ...product,
             quantity: quantity,
           });
         }
+
         return {
           ...state,
           ...sumItems(state.cartItems),
@@ -51,13 +52,14 @@ import {
   
       // If the action type is REMOVE_ITEM, we want to remove the item from the cartItems array
       case REMOVE_ITEM:
+        console.log(action.payload);
         return {
           ...state,
           ...sumItems(
-            state.cartItems.filter((item) => item.id !== action.payload.id)
+            state.cartItems.filter((item) => item._id !== action.payload._id)
           ),
           cartItems: [
-            ...state.cartItems.filter((item) => item.id !== action.payload.id),
+            ...state.cartItems.filter((item) => item._id !== action.payload._id),
           ],
         };
   

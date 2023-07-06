@@ -24,7 +24,8 @@ const EditClient = ({ visible, popupResponse, admin }) => {
             setName(admin.name);
             setEmail(admin.email);
             setCpf(admin.cpf);
-            setBirthdate(admin.birthdate);
+            const date = new Date(admin.birthdate);
+            setBirthdate(date.toISOString().split('T')[0]);
             setPhone(admin.phone);
         }
 
@@ -57,7 +58,6 @@ const EditClient = ({ visible, popupResponse, admin }) => {
 
                 <TextInput type="date" placeholder="Digite sua data de nascimento" name="dataNascimento" value={birthdate} onChange={(e) => setBirthdate(e.target.value)} required={true}/>
 
-                <TextInput type="text" placeholder="Digite seu telefone" name="telefone" value={phone} onChange={(e) => setPhone(e.target.value)} required={true}/>
             </form>
 
             

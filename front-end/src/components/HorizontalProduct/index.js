@@ -18,6 +18,7 @@ const HorizontalProduct = ({product, maxWidth}) => {
     }
 
     function removeProduct(){
+        console.log(product);
         removeFromCart(product);
     }
     
