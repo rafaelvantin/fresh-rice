@@ -23,7 +23,6 @@ const Shop = ({ route }) => {
     const searchInput = state != null ? state.searchInput : "";
 
     const [searchParams] = useSearchParams();
-    const [search, setSearch] = useState("");
     const [products, setProducts] = useState([]);
 
     const [numberPages, setNumberPages] = useState(1);
@@ -43,7 +42,6 @@ const Shop = ({ route }) => {
 
     const handleFiltrar = async () => {
         try{
-            console.log(search);
             
             let strQuery = `/products?limit=${numberPages*10}&name=${searchInput}&minPrice=${price[0]}&maxPrice=${price[1]}`;
 
@@ -83,7 +81,7 @@ const Shop = ({ route }) => {
     }
 
     useEffect(() => {
-        //     handleFiltrar();
+        handleFiltrar();
     }, [numberPages]);
 
 
