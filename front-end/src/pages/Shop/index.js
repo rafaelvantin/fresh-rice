@@ -13,6 +13,11 @@ function valuetext(value) {
     return `${value}°C`;
   }
 const Shop = () => {
+
+    useEffect(() => {
+        document.title = "Fresh Rice";
+    }, []);
+
     const [searchParams] = useSearchParams();
     const [search, setSearch] = useState("");
 

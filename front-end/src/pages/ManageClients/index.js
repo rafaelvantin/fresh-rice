@@ -11,6 +11,11 @@ import styles from './styles.module.css';
 import Header from '../../components/header';
 
 const ManageClients = () => {
+
+    useEffect(() => {
+        document.title = "Fresh Rice - Gerenciar Clientes";
+    }, []);
+
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 

@@ -6,6 +6,11 @@ import Header from "../../components/header";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+
+  useEffect(() => {
+    document.title = "Fresh Rice";
+  }, []);
+
   const [isDesktop, setDesktop] = useState(window.innerWidth > 900);
 
     const navigate = useNavigate();

@@ -1,6 +1,12 @@
+import { useEffect } from "react";
 import Header from "../../components/header"
 import styles from "./styles.module.css"
 const About = () => {
+
+    useEffect(() => {
+        document.title = "Fresh Rice - Sobre";
+    }, []);
+
     return (
         <>
         <Header />

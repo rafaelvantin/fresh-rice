@@ -16,6 +16,11 @@ import styles from "./styles.module.css"
 import { AuthContext } from "../../context/AuthHandler";
 
 const Checkout = () => {
+
+    useEffect(() => {
+        document.title = "Fresh Rice - Checkout";
+    }, []);
+
     const { cartItems, handleCheckout } = useContext(CartContext)
     const Auth = useContext(AuthContext)
     const [popupVisible, setPopupVisible] = useState(false)

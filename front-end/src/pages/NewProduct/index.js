@@ -14,7 +14,7 @@ const Signup = () => {
     const inputRef = useRef(null);
 
     useEffect(() => {
-        document.title = "Fresh Rice - Cadastro";
+        document.title = "Fresh Rice - Cadastro de Produto";
     }, []);
 
     const [name, setName] = useState("");

@@ -5,11 +5,14 @@ import OrderCard from '../../components/OrderCard'
 import Header from '../../components/header'
 import api from '../../services/api'
 const MyOrders = () => {
-    const {user} = useContext(AuthContext)
-    const [orders, setOrders] = useState([])
-    console.log(orders)
+
     useEffect(() => {
-        api.get(`/orders?id=${user.id}`).then((response) => {
+        document.title = "Fresh Rice - Meus pedidos";
+    }, []);
+
+    const [orders, setOrders] = useState([]);
+    useEffect(() => {
+        api.get(`/orders`).then((response) => {
             console.log(response.data)
             setOrders(response.data)
             }).catch((err) => {

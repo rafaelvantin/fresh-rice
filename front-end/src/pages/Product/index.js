@@ -7,6 +7,11 @@ import Button from "../../components/Button";
 import QuantityInput from "../../components/QuantityInput";
 import CartContext from "../../context/Cart/CartContext";
 const Product = () => {
+
+    useEffect(() => {
+        document.title = "Fresh Rice";
+    }, []);
+
     const {id} =  useLocation().state;
     const [totalPrice, setTotalPrice] = useState(0);
     const [quantity, setQuantity] = useState(1);

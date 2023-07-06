@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Header from "../../components/header";
 import CartContext from "../../context/Cart/CartContext";
 import HorizontalProduct from "../../components/HorizontalProduct";
@@ -7,6 +7,11 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 
 const Cart = () => {
+
+    useEffect(() => {
+        document.title = "Fresh Rice - Carrinho";
+    }, []);
+
     const { cartItems, total} = useContext(CartContext);
     const navigate = useNavigate();
     return (

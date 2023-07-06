@@ -9,6 +9,11 @@ import DeletePopup from '../../components/DeletePopup';
 import EditAdmin from '../../components/EditAdmin';
 
 const ManageClients = () => {
+
+    useEffect(() => {
+        document.title = "Fresh Rice - Gerenciar Administradores";
+    }, []);
+
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
