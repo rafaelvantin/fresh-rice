@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../../services/api";
@@ -17,7 +17,7 @@ import { AuthContext } from "../../context/AuthHandler";
 
 const Checkout = () => {
     const { cartItems, handleCheckout } = useContext(CartContext)
-    const {user} = useContext(AuthContext)
+    const Auth = useContext(AuthContext)
     const [popupVisible, setPopupVisible] = useState(false)
 
     const [cep, setCep] = useState("")
@@ -27,6 +27,7 @@ const Checkout = () => {
     const [cidade, setCidade] = useState("")
     const [uf, setUF] = useState("")
 
+    let setMaskedCep;
 
     const [ name, setName] = useState("")
     const [ cardNumber, setCardNumber] = useState("")
@@ -56,7 +57,7 @@ const Checkout = () => {
             alert("Preencha todos os campos");
         }else{
             toast.promise(
-                api.post(`/orders?id=${user.id}`, {
+                api.post(`/orders`, {
                     products: cartItems,
                     total: cartItems.reduce((total, item) => total + item.price * item.quantity, 0),
                     payment: {
@@ -100,6 +101,20 @@ const Checkout = () => {
         navigate('/shop');
     }
 
+    // Initially load default address
+    useEffect(() => {
+        Auth.getUserDetails().then((user) => {
+            setCep(user.address.cep);
+            setRua(user.address.street);
+            setNumero(user.address.number);
+            setComplemento(user.address.complement);
+            setCidade(user.address.city);
+            setUF(user.address.state);
+
+            setMaskedCep(`${user.address.cep.substring(0, 5)}-${user.address.cep.substring(5, 8)}`);
+        }).catch((err) => {});
+    }, []);
+
     return (
         <>
         <Header />
@@ -132,7 +147,7 @@ const Checkout = () => {
                             <form onSubmit={handleAddressSubmit} style={{width: "75%"}}>
                                 <h2>Informações de entrega</h2>
 
-                                <MaskedInput placeholder="CEP" required setUnmaskedValue={setCep} maskOptions={{ mask: "ddddd-ddd" }} />
+                                <MaskedInput placeholder="CEP" required setUnmaskedValue={setCep} maskOptions={{ mask: "ddddd-ddd" }} getSetMaskedValue={({setMaskedValue}) => {setMaskedCep=setMaskedValue}}/>
                                 
                                 <div className={styles.rowInput}>
                                     <TextInput placeholder="Rua" value={rua} onChange={(e) => setRua(e.target.value)} required width="65%"/>
