@@ -20,8 +20,18 @@ router.get('/', async (request, response) => {
                             })
                             .limit(limit * 1)
                             .skip((page - 1) * limit);
+        
+        const count = await Product.countDocuments({
+                            price: { $gte: minPrice, $lte: maxPrice },
+                            name: { $regex: name, $options: 'i' },
+                            frameMaterial: { $regex: frameMaterial, $options: 'i' },
+                        });
 
-        return response.json(products);
+        return response.json({
+                                products,
+                                totalPages: Math.ceil(count / limit),
+                                currentPage: page,
+                            });
     }
 
     catch(erro){
@@ -71,14 +81,15 @@ router.post('/',upload.single('file'), async (request, response) => {
 
 router.put('/:id', upload.single('file'), async (request, response)=> {
     const { name, price, description, stock, color, frameMaterial } = request.body;
+    const pathImage = request.file ? request.file.path : "";
+    const filename = request.file ? request.file.filename : "";
     
     try{
         const { id } = request.params;
         const product = await Product.find({ _id: id});
-
         
         
-        if(product){
+        if(product.length > 0){
             product[0].name = name ? name : product[0].name;
             product[0].price = price ? price : product[0].price;
             product[0].description = description ? description : product[0].description;
@@ -87,9 +98,10 @@ router.put('/:id', upload.single('file'), async (request, response)=> {
             product[0].frameMaterial = frameMaterial ? frameMaterial : product[0].frameMaterial;
             
             if(request.file){
-                await unlinkAsync(product[0].pathImage);
-                product[0].pathImage = pathImage;
+                await unlinkAsync(`public/${product[0].pathImage}`);
+                product[0].pathImage = filename;
             }
+
 
             console.log(product[0]);
             
@@ -100,8 +112,11 @@ router.put('/:id', upload.single('file'), async (request, response)=> {
             return response.status(400).send({error: 'Product not found'});
         }
     }
-
+    
     catch(erro){
+        if(pathImage !== "")
+            await unlinkAsync(pathImage);
+            
         return response.status(400).send({error: 'Error updating product', msg: erro});
     }
 });

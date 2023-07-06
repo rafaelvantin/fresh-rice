@@ -76,7 +76,7 @@ const Shop = () => {
 
             const { data } = await api.get(strQuery);
 
-            setProducts(data);
+            setProducts(data.products);
         }catch(err){
             console.log(err);
         }

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Products from '../../products.json';
+import api from '../../services/api';
+// import Products from '../../products.json';
 
 import DeletePopup from '../../components/DeletePopup';
 import EditProduct from '../../components/EditProduct';
@@ -26,9 +27,6 @@ const ManageProducts = () => {
 
     useEffect(() => {
         document.title = "Fresh Rice - Gerenciar Admins";
-        // CALL API FOR NUMBER OF TOTAL PAGES
-        setTotalPages(2);
-
         searchProduct();
     }, []);
     
@@ -36,46 +34,82 @@ const ManageProducts = () => {
         searchProduct();
     }, [page]);
 
-    const openDeletePopup = (client) => {
-        setCurrProduct(client);
+    const openDeletePopup = (product) => {
+        setCurrProduct(product);
         setDeletePopupVisible(true);
     }
-    const openEditPopup = (client) => {
-        setCurrProduct(client);
+    const openEditPopup = (product) => {
+        setCurrProduct(product);
         setEditPopupVisible(true);
     }
 
 
-    const searchProduct = () => {
+    const searchProduct = async () => {
         // CALL API FOR SEARCH
-        if(search === '') {
-            setProducts(Products.slice((page-1) * 10, page * 10));
-            return;
+        try{
+            if(products.length === 0) {
+                const { data } = await api.get('/products');
+    
+                setProducts(data.products);
+                setTotalPages(data.totalPages);
+                setPage(data.currentPage);
+                
+                return;
+            }
+    
+            const { data } = await api.get(`/products?page=${page}&name=${search}`);
+    
+            setProducts(data.products);
+            setTotalPages(data.totalPages);
+            setPage(data.currentPage);
+        } catch(err) {
+            console.log(err);
         }
-
-        const filteredProducts = Products.filter((product) => product.name.toLowerCase().includes(search.toLowerCase()));
-        setProducts(filteredProducts.slice((page-1) * 10, page * 10));
     }
 
-    const deletePopupResponse = (response) => {
-        
-        if(response === true) {
-            // CALL API TO DELETE currProduct.id
+    const deletePopupResponse = async (response) => {
+        try{
+            if(response === true) {
+                await api.delete(`/products/${currProduct._id}`);
+            }
+    
+            searchProduct();
+            setDeletePopupVisible(false);
+            setCurrProduct({});
+        } catch(err) {
+            console.log(err);
         }
-
-        searchProduct();
-        setDeletePopupVisible(false);
-        setCurrProduct({});
     }
 
-    const editPopupResponse = (response, newProd = {}) => {
-        if(response === true) {
-            // CALL API TO EDIT currProduct.id
-        }
+    const editPopupResponse = async (response, newProd = {}) => {
+        try {
+            if(response === true) {
+                let data = new FormData();
 
-        searchProduct();
-        setEditPopupVisible(false);
-        setCurrProduct({});
+                data.append('name', newProd.name);
+                data.append('price', newProd.price);
+                data.append('stock', newProd.stock);
+                data.append('description', newProd.description);
+                data.append('color', newProd.color);
+                data.append('frameMaterial', newProd.frameMaterial);
+                                
+                if(newProd.file)
+                    data.append('file', newProd.file, newProd.file.name);                
+
+
+                await api.put(`/products/${currProduct._id}`, data, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                });
+            }
+    
+            searchProduct();
+            setEditPopupVisible(false);
+            setCurrProduct({});
+        } catch(err) {
+            console.log(err);
+        }
     }
 
 
@@ -92,7 +126,7 @@ const ManageProducts = () => {
             return (
                 <tr className={styles.tr} key={product.id}>
                     <td className={styles.td_name}>{product.name}</td>
-                    <td className={styles.td}>R${product.price}</td>
+                    <td className={styles.td}>R${product.price.toFixed(2)}</td>
                     <td className={styles.td}>{product.stock}</td>
                     <td className={styles.td}>
                         <div className={styles.operationsContainer}>
