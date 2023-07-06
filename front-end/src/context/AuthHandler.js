@@ -1,116 +1,157 @@
 import { createContext, useEffect, useState } from "react";
+import api from "../services/api";
 
 export const AuthContext = createContext();
 
-// IMPORTANT: This is a mock implementation of the AuthHandler.
-// In Milestone 3, this will be replaced by a cookie-based implementation.
-// Functions login and logout will be replaced by API calls.
-// Implementations for user signup and password recovery will be added.
 export const AuthProvider = (props) => {
 
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const [user, setUser] = useState({
-        id: "",
+        name: "",
         type: "",
-        name: ""
     });
 
-    // Check if user is in local storage on first render,
-    // if it is, load it into state
+    // Check if user is authenticated, if so, get user from api
     useEffect(() => {
-        getUser();
+        const authenticated = localStorage.getItem("authenticated");
+        if(authenticated) {
+            setIsAuthenticated(true);
+            getUser().catch(() => {});
+        }
     }, []);
 
-    // Save user to local storage
-    const saveUser = (user) => {
-        localStorage.setItem("user", JSON.stringify(user));
-    }
-    
-    // Remove user from local storage
-    const removeUser = () => {
-        localStorage.removeItem("user");
-    }
-
-    // Get user from local storage and update state
+    // Get user from api and set it to user state
     const getUser = () => {
-        const user = localStorage.getItem("user");
-        if (user) {
-            setUser(JSON.parse(user));
-            setIsAuthenticated(true);
-        }
-        else {
-            setUser({});
-            setIsAuthenticated(false);
-        }
+        return new Promise(async (resolve, reject) => {
+            try {
+                const response = await api.get("/auth/me");
+                const { user } = response.data;
+                setUser(user);
+                setIsAuthenticated(true);
+                resolve(user);
+            } 
+            catch (error) {
+                // If user is not authenticated, localStorage will be cleared
+                if(error.response?.status === 401) {
+                    setIsAuthenticated(false);
+                    localStorage.removeItem("authenticated");
+                }
+
+                reject("Erro ao obter usuário.");
+            }
+        });
     }
 
-    const mockUsers = [
-        {
-            email: "admin@example.com",
-            password: "adminadmin",
-            userData: {
-                id: "admin",
-                type: "admin",
-                name: "Administrador Teste"
+    const getUserDetails = () => {
+        return new Promise(async (resolve, reject) => {
+            if(!isAuthenticated) reject("Usuário não autenticado.");
+
+            try {
+                const response = await api.get("/auth/me?details=full")
+                const { user } = response.data;
+                resolve(user);
             }
-        },
-        {
-            email: "client@example.com",
-            password: "clientclient",
-            userData: {
-                id: "649ddb66a8a256d0930d7a77",
-                type: "client",
-                name: "Cliente Teste"
+            catch (error) {
+                reject("Erro ao obter detalhes do usuário.");
             }
-        }
-    ];
+        });
+    };
+
+    const updateUser = (userData) => {
+        return new Promise(async (resolve, reject) => {
+            if(!isAuthenticated) reject("Usuário não autenticado.");
+
+            try {
+                const response = await api.put("/auth/me", userData);
+                const { user } = response.data;
+                setUser({
+                    name: user.name,
+                    type: user.type,
+                });
+                resolve(user);
+            }
+            catch (error) {
+                reject("Erro ao atualizar usuário.");
+            }
+        });
+    };
 
     const login = (email, password) => {
-        // TODO: implement login with API
-        
-        // Mock login
-        return new Promise((resolve, reject) => {
-            if(isAuthenticated) {
-                reject("Usuário já autenticado.");
-            }
+        return new Promise(async (resolve, reject) => {
+            if(isAuthenticated) reject("Usuário já autenticado.");
+            
+            try {
+                const response = await api.post("/auth/login", {
+                    email,
+                    password
+                });
+                const { user } = response.data;
 
-            for(const user of mockUsers) {
-                if (email === user.email && password === user.password) {
-                    setIsAuthenticated(true);
-                    setUser(user.userData);
-                    saveUser(user.userData);
-                    resolve();
+                setUser(user);
+                setIsAuthenticated(true);
+                localStorage.setItem("authenticated", true);
+
+                resolve();
+            } 
+            catch (error) {
+                if(error.reponse?.status === 401) {
+                    reject("Usuário ou senha inválidos.");
+                }
+                else {
+                    reject("Erro ao realizar login.");
                 }
             }
-
-            reject("Credenciais inválidas.");
         });
-    }
+    };
 
     const logout = () => {
-        // TODO: implement logout with API
+        return new Promise(async (resolve, reject) => {
+            if(!isAuthenticated) reject("Usuário não autenticado.");
 
-        // Mock logout
-        return new Promise((resolve, reject) => {
-            if(isAuthenticated) {
-                removeUser();
-                setIsAuthenticated(false);
+            try {
+                await api.post("/auth/logout");
                 setUser({
-                    id: "",
-                    type: ""
+                    name: "",
+                    type: "",
                 });
+                setIsAuthenticated(false);
+                localStorage.removeItem("authenticated");
                 resolve();
             }
-            else reject("Usuário não autenticado.");
+            catch (error) {
+                reject("Erro ao realizar logout.");
+            }
         });
-    }
+    };
+
+    const register = (userData) => {
+        return new Promise(async (resolve, reject) => {
+            if(isAuthenticated) reject("Usuário já autenticado.");
+
+            try {
+                await api.post("/auth/register", userData);
+                resolve();
+            }
+            catch (error) {
+                if(error.response?.status === 409) {
+                    reject("Usuário já cadastrado.");
+                }
+                else {
+                    reject("Erro ao realizar cadastro.");
+                }
+            }
+        });
+    };
 
     const data = {
         isAuthenticated,
         user,
         login,
         logout,
+        register,
+        getUserDetails,
+        updateUser,
     };
     
     return (

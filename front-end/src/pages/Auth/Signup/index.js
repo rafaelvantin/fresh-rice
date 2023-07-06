@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useMask } from "@react-input/mask"
@@ -11,8 +11,11 @@ import TextInput from "../../../components/TextInput";
 import MaskedInput from "../../../components/MaskedInput";
 import UFSelect from "../../../components/UFSelect";
 
+import { AuthContext } from "../../../context/AuthHandler";
+
 const Signup = () => {
     const navigate = useNavigate();
+    const Auth = useContext(AuthContext);
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -56,12 +59,26 @@ const Signup = () => {
     };
 
     const handleSignup = () => {
-        // TODO: handle login with API.
-        // Mock signup:
+        const userData = {
+            name,
+            email,
+            dob,
+            birthdate: dob,
+            cpf,
+            address: {
+                cep,
+                street,
+                number,
+                complement,
+                neighborhood,
+                city,
+                uf: state
+            },
+            password,
+        }
+
         toast.promise(
-            new Promise((resolve, reject) => {
-                setTimeout(() => resolve(), 2000);
-            }),
+            Auth.register(userData),
             {
                 pending: "Cadastrando...",
                 success:  "Cadastro realizado com sucesso!",
