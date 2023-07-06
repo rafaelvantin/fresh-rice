@@ -214,9 +214,7 @@ const Shop = () => {
                         max={maxPrice}
                     />
                     </div>
-                    <div onClick={handleFiltrar}>
-                        Filtrar
-                    </div>
+                    <Button onClick={handleFiltrar} text={"Filtrar"} width="100px" />
 
                 </div>
             </div>
