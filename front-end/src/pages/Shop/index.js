@@ -24,8 +24,8 @@ const Shop = () => {
     const [products, setProducts] = useState([]);
 
     const [numberPages, setNumberPages] = useState(1);
-    const [price, setPrice] =useState([0, 100]);
-    const [maxPrice, setMaxPrice] = useState(1000);
+    const [price, setPrice] =useState([0, 500]);
+    const [maxPrice, setMaxPrice] = useState(5000);
     const [listArmacoes, setListArmacoes] = useState(new Array(4).fill(true));
 
     useEffect(() => {
@@ -36,12 +36,12 @@ const Shop = () => {
         setSearch(searchParams.get("search") || "");
     }, [searchParams]);
 
-    useEffect(() => {
+   /* useEffect(() => {
         // const prices = products.map((product) => product.price);
         // setMaxPrice(Math.max(...prices));
         setPrice([0, 50]);
     },[maxPrice]);
-
+*/
     const handleChangePrice = (event, newValue) => {
         setPrice(newValue);
     };

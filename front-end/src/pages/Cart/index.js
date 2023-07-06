@@ -29,7 +29,7 @@ const Cart = () => {
                             cartItems.map((item) => {
                                 
                                 return (
-                                    <HorizontalProduct key={item.id} product={item} />
+                                    <HorizontalProduct key={item._id} product={item} />
                                 )
                             })}</div>
                     ) : (
