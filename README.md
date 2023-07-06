@@ -41,7 +41,6 @@ Para testar as funcionalidades do front-end no milestone 2, foram criados os seu
 - Contará com botão pra registrar-se que irá redirecionar para página de cadastro.
 - Contará com dois inputs (login e senha)
 - Contará com um botão para logar.
-- Contará com uma opção de esqueci senha.
 - Após login irá redirecionar para a tela inicial.
 
 #### Página de cadastro
@@ -156,7 +155,6 @@ Verificar se o link para a página de perfil está redirecionando corretamente e
 Verificar se o link para a página "sobre" está funcionando corretamente.
 #### Login
 Verificar se é exibida uma mensagem de erro caso as credenciais informadas estejam incorretas.
-Verificar se é possível recuperar a senha através da opção "esqueci senha".
 #### Página de Cadastro
 Verificar se é exibida uma mensagem de erro caso as informações fornecidas sejam inválidas ou já existam na base de dados.
 #### Tela de Produtos
