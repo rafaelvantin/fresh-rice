@@ -143,7 +143,7 @@ const EditClient = ({ visible, popupResponse, client }) => {
             </form>
 
             <div className={styles.btnContainer} style={{marginBottom: 0}}>
-                <Button text="Salvar alterações" onClick={handleSubmit}/>
+                <Button text="Salvar alterações" width='300px' onClick={handleSubmit}/>
 
                 <Button text="Cancelar" width='200px' onClick={() => popupResponse(false)}/>
             </div>
