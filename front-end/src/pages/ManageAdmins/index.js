@@ -117,7 +117,7 @@ const ManageClients = () => {
         return admins.map((admin) => {
             return (
                 <tr className={styles.tr} key={admin._id}>
-                    <td className={styles.td}>{admin._id}</td>
+                    {/* <td className={styles.td}>{admin._id}</td> */}
                     <td className={styles.td_name}>{admin.name}</td>
                     <td className={styles.td_name}>{admin.email}</td>
                     <td className={styles.td}>
@@ -169,7 +169,7 @@ const ManageClients = () => {
             <table>
                 <thead>
                     <tr className={styles.thead}>
-                        <td className={styles.th}>ID</td>
+                        {/* <td className={styles.th}>ID</td> */}
                         <td className={styles.th_name}>Nome</td>
                         <td className={styles.th_name}>Email</td>
                         <td className={styles.th}>Editar</td>

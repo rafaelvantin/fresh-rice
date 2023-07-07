@@ -10,7 +10,12 @@ function SearchInput(props){
 
     const handleKeyPress = (event) => {
         if(event.key === 'Enter'){
-            navigate(`/shop?search=${search}`);
+            // navigate(`/shop?search=${search}`);
+            navigate('/shop', {
+                state: {
+                    searchInput: search
+                }
+            });
         }
     }
 

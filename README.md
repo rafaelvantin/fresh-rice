@@ -14,15 +14,15 @@ A Fresh Rice começou como uma ótica fundada na Alemanha em 1978 que, com o tem
 Agora, com o lançamento do nosso ecommerce, a Fresh Rice quer levar a experiência única de compra de óculos para o conforto da sua casa. Com uma vasta seleção de óculos de sol e de grau das melhores marcas, você pode navegar pelo nosso site facilmente e encontrar o par perfeito para você. Nós também oferecemos lentes de alta qualidade para garantir que você tenha a melhor visão possível. Não perca a oportunidade de comprar seus óculos com a Fresh Rice e experimentar o que há de melhor em qualidade e conveniência.
 
 # Usuários para teste
-Para testar as funcionalidades do front-end no milestone 2, foram criados os seuintes usuários de teste:
+Para facilitar o teste da aplicação, foram criados alguns usuários com dados pré-cadastrados. Os dados de acesso são:
 
 **Cliente:**
-* *Email:* client@example.com
-* *Senha:* clientclient
+* *Email:* joao.silva@gmail.com
+* *Senha:* senhasenha
 
 **Administrador:**
-* *Email:* admin@example.com
-* *Senha:* adminadmin
+* *Email:* wave8wavew@gmail.com
+* *Senha:* senhasenha
 
 
 ## 1. Requirements
@@ -41,7 +41,6 @@ Para testar as funcionalidades do front-end no milestone 2, foram criados os seu
 - Contará com botão pra registrar-se que irá redirecionar para página de cadastro.
 - Contará com dois inputs (login e senha)
 - Contará com um botão para logar.
-- Contará com uma opção de esqueci senha.
 - Após login irá redirecionar para a tela inicial.
 
 #### Página de cadastro
@@ -150,52 +149,153 @@ A funcionalidade específica da nossa aplicação é o filtro de produtos na pá
 
 ## 4. Test plan
 
-### Usuário
-#### Tela Inicial
-Verificar se o link para a página de perfil está redirecionando corretamente e somente quando o usuário estiver autenticado.
-Verificar se o link para a página "sobre" está funcionando corretamente.
-#### Login
-Verificar se é exibida uma mensagem de erro caso as credenciais informadas estejam incorretas.
-Verificar se é possível recuperar a senha através da opção "esqueci senha".
-#### Página de Cadastro
-Verificar se é exibida uma mensagem de erro caso as informações fornecidas sejam inválidas ou já existam na base de dados.
-#### Tela de Produtos
-Verificar se os filtros de preço, cor e material de lente estão funcionando corretamente.
-Verificar se é possível carregar mais produtos além dos 6 que são carregados inicialmente.
-#### Produto Específico
-Verificar se é possível selecionar a quantidade de óculos e adicionar ao carrinho com sucesso.
-Verificar se é exibida uma mensagem de erro caso a quantidade de óculos selecionada seja maior que a quantidade disponível em estoque.
-#### Página Carrinho
-Verificar se é possível prosseguir com o pagamento clicando no botão correspondente.
-Verificar se o preço total está sendo exibido corretamente.
+
+### Tela Inicial
+
+1. Teste: Verificar redirecionamento do link para a página de perfil
+   - Resultado Esperado: O link deve redirecionar corretamente para a página de perfil apenas quando o usuário estiver autenticado.
+
+2. Teste: Verificar funcionamento do link para a página "sobre"
+   - Resultado Esperado: O link para a página "sobre" deve funcionar corretamente, exibindo o conteúdo esperado.
+
+### Login
+
+1. Teste: Verificar exibição de mensagem de erro para credenciais incorretas
+   - Resultado Esperado: Quando as credenciais de login estiverem incorretas, uma mensagem de erro deve ser exibida ao usuário.
+
+2. Teste: Verificar possibilidade de recuperar senha através da opção "esqueci senha"
+   - Resultado Esperado: O usuário deve ser capaz de recuperar sua senha utilizando a opção "esqueci senha" e receber instruções para redefinição.
+
+### Página de Cadastro
+
+1. Teste: Verificar exibição de mensagem de erro para informações inválidas ou já existentes
+   - Resultado Esperado: Caso as informações fornecidas no cadastro sejam inválidas ou já estejam presentes na base de dados, uma mensagem de erro deve ser exibida ao usuário.
+
+### Tela de Produtos
+
+1. Teste: Verificar funcionamento dos filtros de preço, cor e material de lente
+   - Resultado Esperado: Os filtros de preço, cor e material de lente devem funcionar corretamente, exibindo os produtos correspondentes às seleções do usuário.
+
+2. Teste: Verificar possibilidade de carregar mais produtos além dos 10 iniciais
+   - Resultado Esperado: O usuário deve ser capaz de carregar mais produtos na página, além dos 6 que são carregados inicialmente.
+
+### Produto Específico
+
+1. Teste: Verificar seleção de quantidade de óculos e adição ao carrinho com sucesso
+   - Resultado Esperado: O usuário deve conseguir selecionar a quantidade desejada de óculos e adicioná-los ao carrinho sem problemas.
+
+2. Teste: Verificar exibição de mensagem de erro para quantidade selecionada maior que o estoque disponível
+   - Resultado Esperado: Se o usuário tentar selecionar uma quantidade maior do que a disponível em estoque, uma mensagem de erro deve ser exibida.
+
+### Página Carrinho
+
+1. Teste: Verificar possibilidade de prosseguir com o pagamento ao clicar no botão correspondente
+   - Resultado Esperado: O usuário deve ser capaz de prosseguir com o pagamento ao clicar no botão correspondente, avançando para a próxima etapa do processo.
+
+2. Teste: Verificar exibição correta do preço total
+   - Resultado Esperado: O preço total dos itens no carrinho deve ser exibido corretamente, refletindo os valores dos produtos selecionados.
+
+### Página de Gerenciar Produtos (Admin)
+
+1. Teste: Verificar a adição de um novo produto
+   - Resultado Esperado: Ao adicionar um novo produto, ele deve ser exibido corretamente na lista de produtos existente.
+
+2. Teste: Verificar a edição de um produto existente
+   - Resultado Esperado: Ao editar as informações de um produto existente, as alterações devem ser salvas corretamente e refletidas na lista de produtos.
+
+3. Teste: Verificar a remoção de um produto existente
+   - Resultado Esperado: Ao remover um produto existente, ele deve ser removido com sucesso da lista de produtos e não deve mais ser exibido.
+
+### Página de Gerenciar Clientes (Admin)
+
+1. Teste: Verificar a visualização dos detalhes de um cliente específico
+   - Resultado Esperado: Ao selecionar um cliente na lista, os detalhes desse cliente devem ser exibidos corretamente, incluindo informações como nome, endereço e histórico de compras.
+
+2. Teste: Verificar a remoção de um cliente existente
+   - Resultado Esperado: Ao remover um cliente existente, ele deve ser removido com sucesso da lista de clientes e não deve mais ser exibido.
 
 
+---
+
+### *Resultado Esperado* (para todos os testes):
+
+- Os testes devem ser executados sem erros ou problemas técnicos significativos.
+- As funcionalidades devem operar de acordo com as especificações fornecidas.
+- Mensagens de erro devem ser exibidas quando aplicável, com os textos corretos e informativos.
+- O sistema deve fornecer respostas adequadas às ações do usuário e exibir informações corretas.
+- Os resultados obtidos devem estar em conformidade com as expectativas dos requisitos de cada funcionalidade testada.
 ## 5. Test results
-Os testes devem ser executados sem erros ou problemas técnicos significativos.
-As funcionalidades devem operar de acordo com as especificações fornecidas.
-Mensagens de erro devem ser exibidas quando aplicável, com os textos corretos e informativos.
-O sistema deve fornecer respostas adequadas às ações do usuário e exibir informações corretas.
-Os resultados obtidos devem estar em conformidade com as expectativas dos requisitos de cada funcionalidade testada.
+### Tela Inicial
 
+1. OK
+
+2. OK
+### Login
+
+1. OK
+
+2. OK
+### Página de Cadastro
+
+1. OK
+
+### Tela de Produtos
+
+1. OK
+
+2. OK
+
+### Produto Específico
+
+1. OK
+
+2. OK
+### Página Carrinho
+
+1. OK
+
+2. OK
+
+### Página de Gerenciar Produtos (Admin)
+
+1. OK
+
+2. OK
+
+3. OK
+
+### Página de Gerenciar Clientes (Admin)
+
+1. OK
+
+2. OK
 ## 6. Build procedures
 
-#### Front End
+### Requisitos 
+Node.js instalado.
+
+### Front End
 Para rodar o front-end, é necessário ter o Node.js instalado. Após isso, basta rodar os seguintes comandos:
 ```
 cd front-end
 npm install
 npm start
 ```
-#### Back end
-Para rodar o back-end, é necessário ter um conta no mongodb e cadastrar um novo cluster. Por motivos de segurança para quem for revisar por favor entrar em contato com um dos membros do grupo para obter a url com login e senha do mongo. 
-Além do mongo tambem é necessário ter o Node.Js instalado. Após isso isso: 
+### Back end
+Para rodar o back-end com o próprio database, é necessário ter um conta no mongodb e cadastrar um novo cluster.
+
+Por motivos de segurança para quem for revisar por favor entrar em contato com um dos membros do grupo para obter a URL com login e senha do database utilizado para desenvolvimento do projeto.
+
+Após conseguir a URL de conexão com os membros do grupo, basta inserir a URL de conexão no arquivo .env.default na pasta back-end e alterar o nome do arquivo para .env.
+
+Após isso: 
 ```
 cd back-end
 npm install
 npm run serve
 ```
 
-Para funcionamento correto tanto o front-end quanto o back-end deve estar rodando simultaneamente. 
+Para funcionamento correto tanto o front-end quanto o back-end devem estar rodando simultaneamente. 
 ## 7. Problems
 No problems
 ## 8. Comments

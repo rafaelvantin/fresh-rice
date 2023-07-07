@@ -60,9 +60,9 @@ const Login = () => {
 
                     <TextInput type="password" placeholder="Senha" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={8}/>
 
-                    <span style={{textAlign: "right", width: "100%"}}>
+                    {/* <span style={{textAlign: "right", width: "100%"}}>
                         <Link className={styles.link} to="/recover-password">Esqueci minha senha.</Link>
-                    </span>
+                    </span> */}
 
                     <Button submit text="Entrar" style={{marginTop: "15px"}}/>
                     

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 
 import api from '../../services/api';
 // import Products from '../../products.json';
@@ -72,49 +73,80 @@ const ManageProducts = () => {
         }
     }
 
-    const deletePopupResponse = async (response) => {
-        try{
-            if(response === true) {
-                await api.delete(`/products/${currProduct._id}`);
-            }
+    const deletePopupResponse = (response) => {
+        if(response === true) {
+            toast.promise(
+                api.delete(`/products/${currProduct._id}`)
+                .then((response) => {
+                    searchProduct();
+                    setDeletePopupVisible(false);
+                    setCurrProduct({});
+                })
+                .catch((err) => {
+                    throw new Error(err.response.data.error);
+                }), {
+                    pending: "Deletando produto...",
+                    success: "Produto deletado com sucesso!",
+                    error: {
+                        render({ data }) {  
+                            return `${data}`;
     
+                        }
+                    }
+                }
+            );       
+        } else {
             searchProduct();
             setDeletePopupVisible(false);
             setCurrProduct({});
-        } catch(err) {
-            console.log(err);
         }
     }
 
-    const editPopupResponse = async (response, newProd = {}) => {
-        try {
-            if(response === true) {
-                let data = new FormData();
+    const editPopupResponse = (response, newProd = {}) => {
+        if(response === true) {
+            let data = new FormData();
 
-                data.append('name', newProd.name);
-                data.append('price', newProd.price);
-                data.append('stock', newProd.stock);
-                data.append('description', newProd.description);
-                data.append('color', newProd.color);
-                data.append('frameMaterial', newProd.frameMaterial);
-                                
-                if(newProd.file)
-                    data.append('file', newProd.file, newProd.file.name);                
+            data.append('name', newProd.name);
+            data.append('price', newProd.price);
+            data.append('stock', newProd.stock);
+            data.append('description', newProd.description);
+            data.append('color', newProd.color);
+            data.append('frameMaterial', newProd.frameMaterial);
+                            
+            if(newProd.file)
+                data.append('file', newProd.file, newProd.file.name);                
 
-
-                await api.put(`/products/${currProduct._id}`, data, {
+            toast.promise(
+                api.put(`/products/${currProduct._id}`, data, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },
-                });
-            }
+                })
+                .then((response) => {
+                    searchProduct();
+                    setEditPopupVisible(false);
+                    setCurrProduct({});
+                })
+                .catch((err) => {
+                    throw new Error(err.response.data.error);
+                }), {
+                    pending: "Editando produto...",
+                    success: "Produto editado com sucesso!",
+                    error: {
+                        render({ data }) {  
+                            return `${data}`;
     
+                        }
+                    }
+                }
+            );       
+        }
+        else {
             searchProduct();
             setEditPopupVisible(false);
             setCurrProduct({});
-        } catch(err) {
-            console.log(err);
         }
+
     }
 
 

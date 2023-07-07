@@ -55,11 +55,16 @@ const Product = () => {
     },[currentProduct.price, quantity]);
 
 
-    const { addToCart } =
+    const { addToCart, changeQuantity, cartItems } =
     useContext(CartContext);
 
 
     function handleAddToCart(){
+        if(cartItems.find((item) => item._id === currentProduct._id)){
+            changeQuantity([currentProduct, quantity + cartItems.find((item) => item._id === currentProduct._id).quantity]);
+            navigate("/cart");
+            return;
+        }
         addToCart([currentProduct, quantity]);
         navigate("/cart");
     }
@@ -80,12 +85,18 @@ const Product = () => {
                     <div className={styles.circle} style={{backgroundColor: `${currentProduct.color}`}}/>                   
                 </div>
                 <p><strong>Material </strong> {currentProduct.frameMaterial}</p>
-                <p>Estoque {currentProduct.stock}</p>
-                <div style={{display: "flex"}}>
-                    <Button text={`Adicionar ao carrinho R$${totalPrice.toFixed(2)}`} width="100%" onClick={handleAddToCart}/>
-                    <QuantityInput value={quantity} onChangePlus={handleChangeQuantityPlus} onChangeMinus={handleChangeQuantityMinus}/>
+                <p>Estoque: {currentProduct.stock > 0 ? currentProduct.stock : "Não disponível"}</p>
+                    {
+                        currentProduct.stock > 0 && (
+                            <div style={{display: "flex"}}>
 
-                </div>
+                            <Button text={`Adicionar ao carrinho R$${totalPrice.toFixed(2)}`} width="100%" onClick={handleAddToCart}/>
+                            <QuantityInput value={quantity} onChangePlus={handleChangeQuantityPlus} onChangeMinus={handleChangeQuantityMinus}/>        
+                            </div>
+
+                        )
+                    }
+
                 
             </div>
             

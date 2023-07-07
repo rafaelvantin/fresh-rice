@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import api from '../../services/api';
 
 import ProductSmall from "../../components/ProductSmall"
@@ -13,44 +13,37 @@ const PageSize = 6;
 function valuetext(value) {
     return `${value}°C`;
   }
-const Shop = () => {
+const Shop = ({ route }) => {
 
     useEffect(() => {
         document.title = "Fresh Rice";
     }, []);
 
+    const state = useLocation().state;
+    const searchInput = state != null ? state.searchInput : "";
+
     const [searchParams] = useSearchParams();
-    const [search, setSearch] = useState("");
     const [products, setProducts] = useState([]);
 
     const [numberPages, setNumberPages] = useState(1);
-    const [price, setPrice] =useState([0, 100]);
-    const [maxPrice, setMaxPrice] = useState(1000);
+    const [price, setPrice] =useState([0, 500]);
+    const [maxPrice, setMaxPrice] = useState(5000);
     const [listArmacoes, setListArmacoes] = useState(new Array(4).fill(true));
 
     useEffect(() => {
+
         handleFiltrar();
     }, []);
-
-    useEffect(() => {
-        setSearch(searchParams.get("search") || "");
-    }, [searchParams]);
-
-    useEffect(() => {
-        // const prices = products.map((product) => product.price);
-        // setMaxPrice(Math.max(...prices));
-        setPrice([0, 50]);
-    },[maxPrice]);
-
-    const handleChangePrice = (event, newValue) => {
-        setPrice(newValue);
+    
+   const handleChangePrice = (event, newValue) => {
+       setPrice(newValue);
     };
     
 
     const handleFiltrar = async () => {
         try{
-   
-            let strQuery = `/products?limit=${numberPages*10}&name=${search}&minPrice=${price[0]}&maxPrice=${price[1]}`;
+            
+            let strQuery = `/products?limit=${numberPages*10}&name=${searchInput}&minPrice=${price[0]}&maxPrice=${price[1]}`;
 
             strQuery = strQuery + "&frameMaterial=";
 
@@ -91,31 +84,6 @@ const Shop = () => {
         handleFiltrar();
     }, [numberPages]);
 
-    // const currentTableData = useMemo(() => {
-    //     const lastPageIndex = 0 + numberPages*PageSize;
-        
-    //     const filterByPrice = products.filter((product) => product.price >= price[0] && product.price <= price[1]);
-        
-    //     const filterByArmacao = filterByPrice.filter((product) => { 
-    //         if(listArmacoes[0] && product.frameMaterial === "Metal"){
-    //             return true;
-    //         }
-    //         if(listArmacoes[1] && product.frameMaterial === "Acetato"){
-    //             return true;
-    //         }
-    //         if(listArmacoes[2] && product.frameMaterial === "Plástico"){
-    //             return true;
-    //         }
-    //         if(listArmacoes[3] && product.frameMaterial === "Titânio"){
-    //             return true;
-    //         }
-    //         return false;
-    //      })
-
-    //     const filterBySearch = filterByArmacao.filter((product) => product.name.toLowerCase().includes(search.toLowerCase()));
-        
-    //     return filterBySearch.slice(0, lastPageIndex);
-    // }, [numberPages, price, listArmacoes, search]);
 
     const loadProducts = () => {
 
@@ -214,9 +182,7 @@ const Shop = () => {
                         max={maxPrice}
                     />
                     </div>
-                    <div onClick={handleFiltrar}>
-                        Filtrar
-                    </div>
+                    <Button onClick={handleFiltrar} text={"Filtrar"} width="100px" />
 
                 </div>
             </div>

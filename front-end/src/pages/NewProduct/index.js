@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import styles from './styles.module.css';
 
@@ -27,32 +28,44 @@ const Signup = () => {
     const [file, setFile] = useState(null);
     const [description, setDescription] = useState("");
 
-    const handleCadastro = async () => {
-        try
-        {
-            let data = new FormData();
-    
-            data.append('name', name);
-            data.append('price', price);
-            data.append('stock', stock);
-            data.append('description', description);
-            data.append('color', color);
-            data.append('frameMaterial', frameMaterial);
-                            
-            if(file)
-                data.append('file', file, file.name);                
-    
-    
-            await api.post(`/products`, data, {
+    const handleCadastro = () => {
+
+        let data = new FormData();
+
+        data.append('name', name);
+        data.append('price', price);
+        data.append('stock', stock);
+        data.append('description', description);
+        data.append('color', color);
+        data.append('frameMaterial', frameMaterial);
+                        
+        if(file)
+            data.append('file', file, file.name);                
+
+        toast.promise(
+            api.post(`/products`, data, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
-            });
-    
-            navigate('/admin');
-        } catch(err) {
-            console.log(err);
-        }
+            })
+            .then((response) => {
+                navigate('/admin');
+            })
+            .catch((err) => {
+                throw new Error(err.response.data.error);
+            }), {
+                pending: "Cadastrando produto...",
+                success: "Produto cadastrado com sucesso!",
+                error: {
+                    render({ data }) {  
+                        return `${data}`;
+
+                    }
+                }
+            }
+        );
+        
+
     };
 
     const handleFileChange = (e) => {
