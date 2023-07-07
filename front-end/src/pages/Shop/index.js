@@ -102,6 +102,10 @@ const Shop = ({ route }) => {
             )
         })
     }
+
+    useEffect(() => {
+        handleFiltrar();
+    }, [state]);
     
     function handlePagination(){
         setNumberPages(numberPages+1);
