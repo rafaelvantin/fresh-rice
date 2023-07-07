@@ -101,9 +101,18 @@ router.get('/me', async (request, response) => {
         return;
     }
 
-    const user = await User.findById(request.session.user.id);
-    if(!user) {
+    let user;
+    try {
+        user = await User.findById(request.session.user.id);
+    }
+    catch(error) {
         response.status(500).json({message: "Error retrieving user data"});
+        return;
+    }
+
+    if(!user) {
+        request.session.destroy();
+        response.status(401).json({message: "User not logged in"});
         return;
     }
 

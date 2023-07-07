@@ -40,12 +40,12 @@ app.use(session({
 
 //Routes
 const productRouter = require("./controllers/ProductController.js")
-const userRouter = require("./controllers/UserController.js")
+const clientRouter = require("./controllers/ClientController.js")
 const orderRouter = require("./controllers/OrderController.js")
 const adminRouter = require("./controllers/AdminController.js")
 const authRouter = require("./controllers/AuthenticationController.js")
 
-app.use('/user', userRouter);
+app.use('/clients', clientRouter);
 app.use('/products', productRouter);
 app.use('/orders', orderRouter);
 app.use('/admin', adminRouter);

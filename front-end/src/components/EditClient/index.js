@@ -1,16 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 
 import TextInput from '../TextInput';
+import MaskedInput from '../MaskedInput';
 import Button from '../Button';
 
 import styles from './styles.module.css';
+import UFSelect from '../UFSelect';
 
 const EditClient = ({ visible, popupResponse, client }) => {
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [cpf, setCpf] = useState("");
     const [birthdate, setBirthdate] = useState("");
-    const [phone, setPhone] = useState("");
 
     const [cep, setCep] = useState("");
     const [rua, setRua] = useState("");
@@ -20,16 +21,14 @@ const EditClient = ({ visible, popupResponse, client }) => {
     const [cidade, setCidade] = useState("");
     const [estado, setEstado] = useState("");
 
-
-    
-
+    let setMaskedCpf;
+    let setMaskedCep;
 
     useEffect(() => {
         setNome("");
         setEmail("");
         setCpf("");
         setBirthdate("");
-        setPhone("");
 
         setCep("");
         setRua("");
@@ -38,41 +37,67 @@ const EditClient = ({ visible, popupResponse, client }) => {
         setBairro("");
         setCidade("");
         setEstado("");
+
+        /*setMaskedCpf("");
+        setMaskedCep("");*/
         
         if(visible)
         {
-            setNome(client.nome);
+            setNome(client.name);
             setEmail(client.email);
             setCpf(client.cpf);
-            setBirthdate(client.birthdate);
-            setPhone(client.phone);
     
             setCep(client.address.cep);
-            setRua(client.address.rua);
-            setNumero(client.address.numero);
-            setComplemento(client.address.complemento);
-            setBairro(client.address.bairro);
-            setCidade(client.address.cidade);
-            setEstado(client.address.estado);
+            setRua(client.address.street);
+            setNumero(client.address.number);
+            setComplemento(client.address.complement);
+            setBairro(client.address.neighborhood);
+            setCidade(client.address.city);
+            setEstado(client.address.uf);
+
+            setMaskedCpf(`${client.cpf.substring(0, 3)}.${client.cpf.substring(3, 6)}.${client.cpf.substring(6, 9)}-${client.cpf.substring(9, 11)}`);
+
+            setMaskedCep(`${client.address.cep.substring(0, 5)}-${client.address.cep.substring(5, 8)}`);
+
+            setBirthdate(client.birthdate.split('T')[0]);
+
         }
 
     }, [visible]);
 
+    const forms = [
+        useRef(),
+        useRef(),
+    ];
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        console.log(forms);
+
+        for(const form of forms) {
+            if(!form.current?.reportValidity()) {
+                return;
+            }
+        }
+
+        handleSendNewClient();
+    };
+
     const handleSendNewClient = () => {
         const newClient = {
-            nome,
+            name: nome,
             email,
             cpf,
             birthdate,
-            phone,
             address: {
                 cep,
-                rua,
-                numero,
-                complemento,
-                bairro,
-                cidade,
-                estado
+                street: rua,
+                number: numero,
+                complement: complemento,
+                neighborhood: bairro,
+                city: cidade,
+                uf: estado,
             }
         }
 
@@ -85,20 +110,20 @@ const EditClient = ({ visible, popupResponse, client }) => {
 
             <h2>Dados Pessoais</h2>
                 
-            <form className={styles.signupForm}>
+            <form className={styles.signupForm} ref={forms[0]} onSubmit={handleSubmit}>
                 <TextInput type="text" placeholder="Digite seu nome completo" name="nome" value={nome} onChange={(e) => setNome(e.target.value)} required={true}/>
 
                 <TextInput type="email" placeholder="Digite seu email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required={true}/>
 
-                <TextInput type="text" placeholder="Digite seu CPF" name="cpf" value={cpf} onChange={(e) => setCpf(e.target.value)} required={true}/>
+                <MaskedInput type="text" placeholder="Digite seu CPF" name="cpf" required invalidMessage="Por favor, digite um CPF válido." setUnmaskedValue={setCpf} maskOptions={{ mask: "ddd.ddd.ddd-dd" }} getSetMaskedValue={({setMaskedValue})=>setMaskedCpf=setMaskedValue}/>
 
                 <TextInput type="date" placeholder="Digite sua data de nascimento" name="dataNascimento" value={birthdate} onChange={(e) => setBirthdate(e.target.value)} required={true}/>
             </form>
 
             <h2>Endereço</h2>
 
-            <form className={styles.signupForm}>
-                <TextInput type="text" placeholder="Digite seu CEP" name="cep" value={cep}onChange={(e) => setCep(e.target.value)} required={true}/>
+            <form className={styles.signupForm} ref={forms[1]} onSubmit={handleSubmit}>
+            <MaskedInput type="text" placeholder="Digite seu CEP" name="cep" required invalidMessage="Por favor, digite um CEP válido." setUnmaskedValue={setCep} maskOptions={{ mask: "ddddd-ddd" }} getSetMaskedValue={({setMaskedValue})=>setMaskedCep=setMaskedValue}/>
 
                 <div className={styles.rowInput}>
                     <TextInput type="text" placeholder="Digite sua rua" name="rua" value={rua} onChange={(e) => setRua(e.target.value)} required={true} width="65%"/>
@@ -113,41 +138,12 @@ const EditClient = ({ visible, popupResponse, client }) => {
                 <div className={styles.rowInput}>
                     <TextInput type="text" placeholder="Digite sua cidade" name="cidade" value={cidade} onChange={(e) => setCidade(e.target.value)} required={true} width="75%"/>
 
-                    <select className={styles.formInput} name="estado" id="estado" style={{width: "20%"}}>
-                        <option value="" disabled selected hidden>UF</option>
-                        <option value="AC">AC</option>
-                        <option value="AL">AL</option>
-                        <option value="AM">AM</option>	
-                        <option value="AP">AP</option>	
-                        <option value="BA">BA</option>	
-                        <option value="CE">CE</option>	
-                        <option value="DF">DF</option>	
-                        <option value="ES">ES</option>	
-                        <option value="GO">GO</option>	
-                        <option value="MA">MA</option>	
-                        <option value="MG">MG</option>	
-                        <option value="MS">MS</option>	
-                        <option value="MT">MT</option>	
-                        <option value="PA">PA</option>	
-                        <option value="PB">PB</option>	
-                        <option value="PE">PE</option>	
-                        <option value="PI">PI</option>	
-                        <option value="PR">PR</option>	
-                        <option value="RJ">RJ</option>	
-                        <option value="RN">RN</option>	
-                        <option value="RO">RO</option>	
-                        <option value="RR">RR</option>	
-                        <option value="RS">RS</option>	
-                        <option value="SC">SC</option>	
-                        <option value="SE">SE</option>	
-                        <option value="SP">SP</option>	
-                        <option value="TO">TO</option>
-                    </select>
+                    <UFSelect value={estado} setValue={setEstado} required style={{width: "20%"}}/>
                 </div>
             </form>
 
             <div className={styles.btnContainer} style={{marginBottom: 0}}>
-                <Button text="Salvar alterações" onClick={() => handleSendNewClient()}/>
+                <Button text="Salvar alterações" onClick={handleSubmit}/>
                 <Button text="Cancelar" width='200px' onClick={() => popupResponse(false)}/>
             </div>
             </div>

@@ -11,8 +11,12 @@ const UFSelect = ({
 
     const selectRef = useRef();
 
-    // Set default value on first render
+    // Set default value on first render, if value is not set
     useEffect(() => {
+        if(value !== "" || value !== undefined) {
+            return;
+        }
+        
         setValue("UF");
 
         // If required, set validity
@@ -20,6 +24,18 @@ const UFSelect = ({
             selectRef.current.setCustomValidity("Selecione uma UF");
         }
     }, []);
+
+    // If value is changed externally, update the select
+    useEffect(() => {
+        if(value !== selectRef.current.value) {
+            selectRef.current.value = value;
+        }
+
+        // If required, set validity
+        if(required) {
+            selectRef.current.setCustomValidity(value === "UF" ? "Selecione uma UF" : "");
+        }
+    }, [value]);
 
     const handleChange = (e) => {
         // Set value
