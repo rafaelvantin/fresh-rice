@@ -2,7 +2,6 @@ import { useLocation, useNavigate} from "react-router-dom";
 import Header from "../../components/header";
 import api from "../../services/api";
 
-import products from "../../products.json";
 import styles from "./styles.module.css";
 import { useMemo, useState, useEffect, useContext } from "react";
 import Button from "../../components/Button";

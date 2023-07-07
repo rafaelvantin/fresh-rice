@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 
 import api from '../../services/api';
-// import Products from '../../products.json';
 
 import DeletePopup from '../../components/DeletePopup';
 import EditProduct from '../../components/EditProduct';

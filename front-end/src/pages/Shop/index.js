@@ -4,7 +4,6 @@ import api from '../../services/api';
 
 import ProductSmall from "../../components/ProductSmall"
 import Header from "../../components/header"
-import products from "../../products.json"
 import Button from "../../components/Button";
 import styles from "./styles.module.css"
 import Slider from '@mui/material/Slider';
