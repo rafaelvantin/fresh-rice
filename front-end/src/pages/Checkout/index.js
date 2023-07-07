@@ -116,7 +116,7 @@ const Checkout = () => {
             setNumero(user.address.number);
             setComplemento(user.address.complement);
             setCidade(user.address.city);
-            setUF(user.address.state);
+            setUF(user.address.uf);
 
             setMaskedCep(`${user.address.cep.substring(0, 5)}-${user.address.cep.substring(5, 8)}`);
         }).catch((err) => {});
